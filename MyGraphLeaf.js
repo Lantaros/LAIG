@@ -18,5 +18,24 @@ function MyGraphLeaf(graph, leafInfo) {
 	}
 
 
+	switch(this.type) {
+        case 'rectangle':
+		graph.scene.primitives[nodeID + " " + type] = new MyRectangle(graph.scene, args);
+        break;
+
+        case 'sphere':
+        graph.scene.primitives[nodeID + " " + type] = new MyLamp(graph.scene, args);
+        break;  
+
+        case 'cylinder':
+        graph.scene.primitives[nodeID + " " + type] = new MyCylinder(graph.scene, args);
+        break;
+
+        case 'triangle':
+        graph.scene.primitives[nodeID + " " + type] = new MyTriangle(graph.scene, args);
+        break;  
+    }
+
+
 }
 
