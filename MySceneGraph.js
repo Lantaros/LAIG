@@ -1422,7 +1422,62 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-	// entry point for graph rendering
-	// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");
+    // entry point for graph rendering
+    // remove log below to avoid performance issues
+
+    this.scene.pushMatrix();
+
+    	this.processNode(this.nodes["root"], null, null);
+
+    this.scene.popMatrix();
+}
+
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
+
+	var textura = parTex;
+	var material = parAsp;
+
+
+	/*
+    if (node.textureID != null) {
+        if (node.textureID == 'clear')
+            textura = null;
+        else
+            this.scene.currTexture = this.textures[node.textureID];
+    }*/
+	/* else 
+		fica a mesma textura */
+
+    if (node.materialID != "null") {
+        material = this.materials[node.materialID];
+	}
+
+    if (node.textureID != "null" && node.textureID != "clear") {
+        textura = this.textures[node.textureID][0];
+	}
+	else
+		if (node.textureID == "clear")
+			textura = null;
+
+    this.scene.multMatrix(node.transformMatrix);
+   alert( node.children.length);
+    for (var i = 0; i < node.children.length; i++) {
+    this.scene.pushMatrix();
+        this.processNode(this.nodes[node.children[i]], textura, material);
+    this.scene.popMatrix();
+    }
+
+    for (var j = 0; j < node.leaves.length; j++) {
+
+        if (material != null) {
+            material.apply();
+		}
+
+        if (textura != null) {
+            textura.bind();
+        }
+
+        this.scene.primitives[node.nodeID + " " + node.leaves[j].type].display();
+    }
+
 }
