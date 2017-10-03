@@ -1348,7 +1348,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 						
 						//parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]), nodeID);
+						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
 					else
@@ -1438,13 +1438,13 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var material = parAsp;
 
 
-	/*
+	
     if (node.textureID != null) {
         if (node.textureID == 'clear')
             textura = null;
         else
             this.scene.currTexture = this.textures[node.textureID];
-    }*/
+    }
 	/* else 
 		fica a mesma textura */
 
@@ -1467,17 +1467,19 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
         this.scene.popMatrix();
     }
 
+    
     for (var j = 0; j < node.leaves.length; j++) {
 
-      /*  if (material != null) {
+
+        if (material != null) {
             material.apply();
 		}
 
         if (textura != null) {
             textura.bind();
-        }*/
-
-        this.scene.primitives[node.nodeID].display();
+        }
+            
+        node.leaves[j].display();
     }
 
 }
