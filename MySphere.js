@@ -44,14 +44,13 @@
 
 
 
-			this.indices.push((i*2*this.slices)+(2*j)+0);
-			this.indices.push((i*2*this.slices)+(2*j)+1);
 			this.indices.push((i*2*this.slices)+(((2*j)+3)% (this.slices * 2)));
+			this.indices.push((i*2*this.slices)+(2*j)+1);
+      this.indices.push((i*2*this.slices)+(2*j)+0);
 
-			this.indices.push((i*2*this.slices)+(((2*j)+2) % (this.slices * 2)));
-			this.indices.push((i*2*this.slices)+(((2*j)+0) % (this.slices * 2))); //This doesn't need integer division
 			this.indices.push((i*2*this.slices)+(((2*j)+3) % (this.slices * 2)));
-
+			this.indices.push((i*2*this.slices)+(((2*j)+0) % (this.slices * 2))); //This doesn't need integer division
+      this.indices.push((i*2*this.slices)+(((2*j)+2) % (this.slices * 2)));
 		}
  	}
 

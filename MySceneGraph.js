@@ -1437,7 +1437,8 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var textura = parTex;
 	var material = parAsp;
 
-
+  this.scene.pushMatrix();
+  this.scene.multMatrix(node.transformMatrix);
 
   if (node.textureID != null) {
     if (node.textureID == 'clear')
@@ -1457,8 +1458,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     textura = null;
 
 
-  this.scene.pushMatrix();
-  this.scene.multMatrix(node.transformMatrix);
+
 
   for (var i = 0; i < node.children.length; i++) {
     this.processNode(this.nodes[node.children[i]], textura, material);

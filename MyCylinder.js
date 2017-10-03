@@ -15,8 +15,8 @@ function MyCylinder(scene, args) {
     this.slices = parseFloat(args[4]);
 
     this.initBuffers();
-}
-;
+};
+
 MyCylinder.prototype = Object.create(CGFobject.prototype);
 MyCylinder.prototype.constructor = MyCylinder;
 

@@ -9,11 +9,19 @@
 function MyRectangle(scene, args) {
 	CGFobject.call(this,scene);
 
-	this.args = new Array();
-	args = args.split(" ");
+	this.args = [];
+	this.args = args;
+	this.args = this.args.split(" ");
 	for(let i = 0; i < args.length; i++){
-			this.args.push(parseFloat([i]));
+			this.args[i] = parseFloat(this.args[i]);
 	}
+
+
+
+	this.minS = 0;
+	this.minT = 0;
+	this.maxS = 1;
+	this.maxT = 1;
 
 	this.initBuffers();
 };
@@ -31,8 +39,8 @@ this.vertices = [
 			];
 
 	this.indices = [
-          0,1,2,
-          2,3,0,
+           0,1,2,
+           2,3,0,
         ];
 
     this.normals = [
@@ -44,12 +52,12 @@ this.vertices = [
 
 	//coordenadas de textura, tendo em conta os vértices
 
-   /* this.texCoords = [
+   this.texCoords = [
+		this.minS, this.minT,
 		this.minS, this.maxT,
 		this.maxS, this.maxT,
 		this.maxS, this.minT,
-		this.minS, this.minT,
-	];*/
+	];
 
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
