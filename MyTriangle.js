@@ -1,4 +1,4 @@
- 
+
 /**
  * MyTriangle
  * @constructor
@@ -6,14 +6,21 @@
  */
  function MyTriangle(scene, args) {
  	CGFobject.call(this,scene);
-    this.initBuffers(args);
+  
+  	this.args = [];
+	args = args.split(" ");
+	for(let i = 0; i < args.length; i++){
+			this.args.push(parseFloat(args[i]));
+	}
+
+  this.initBuffers(args);
  };
 
 MyTriangle.prototype = Object.create(CGFobject.prototype);
 MyTriangle.prototype.constructor=MyTriangle;
 
  MyTriangle.prototype.initBuffers = function(args) {
-   
+
     this.vertices = new Array();
     this.indices = new Array();
     this.normals = new Array();
@@ -27,7 +34,7 @@ MyTriangle.prototype.constructor=MyTriangle;
     this.normals.push(0,1,0);
 
     this.indices.push(0, 1, 2);
-       
+
     this.primitiveType=this.scene.gl.TRIANGLES;
     this.initGLBuffers();
 };

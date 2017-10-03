@@ -2,16 +2,17 @@
  * MyCylinder
  * @constructor
  * @args height, bottom radius, top radius, sections along height(stacks) and parts per section(slices)
-
  */
-function MyCylinder(scene, args) { 
+function MyCylinder(scene, args) {
     CGFobject.call(this, scene);
 
-    this.height = args[0];
-    this.botRad = args[1];
-    this.topRad = args[2];
-    this.stacks = args[3];
-    this.slices = args[4];
+    args = args.split(" ");
+
+    this.height = parseFloat(args[0]);
+    this.botRad = parseFloat(args[1]);
+    this.topRad = parseFloat(args[2]);
+    this.stacks = parseFloat(args[3]);
+    this.slices = parseFloat(args[4]);
 
     this.initBuffers();
 }
@@ -37,8 +38,8 @@ MyCylinder.prototype.initBuffers = function() {
 
  	for (let i = 0; i <=this.stacks; i++){
 		for (let j = 0; j <= this.slices; j++){
-			this.vertices.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng),i*depth);	
-			this.normals.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng), 0);						
+			this.vertices.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng),i*depth);
+			this.normals.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng), 0);
 			this.texCoords.push(j*deltaS, i*deltaT);
 
 		}
@@ -46,11 +47,11 @@ MyCylinder.prototype.initBuffers = function() {
  	}
 
  	for(let i = 0; i < this.stacks; i++){
-		for(let j = 0; j <= this.slices; j++){	
+		for(let j = 0; j <= this.slices; j++){
 			this.indices.push((i*this.slices)+j+i, (i*this.slices)+this.slices+j+1+i, i*(this.slices)+this.slices+j+i);
 			this.indices.push((i*this.slices)+j+i, (i*this.slices)+j+1+i, i*(this.slices)+this.slices+j+1+i);
 		}
- 	}		
+ 	}
 
     this.primitiveType = this.scene.gl.TRIANGLES;
     this.initGLBuffers();
