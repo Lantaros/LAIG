@@ -1348,7 +1348,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 						
 						//parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]), nodeID);
                         sizeChildren++;
 					}
 					else
@@ -1427,7 +1427,7 @@ MySceneGraph.prototype.displayScene = function() {
 
     this.scene.pushMatrix();
 
-    	this.processNode(this.nodes["root"], null, null);
+    	this.processNode(this.nodes[this.idRoot], null, null);
 
     this.scene.popMatrix();
 }
@@ -1437,7 +1437,6 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var textura = parTex;
 	var material = parAsp;
 
-	
 
 	/*
     if (node.textureID != null) {
@@ -1463,22 +1462,22 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     this.scene.multMatrix(node.transformMatrix);
  
     for (var i = 0; i < node.children.length; i++) {
-    this.scene.pushMatrix();
-        this.processNode(this.nodes[node.children[i]], textura, material);
-    this.scene.popMatrix();
+        this.scene.pushMatrix();
+            this.processNode(this.nodes[node.children[i]], textura, material);
+        this.scene.popMatrix();
     }
 
     for (var j = 0; j < node.leaves.length; j++) {
 
-        if (material != null) {
+      /*  if (material != null) {
             material.apply();
 		}
 
         if (textura != null) {
             textura.bind();
-        }
+        }*/
 
-        this.scene.primitives[node.nodeID + " " + node.leaves[j].type].display();
+        this.scene.primitives[node.nodeID].display();
     }
 
 }

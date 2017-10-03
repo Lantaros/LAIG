@@ -20,19 +20,19 @@ function MyGraphLeaf(graph, leafInfo) {
 
 	switch(this.type) {
         case 'rectangle':
-		graph.scene.primitives[nodeID + " " + type] = new MyRectangle(graph.scene, args);
+		graph.scene.primitives[this.id + " " + this.type] = new MyRectangle(this.graph.scene, this.args);
         break;
 
         case 'sphere':
-        graph.scene.primitives[nodeID + " " + type] = new MyLamp(graph.scene, args);
+        graph.scene.primitives[this.id + " " + this.type] = new MySphere(this.graph.scene, this.args);
         break;  
 
         case 'cylinder':
-        graph.scene.primitives[nodeID + " " + type] = new MyCylinder(graph.scene, args);
+        graph.scene.primitives[this.id + " " + this.type] = new MyCylinder(graph.scene, args);
         break;
 
         case 'triangle':
-        graph.scene.primitives[nodeID + " " + type] = new MyTriangle(graph.scene, args);
+        graph.scene.primitives[this.id + " " + this.type] = new MyTriangle(graph.scene, args);
         break;  
     }
 
