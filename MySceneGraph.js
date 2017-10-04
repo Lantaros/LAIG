@@ -1422,14 +1422,7 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-    // entry point for graph rendering
-    // remove log below to avoid performance issues
-
-    //this.scene.pushMatrix();
-
-    	this.processNode(this.nodes[this.idRoot], null, null);
-
-    //this.scene.popMatrix();
+      	this.processNode(this.nodes[this.idRoot], null, null);
 }
 
 MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {

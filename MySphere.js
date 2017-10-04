@@ -26,7 +26,7 @@
 	this.normals = new Array();
 	this.texCoords = new Array();
 	//var depth = 1.0/this.stacks;
-	var radius = (Math.PI/2) / this.stacks; //Radius
+	var radius = Math.PI / this.stacks; //Radius
 	var currtRadius;
 
  	for (var i = 0; i <this.stacks; i++){
