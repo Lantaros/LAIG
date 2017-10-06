@@ -43,14 +43,18 @@
 			this.texCoords.push(((i + 1)/this.stacks) * (Math.cos(j*stepAng)/2 + 0.5), (i + 2)/this.stacks) * (1- (Math.sin(j*stepAng)/2 + 0.5));
 
 
+  this.indices.push((i*2*this.slices)+(2*j)+0);
+			
 
-			this.indices.push((i*2*this.slices)+(((2*j)+3)% (this.slices * 2)));
 			this.indices.push((i*2*this.slices)+(2*j)+1);
-      this.indices.push((i*2*this.slices)+(2*j)+0);
+			this.indices.push((i*2*this.slices)+(((2*j)+3)% (this.slices * 2)));
+    
 
-			this.indices.push((i*2*this.slices)+(((2*j)+3) % (this.slices * 2)));
-			this.indices.push((i*2*this.slices)+(((2*j)+0) % (this.slices * 2))); //This doesn't need integer division
+
       this.indices.push((i*2*this.slices)+(((2*j)+2) % (this.slices * 2)));
+			
+			this.indices.push((i*2*this.slices)+(((2*j)+0) % (this.slices * 2))); //This doesn't need integer division
+      this.indices.push((i*2*this.slices)+(((2*j)+3) % (this.slices * 2)));
 		}
  	}
 

@@ -1,0 +1,238 @@
+<!-- PARA TESTAR APENAS -->
+
+
+<SCENE>
+
+<INITIALS>
+    <frustum near="0.1" far="500"/>                 
+    <translation x="-1" y="1" z="0" />               
+    <rotation axis="x" angle="0" />                
+    <rotation axis="y" angle="0" />                
+    <rotation axis="z" angle="0" />                
+    <scale sx="0.25" sy="0.25" sz="0.25" />         
+    <reference length="5" />                        
+</INITIALS>
+
+
+<ILLUMINATION>
+    <ambient r="0.2" g="0.2" b="0.2" a="1" />       
+    <background r="0" g="0" b="0" a="1" />          
+</ILLUMINATION>
+
+
+<LIGHTS>	
+	<LIGHT id="light0">                                    
+        <enable value ="1" />                   	       
+        <position  x="0" y="10" z="0" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />        	 
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />      
+    </LIGHT>
+	
+	<LIGHT id="light1">                                    
+        <enable value ="1" />                   	      
+        <position x="30" y="10" z="0" w="1" />       	   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />       
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+    </LIGHT>
+	
+	<LIGHT id="light2">                                   
+        <enable value ="1" />                   	       
+        <position x="0" y="10" z="20" w="1" />       		   
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />      
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />        
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />       
+    </LIGHT>
+
+    <LIGHT id="light3">                                   
+        <enable value ="1" />                   	       
+        <position x="30" y="10" z="20" w="1" />       			
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />           	
+        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />       
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />      
+    </LIGHT>
+    
+</LIGHTS>
+
+<TEXTURES>
+    <TEXTURE id="balconyWall">
+        <file path="images/balconyWall.png" />               
+        <amplif_factor s="2" t="2" />                           
+    </TEXTURE>
+
+    <TEXTURE id="stairsWall">
+        <file path="images/stairsWall.png" />                
+        <amplif_factor s="3" t="4" />                           
+    </TEXTURE>
+
+     <TEXTURE id="doorsWall">
+        <file path="images/doorsWall.png" />                
+        <amplif_factor s="3" t="4" />                           
+    </TEXTURE>
+    
+</TEXTURES>
+
+
+<MATERIALS>
+    <MATERIAL id="piramideMaterial">                                  
+        <shininess value="1" />
+        <specular r="0" g="0" b="0" a="1" />        
+        <diffuse r="1.0" g="0.68" b="0.4" a="1" />        
+        <ambient r="0.2" g="0.2" b="0.2" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+	
+	<MATERIAL id="leavesTreeMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.2" g="0.2" b="0.2" a="1" />        
+        <diffuse r="0.0" g="0.207" b="0.0" a="1" />       
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+	
+	<MATERIAL id="trunkTreeMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        <diffuse r="0.6" g="0.298" b="0.0" a="1" />      
+        <ambient r="0.1" g="0.1" b="0.1" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />       
+    </MATERIAL>
+
+    <MATERIAL id="lightPostMaterial">                                  
+        <shininess value="100" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        <diffuse r="0.447" g="0.416" b="0.416" a="1" />       
+        <ambient r="0.0" g="0.0" b="0.0" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+    <MATERIAL id="lightMaterial">                                  
+        <shininess value="100" />
+        <specular r="0.5" g="0.5" b="0.5" a="1" />       
+        <diffuse r="0.5" g="0.5" b="0.5" a="1" />       
+        <ambient r="0.0" g="0.0" b="0.0" a="1" />        
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+    <MATERIAL id="defaultMaterial">                                  
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />        
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />       
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />         
+        <emission r="0.0" g="0.0" b="0.0" a="1" />        
+    </MATERIAL>
+
+</MATERIALS>
+
+
+<NODES>
+
+    <ROOT id="root" />     
+
+    <NODE id="root">       
+        <MATERIAL id="defaultMaterial" />         
+        <TEXTURE id="null" />  
+
+        <DESCENDANTS>
+            <NODEREF id="paredes" />             
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="paredes">      
+        <MATERIAL id="null" />    
+        <TEXTURE id="null" />                  
+
+       <SCALE sx="6" sy="6" sz="6" />
+
+        <DESCENDANTS>
+            <NODEREF id="paredeBalcao" />           
+            <NODEREF id="paredeEscadas" />  
+            <NODEREF id="paredePorta" />  
+            <NODEREF id="paredeVazia" />  
+
+        </DESCENDANTS>      
+
+    </NODE>
+
+      <NODE id = "paredeBalcao">
+        <MATERIAL id ="null" />
+        <TEXTURE id="balconyWall" />        
+
+
+       <SCALE sx="1.5" sy="1" sz="1" />
+
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 4 0" />        
+        </DESCENDANTS>
+
+    </NODE>        
+
+      <NODE id = "paredeEscadas">
+        <MATERIAL id ="null" />
+        <TEXTURE id="stairsWall" />  
+      
+        <ROTATION axis="y" angle="90" />  
+        <TRANSLATION x="-4" y="0" z="0" /> 
+
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 4 0" />        
+        </DESCENDANTS>
+
+    </NODE>      
+
+
+    <NODE id = "paredePorta">
+        <MATERIAL id ="null" />
+        <TEXTURE id="doorsWall" />  
+
+       <SCALE sx="1.5" sy="1" sz="1" />    
+
+        <TRANSLATION x="4" y="0" z="4" /> 
+        <ROTATION axis="y" angle="180" />  
+     
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 4 0" />        
+        </DESCENDANTS>
+
+    </NODE>      
+
+
+      <NODE id = "paredeVazia">
+        <MATERIAL id ="null" />
+        <TEXTURE id="stairsWall" />  
+
+
+        <TRANSLATION x="6" y="0" z="0" /> 
+        <ROTATION axis="y" angle="-90" />       
+
+
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 4 0" />        
+        </DESCENDANTS>
+
+    </NODE>     
+
+<!--
+    <NODE id = "parede4">
+        <MATERIAL id ="null" />
+        <TEXTURE id="null" />  
+
+        <SCALE sx="6" sy="1" sz="5" />
+        <TRANSLATION x="0" y="0" z="4" />
+        <ROTATION axis="x" angle="-90" />   
+
+         <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 5 0" />        
+        </DESCENDANTS>
+
+    </NODE>                  
+
+-->
+
+</NODES>
+
+
+
+</SCENE>
