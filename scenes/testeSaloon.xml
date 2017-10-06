@@ -268,34 +268,72 @@
     <NODE id="balcao">       
         <MATERIAL id="null" />     
         <TEXTURE id="null" />       			
-
-        <TRANSLATION x="0" y="-2.79" z="3.5" /> 
-        <SCALE sx="4.3" sy="0.7" sz="0.5" />
         
+        <DESCENDANTS>         
+            <NODEREF id="balcaoComprido" /> 
+       		<NODEREF id="balcaoLado" />
+            <NODEREF id="balcaoPorta" />   
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="balcaoLado">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+
+
+        <TRANSLATION x="10" y="-2.7" z="-3.5" /> 
+        <SCALE sx="0.2" sy="0.69" sz="1.43" />
+	        
         <DESCENDANTS>  
-            <NODEREF id="balcaoPorta" />
        		<NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />
             <NODEREF id="faceCubo3" />
             <NODEREF id="faceCubo4" />
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />    
-           <!-- <LEAF  type="rectangle" args="0 4 4 0" />         -->
         </DESCENDANTS>
 
     </NODE>
 
-    <NODE id="balcaoPorta">       
+    <NODE id="balcaoComprido">       
         <MATERIAL id="null" />     
         <TEXTURE id="null" />       			
 
-        <TRANSLATION x="1" y="1" z="1" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />        
+        <TRANSLATION x="0" y="-2.79" z="3.5" /> 
+        <SCALE sx="4.3" sy="0.7" sz="0.5" />
+        
+        <DESCENDANTS>  
+       		<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />    
         </DESCENDANTS>
 
     </NODE>
+
+
+    <NODE id="balcaoPorta">       
+         <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+
+        <TRANSLATION x="30" y="1.2" z="3.5" /> 
+        <SCALE sx="0.81" sy="0.2" sz="0.5" />
+        
+        <DESCENDANTS>  
+       		<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />    
+        </DESCENDANTS>
+
+
+    </NODE>
+
 
     <NODE id="faceCubo1">       
         <MATERIAL id="null" />     
@@ -375,7 +413,6 @@
         </DESCENDANTS>
 
     </NODE>
-
 
 </NODES>
 
