@@ -155,7 +155,8 @@
         <DESCENDANTS>
             <NODEREF id="paredes" />  
             <NODEREF id="chaos" />
-            <NODEREF id="balcao"/>           
+            <NODEREF id="balcao"/>  
+            <NODEREF id="mesas"/>         
         </DESCENDANTS>
 
     </NODE>
@@ -237,9 +238,7 @@
  		<MATERIAL id ="null" />
         <TEXTURE id="floor" /> 
 
-
       	<SCALE sx="9" sy="6" sz="6" />     
-
 
          <DESCENDANTS>
            <NODEREF id="chaoCima"/>  
@@ -345,6 +344,62 @@
 
 
     </NODE>
+
+    <NODE id="mesas">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+        
+        <DESCENDANTS>  
+       		<NODEREF id="mesa1" />
+            <NODEREF id="mesa2" />          
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="mesa1">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+
+        <TRANSLATION x="26" y="-2.5" z="13" />         
+        <SCALE sx="0.6" sy="0.7" sz="0.6" />
+        
+        <DESCENDANTS>  
+       		<NODEREF id="mesa" />           
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="mesa2">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+
+           
+        
+        <DESCENDANTS>  
+       		<NODEREF id="mesa" />           
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="mesa">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />       			
+        
+        <DESCENDANTS>  
+       		<NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />    
+        </DESCENDANTS>
+
+
+    </NODE>
+
 
 
     <NODE id="faceCubo1">       
