@@ -76,6 +76,18 @@
         <amplif_factor s="2" t="2" />                           
     </TEXTURE>
 
+    <TEXTURE id="counter">
+        <file path="images/counter.png" />               
+        <amplif_factor s="2" t="2" />                           
+    </TEXTURE>
+
+      <TEXTURE id="counterSide">
+        <file path="images/counterSide.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+
+
     
 </TEXTURES>
 
@@ -279,11 +291,11 @@
 
     <NODE id="balcaoLado">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="counterSide" />       			
 
 
-        <TRANSLATION x="10" y="-2.7" z="-3.5" /> 
-        <SCALE sx="0.2" sy="0.69" sz="1.43" />
+        <TRANSLATION x="9.25" y="-2.75" z="-3.625" /> 
+        <SCALE sx="0.2" sy="0.695" sz="1.45" />
 	        
         <DESCENDANTS>  
        		<NODEREF id="faceCubo1" />
@@ -298,7 +310,7 @@
 
     <NODE id="balcaoComprido">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="counter" />       			
 
         <TRANSLATION x="0" y="-2.79" z="3.5" /> 
         <SCALE sx="4.3" sy="0.7" sz="0.5" />
@@ -316,10 +328,10 @@
 
 
     <NODE id="balcaoPorta">       
-         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <MATERIAL id="null" />     
+        <TEXTURE id="counterSide" />       			
 
-        <TRANSLATION x="30" y="1.2" z="3.5" /> 
+        <TRANSLATION x="30" y="1.22" z="3.5" /> 
         <SCALE sx="0.81" sy="0.2" sz="0.5" />
         
         <DESCENDANTS>  
