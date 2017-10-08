@@ -18,7 +18,7 @@ function MyCylinder(scene, args) {
 
     //Testing
     this.topFlag = 1;
-    this.botFlag = 1;
+    this.botFlag = 0;
 
     this.initBuffers();
 };
@@ -44,7 +44,7 @@ MyCylinder.prototype.initBuffers = function() {
 
  	for (let i = 0; i <=this.stacks; i++){
 		for (let j = 0; j <= this.slices; j++){
-			this.vertices.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng),i*depth);
+			this.vertices.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng), i*depth);
 			this.normals.push(currRadius * Math.cos(j*stepAng), currRadius * Math.sin(j*stepAng), 0);
 			this.texCoords.push(j*deltaS, i*deltaT);
 
@@ -60,26 +60,48 @@ MyCylinder.prototype.initBuffers = function() {
  	}
 
   //------------------LIDS-----------------------------------------------------
-    var lidVtxIdx = this.vertices.length/3;
+    
 
     if(this.topFlag){ //Z++
       this.vertices.push(0, 0, this.height);
       this.normals.push(0, 0, 1);
       this.texCoords.push(0.5, 0.5);
+	  
+	  var lidVtxIdx = this.vertices.length/3;
 
 
      for (var i = 0; i < this.slices; i++){
-    		this.vertices.push(Math.cos(i*stepAng),Math.sin(i*stepAng), this.height);
+    		this.vertices.push(this.topRad*Math.cos(i*stepAng), this.topRad*Math.sin(i*stepAng), this.height);
     		this.normals.push(0, 0, 1);
     		this.texCoords.push(Math.cos(i*stepAng)/2 + 0.5, 1- (Math.sin(i*stepAng)/2 + 0.5));
+			this.indices.push(lidVtxIdx, lidVtxIdx + i+1, lidVtxIdx + i+2);
+	}
+			this.vertices.push(this.topRad*1, 0, this.height);
+    		this.normals.push(0, 0, 1);
+    		this.texCoords.push(1, 0.5);
 
-    		this.indices.push(lidVtxIdx, lidVtxIdx + i+1, lidVtxIdx + i+2);
-      }
-    }
+}
+	console.log(this.vertices.length/3);
 
-
-    if(this.botFlag){
+    if(this.botFlag){ //Z--
       console.log("Bottom lid");
+      this.vertices.push(0, 0, 0);
+      this.normals.push(0, 0, 1);
+      this.texCoords.push(0.5, 0.5);
+      
+      lidVtxIdx = this.vertices.length/3;
+
+
+		for (var i = 0; i < this.slices; i++){
+			this.vertices.push(this.botRad*Math.cos(i*stepAng), this.botRad*Math.sin(i*stepAng), 0);
+			this.normals.push(0, 0, 1);
+			this.texCoords.push(Math.cos(i*stepAng)/2 + 0.5, 1- (Math.sin(i*stepAng)/2 + 0.5));
+			this.indices.push(lidVtxIdx, lidVtxIdx + i+1, lidVtxIdx + i+2);
+		}
+			this.vertices.push(this.botRad*1, 0, 0);
+    		this.normals.push(0, 0, 1);
+    		this.texCoords.push(1, 0.5);
+
     }
 
     this.primitiveType = this.scene.gl.TRIANGLES;
