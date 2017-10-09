@@ -81,10 +81,31 @@
         <amplif_factor s="2" t="2" />                           
     </TEXTURE>
 
-      <TEXTURE id="counterSide">
+    <TEXTURE id="counterSide">
         <file path="images/counterSide.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
+
+    <TEXTURE id="bank">
+        <file path="images/bank.jpg" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <TEXTURE id="heart">
+        <file path="images/heart.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <TEXTURE id="cornerCube">
+        <file path="images/cornerCube.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+    
+    <TEXTURE id="sideCube">
+        <file path="images/sideCubeTemp.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
 
 
 
@@ -156,7 +177,9 @@
             <NODEREF id="paredes" />  
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>  
-            <NODEREF id="mesas"/>         
+            <NODEREF id="mesas"/>      
+            <NODEREF id="escadas"/>   
+            <NODEREF id="parapeitos"/>
         </DESCENDANTS>
 
     </NODE>
@@ -250,7 +273,7 @@
 
     <NODE id ="chaoCima"> 
  		<MATERIAL id ="null" />
-        <TEXTURE id="floor" /> 
+        <TEXTURE id="null" /> 
 
 
         <TRANSLATION x="0" y="0" z="4" /> 
@@ -265,7 +288,7 @@
 
      <NODE id ="chaoBaixo"> 
  		<MATERIAL id ="null" />
-        <TEXTURE id="floor" /> 
+        <TEXTURE id="null" /> 
 
         <ROTATION axis="x" angle="90" />  
 
@@ -297,12 +320,7 @@
         <SCALE sx="0.2" sy="0.695" sz="1.45" />
 	        
         <DESCENDANTS>  
-       		<NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />    
+       		<NODEREF id="paralelepipedo" />
         </DESCENDANTS>
 
     </NODE>
@@ -315,12 +333,7 @@
         <SCALE sx="4.3" sy="0.7" sz="0.5" />
         
         <DESCENDANTS>  
-       		<NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />    
+       		<NODEREF id="paralelepipedo" />
         </DESCENDANTS>
 
     </NODE>
@@ -334,16 +347,11 @@
         <SCALE sx="0.81" sy="0.2" sz="0.5" />
         
         <DESCENDANTS>  
-       		<NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />    
+       		<NODEREF id="paralelepipedo" />  
         </DESCENDANTS>
 
-
     </NODE>
+    
 
     <NODE id="mesas">       
         <MATERIAL id="null" />     
@@ -361,8 +369,7 @@
         <MATERIAL id="null" />     
         <TEXTURE id="null" />       			
 
-        <TRANSLATION x="26" y="-2.5" z="13" />         
-        <SCALE sx="0.6" sy="0.7" sz="0.6" />
+        <TRANSLATION x="26" y="-2.6" z="13" />     
         
         <DESCENDANTS>  
        		<NODEREF id="mesa" />           
@@ -373,9 +380,9 @@
 
     <NODE id="mesa2">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="null" />      		
 
-           
+        <TRANSLATION x="8" y="-2.6" z="10" />             
         
         <DESCENDANTS>  
        		<NODEREF id="mesa" />           
@@ -386,9 +393,233 @@
 
     <NODE id="mesa">       
         <MATERIAL id="null" />     
+        <TEXTURE id="null" />     
+
+        <SCALE sx="0.6" sy="0.7" sz="0.6" />
+        
+        <DESCENDANTS>
+        	<NODEREF id="parteCentral" />
+        	<NODEREF id="cantos"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="parteCentral">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="sideCube" />       			
+        
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+         </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="cantos">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="cornerCube" />       
+
+        <SCALE sx="0.25" sy="0.25" sz="0.25" />
+        
+        <DESCENDANTS>
+        	<NODEREF id="canto1" />
+        	<NODEREF id="canto2" />
+        	<NODEREF id="canto3" />
+        	<NODEREF id="canto4" />
+        	<NODEREF id="canto5" />
+        	<NODEREF id="canto6" />
+        	<NODEREF id="canto7" />
+        	<NODEREF id="canto8" />
+         </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="canto1">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />  
+
+        <TRANSLATION x="5.8" y="25.5" z="6.5" />        
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   			
+
+    <NODE id="canto2">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />    
+
+        <TRANSLATION x="25" y="25.5" z="6.5" />    
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   
+
+     <NODE id="canto3">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />   
+
+        <TRANSLATION x="5.8" y="25.5" z="25" />  
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	   
+
+    <NODE id="canto4">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />    
+
+        <TRANSLATION x="25" y="25.5" z="25" />  
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   
+
+    <NODE id="canto5">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />    
+
+        <TRANSLATION x="5.8" y="11" z="6.5" />  
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	   
+
+    <NODE id="canto6">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />   
+
+        <TRANSLATION x="25" y="11" z="6.5" />    
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	
+
+    <NODE id="canto7">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />    
+
+        <TRANSLATION x="5.8" y="11" z="25" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	
+
+    <NODE id="canto8">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="bank" />    
+
+        <TRANSLATION x="25" y="11" z="25" />  
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	
+
+    <NODE id="escadas">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="floor" />    
+
+        <TRANSLATION x="-2" y="16.7" z="-0.97" />
+		<ROTATION axis="x" angle="40" />
+        <SCALE sx="0.8" sy="0.1" sz="3.5" />
+
+        <DESCENDANTS>
+        <!--	<LEAF type="triangle" args=" 1 0 0 0 1 0 0 0 2" /> -->
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	
+
+    <NODE id="parapeitos">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="floor" />    
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeitoComprido" />
+        	<NODEREF id="parapeitoLado" />
+        	<NODEREF id="parapeitoChao" />
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeitoComprido">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-11.5" y="11" z="-2" />
+        <SCALE sx="6.2" sy="0.1" sz="0.8" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeitoLado">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-2" y="11" z="-3" />
+        <SCALE sx="0.8" sy="0.1" sz="1.2" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+
+        </DESCENDANTS>
+
+    </NODE>  
+
+      <NODE id="parapeitoChao">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-2" y="-0.38" z="17.4" />
+        <SCALE sx="0.8" sy="0.1" sz="0.88" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeito">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />   
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo"/>
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+
+   
+
+
+     <NODE id="paralelepipedo">       
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />       			
         
-        <DESCENDANTS>  
+        <DESCENDANTS>
        		<NODEREF id="faceCubo1" />
             <NODEREF id="faceCubo2" />
             <NODEREF id="faceCubo3" />
@@ -399,7 +630,6 @@
 
 
     </NODE>
-
 
 
     <NODE id="faceCubo1">       

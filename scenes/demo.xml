@@ -150,7 +150,7 @@
 <!-- The nodes -->
 <NODES>
 
-    <ROOT id="troncoArvore" />
+    <ROOT id="luz_suporte" />
 
     <!-- The root node -->
     <NODE id="root">
@@ -277,13 +277,15 @@
     <!-- The post in the lamp post... -->
     <NODE id="luz_suporte">
         <MATERIAL id="lightPostMaterial" />
-        <TEXTURE id="null" />
+        <TEXTURE id="trunk" />
 
+		<!--<TRANSLATION x="4" y="30" z="4" />
         <SCALE sx="0.5" sy="2.02" sz="0.5" />
-        <ROTATION axis="x" angle="-90" />
+        <ROTATION axis="x" angle="-90" />-->
+
 
         <DESCENDANTS>
-					<LEAF id="cylinder1" type="cylinder" args="4 1 1 20 20 1 1" />
+					<LEAF id="cylinder1" type="cylinder" args="2 1 1 20 20 0 1" />
         </DESCENDANTS>
 
     </NODE>
@@ -406,7 +408,7 @@
 
         <DESCENDANTS>
           <!--height, bottom radius, top radius, stacks, slices, botFlag and topFlag
-          If the leaf has no id, the parser uses the args of previous leaf of the same type with id field
+          If the leaf has no id, the parser uses the args of previous leaf of the same type with id field-->
 
 					<LEAF type="cylinder" args="4 1 1 2 4 0 0" />
         </DESCENDANTS>
