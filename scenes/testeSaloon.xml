@@ -102,7 +102,7 @@
     </TEXTURE>
     
     <TEXTURE id="sideCube">
-        <file path="images/sideCube.png" />               
+        <file path="images/sideCubeTemp.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
@@ -549,15 +549,15 @@
         <TEXTURE id="floor" />    
 
         <DESCENDANTS>
-        	<NODEREF id="parapeito1" />
-        	<NODEREF id="parapeito2" />
-        	<NODEREF id="parapeito3" />
+        	<NODEREF id="parapeitoComprido" />
+        	<NODEREF id="parapeitoLado" />
+        	<NODEREF id="parapeitoChao" />
         </DESCENDANTS>
 
     </NODE>  
 
 
-    <NODE id="parapeito1">
+    <NODE id="parapeitoComprido">
     	<MATERIAL id="null" />     
         <TEXTURE id="null" />    
 
@@ -571,7 +571,7 @@
     </NODE>  
 
 
-    <NODE id="parapeito2">
+    <NODE id="parapeitoLado">
     	<MATERIAL id="null" />     
         <TEXTURE id="null" />    
 
@@ -585,7 +585,7 @@
 
     </NODE>  
 
-      <NODE id="parapeito3">
+      <NODE id="parapeitoChao">
     	<MATERIAL id="null" />     
         <TEXTURE id="null" />    
 
