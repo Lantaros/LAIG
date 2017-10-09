@@ -34,7 +34,7 @@ main=function()
 
 	//var filename=getUrlVars()['file'] || "demo.xml";
     //var filename=getUrlVars()['file'] || "demoTexLuz.xml";
-    var filename=getUrlVars()['file'] || "testeSaloon.xml";
+    var filename=getUrlVars()['file'] || "demo.xml";
 
 
 	// create and load graph, and associate it to scene.
