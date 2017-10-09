@@ -177,7 +177,9 @@
             <NODEREF id="paredes" />  
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>  
-            <NODEREF id="mesas"/>         
+            <NODEREF id="mesas"/>      
+            <NODEREF id="escadas"/>   
+            <NODEREF id="parapeitos"/>
         </DESCENDANTS>
 
     </NODE>
@@ -271,7 +273,7 @@
 
     <NODE id ="chaoCima"> 
  		<MATERIAL id ="null" />
-        <TEXTURE id="floor" /> 
+        <TEXTURE id="null" /> 
 
 
         <TRANSLATION x="0" y="0" z="4" /> 
@@ -286,7 +288,7 @@
 
      <NODE id ="chaoBaixo"> 
  		<MATERIAL id ="null" />
-        <TEXTURE id="floor" /> 
+        <TEXTURE id="null" /> 
 
         <ROTATION axis="x" angle="90" />  
 
@@ -398,7 +400,6 @@
         <DESCENDANTS>
         	<NODEREF id="parteCentral" />
         	<NODEREF id="cantos"/>
-        <!--	<NODEREF id="entreCantos"/> -->
         </DESCENDANTS>
 
     </NODE>
@@ -527,6 +528,89 @@
         </DESCENDANTS>
 
     </NODE>   	
+
+    <NODE id="escadas">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="floor" />    
+
+        <TRANSLATION x="-2" y="16.7" z="-0.97" />
+		<ROTATION axis="x" angle="40" />
+        <SCALE sx="0.8" sy="0.1" sz="3.5" />
+
+        <DESCENDANTS>
+        <!--	<LEAF type="triangle" args=" 1 0 0 0 1 0 0 0 2" /> -->
+        	<NODEREF id="paralelepipedo" />
+        </DESCENDANTS>
+
+    </NODE>   	
+
+    <NODE id="parapeitos">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="floor" />    
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito1" />
+        	<NODEREF id="parapeito2" />
+        	<NODEREF id="parapeito3" />
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeito1">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-11.5" y="11" z="-2" />
+        <SCALE sx="6.2" sy="0.1" sz="0.8" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeito2">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-2" y="11" z="-3" />
+        <SCALE sx="0.8" sy="0.1" sz="1.2" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+
+        </DESCENDANTS>
+
+    </NODE>  
+
+      <NODE id="parapeito3">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />    
+
+        <TRANSLATION x="-2" y="-0.38" z="17.4" />
+        <SCALE sx="0.8" sy="0.1" sz="0.88" /> 
+
+        <DESCENDANTS>
+        	<NODEREF id="parapeito" />
+
+        </DESCENDANTS>
+
+    </NODE>  
+
+
+    <NODE id="parapeito">
+    	<MATERIAL id="null" />     
+        <TEXTURE id="null" />   
+
+        <DESCENDANTS>
+        	<NODEREF id="paralelepipedo"/>
+        </DESCENDANTS>
+
+    </NODE>  
+
+
 
    
 
