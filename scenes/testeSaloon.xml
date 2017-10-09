@@ -91,6 +91,22 @@
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
+    <TEXTURE id="heart">
+        <file path="images/heart.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+    <TEXTURE id="cornerCube">
+        <file path="images/cornerCube.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+    
+    <TEXTURE id="sideCube">
+        <file path="images/sideCube.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
+
+
 
 
     
@@ -389,7 +405,7 @@
 
      <NODE id="parteCentral">       
         <MATERIAL id="null" />     
-        <TEXTURE id="counterSide" />       			
+        <TEXTURE id="sideCube" />       			
         
         <DESCENDANTS>
         	<NODEREF id="paralelepipedo" />
@@ -399,7 +415,7 @@
 
     <NODE id="cantos">       
         <MATERIAL id="null" />     
-        <TEXTURE id="clear" />       
+        <TEXTURE id="cornerCube" />       
 
         <SCALE sx="0.25" sy="0.25" sz="0.25" />
         
