@@ -279,8 +279,8 @@
         <MATERIAL id="lightPostMaterial" />
         <TEXTURE id="trunk" />
 
-		<!--<TRANSLATION x="4" y="30" z="4" />
-        <SCALE sx="0.5" sy="2.02" sz="0.5" />
+		<TRANSLATION x="0" y="0" z="10" />
+        <!--<SCALE sx="0.5" sy="2.02" sz="0.5" />
         <ROTATION axis="x" angle="-90" />-->
 
 

@@ -105,7 +105,7 @@
     </TEXTURE>
     
     <TEXTURE id="sideCube">
-        <file path="images/sideCubeTemp.png" />               
+        <file path="images/sideCube.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
     
@@ -397,7 +397,8 @@
         <SCALE sx="0.6" sy="0.7" sz="0.6" />
         
         <DESCENDANTS>
-        	<NODEREF id="parteCentral" />
+        	<NODEREF id="parteCentral" />            
+            <NODEREF id="cilindrosCentro" />     
         	<NODEREF id="cantos"/>
         </DESCENDANTS>
 
@@ -409,6 +410,63 @@
         
         <DESCENDANTS>
         	<NODEREF id="paralelepipedo" />
+         </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="cilindrosCentro">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="heart" />       
+
+        <DESCENDANTS>
+            <NODEREF id="cilindro1" />
+            <NODEREF id="cilindro2" />            
+            <NODEREF id="cilindro3" />
+         </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="cilindro1">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />         
+
+        <SCALE sx="1.2" sy="1.2" sz ="1"/>     
+        <SCALE sx="1" sy="0.8" sz ="2.7"/>          
+        <TRANSLATION x="4.15" y="6.25" z="0.85" />              
+        
+        <DESCENDANTS>
+           <LEAF id="cylinder1" type="cylinder" args="2 1 1 20 50 0 1" />
+         </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="cilindro2">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />     
+        
+        <TRANSLATION x="5" y="8.12" z="5" />  
+
+        <ROTATION axis="x" angle="90" />
+        <ROTATION axis="z" angle="180" />
+        <SCALE sx="1.2" sy="1.2" sz ="2.1"/>     
+        
+        <DESCENDANTS>
+            <LEAF id="cylinder2" type="cylinder" args="2 1 1 20 50 0 1" />
+         </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="cilindro3">       
+        <MATERIAL id="null" />     
+        <TEXTURE id="null" />     
+
+        <TRANSLATION x="2.3" y="6" z="5" />  
+        <ROTATION axis="y" angle="90" />
+        <SCALE sx="1.2" sy="1" sz ="2.7"/>    
+                      
+        
+        <DESCENDANTS>
+             <LEAF id="cylinder3" type="cylinder" args="2 1 1 20 50 0 1" />
          </DESCENDANTS>
 
     </NODE>

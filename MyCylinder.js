@@ -98,7 +98,6 @@ MyCylinder.prototype.initBuffers = function() {
       		this.texCoords.push(Math.cos(i*stepAng)/2 + 0.5, 1 - (Math.sin(i*stepAng)/2 + 0.5));
 
           this.indices.push(centerVertIdx + 0,  centerVertIdx + i + 2, centerVertIdx + i + 1);
-          console.log("indexes " +  centerVertIdx + 0,  centerVertIdx + i + 2, centerVertIdx + i + 1"\n");
       }
 
   		this.vertices.push(this.botRad*1, 0, 0);
