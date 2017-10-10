@@ -58,27 +58,30 @@
 <TEXTURES>
     <TEXTURE id="balconyWall">
         <file path="images/balconyWall.png" />               
-        <amplif_factor s="2" t="2" />                           
+        <amplif_factor s="1" t="1" />                           
     </TEXTURE>
 
     <TEXTURE id="stairsWall">
-        <file path="images/stairsWall.png" />                
-        <amplif_factor s="2" t="2" />                           
+        <file path="images/stairsWall.png" />      
+        <amplif_factor s="1" t="1" />                           
+
     </TEXTURE>
 
      <TEXTURE id="doorsWall">
         <file path="images/doorsWall.png" />                
-        <amplif_factor s="2" t="2" />                           
+        <amplif_factor s="1" t="1" />                           
+                            
     </TEXTURE>
 
 	<TEXTURE id="floor">
         <file path="images/floor.png" />               
-        <amplif_factor s="2" t="2" />                           
+        <amplif_factor s="1" t="1" />                                                    
     </TEXTURE>
 
     <TEXTURE id="counter">
-        <file path="images/counter.png" />               
-        <amplif_factor s="2" t="2" />                           
+        <file path="images/counter.png" />      
+        <amplif_factor s="1" t="1" />                           
+
     </TEXTURE>
 
     <TEXTURE id="counterSide">
@@ -105,10 +108,6 @@
         <file path="images/sideCubeTemp.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
-
-
-
-
     
 </TEXTURES>
 
