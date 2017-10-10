@@ -17,8 +17,8 @@ function MyCylinder(scene, args) {
     this.botFlag = parseFloat(args[6]);
 
     //Testing
-//     this.topFlag = 1;
-//     this.botFlag = 1;
+    this.topFlag = 1;
+   this.botFlag = 1;
 
     this.initBuffers();
 };
@@ -57,39 +57,53 @@ MyCylinder.prototype.initBuffers = function() {
  	}
 
   //------------------LIDS-----------------------------------------------------
+  this.topFlag = 1;
+  this.botFlag = 1;
 
 
     if(this.topFlag){ //Z++
-		this.vertices.push(0, 0, this.height);
-		this.normals.push(0, 0, 1);
-		this.texCoords.push(0.5, 0.5);
+  		this.vertices.push(0, 0, this.height);
+  		this.normals.push(0, 0, 1);
+  		this.texCoords.push(0.5, 0.5);
 
-		let lidVtxIdx = this.vertices.length/3;
+  		let centerVertIdx = this.vertices.length/3-1;
 
 
-		for (var i = 0; i < this.slices; i++)
-			this.indices.push(lidVtxIdx, lidVtxIdx - i - 2, lidVtxIdx - i - 1);
+      for (let i = 0; i < this.slices; i++){
+    		this.vertices.push(this.topRad*Math.cos(i*stepAng), this.topRad*Math.sin(i*stepAng), this.height);
+    		this.normals.push(0, 0, 1);
+    		this.texCoords.push(Math.cos(i*stepAng)/2 + 0.5, 1- (Math.sin(i*stepAng)/2 + 0.5));
+
+    		this.indices.push(centerVertIdx + 0,  centerVertIdx+ i+1, centerVertIdx + i+2);
+	     }
+
 
 		this.vertices.push(this.topRad*1, 0, this.height);
 		this.normals.push(0, 0, 1);
 		this.texCoords.push(1, 0.5);
 
-}
+  }
 
     if(this.botFlag){ //Z--
-		this.vertices.push(0, 0, 0);
-		this.normals.push(0, 0, -1);
-		this.texCoords.push(0.5, 0.5);
+  		this.vertices.push(0, 0, 0);
+  		this.normals.push(0, 0, -1);
+  		this.texCoords.push(0.5, 0.5);
 
-		let lidVtxIdx = this.vertices.length/3;
-     
+  		let centerVertIdx = this.vertices.length/3 - 1;
 
-		for (var i = 0; i < this.slices; i++)
-			this.indices.push(lidVtxIdx, i+1, i);
 
-		this.vertices.push(this.botRad*1, 0, 0);
-		this.normals.push(0, 0, 1);
-		this.texCoords.push(1, 0.5);
+      for (let i = 0; i < this.slices; i++){
+      		this.vertices.push(this.botRad * Math.cos(i*stepAng), this.botRad * Math.sin(i*stepAng), 0);
+      		this.normals.push(0, 0, -1);
+      		this.texCoords.push(Math.cos(i*stepAng)/2 + 0.5, 1 - (Math.sin(i*stepAng)/2 + 0.5));
+
+          this.indices.push(centerVertIdx + 0,  centerVertIdx + i + 2, centerVertIdx + i + 1);
+          console.log("indexes " +  centerVertIdx + 0,  centerVertIdx + i + 2, centerVertIdx + i + 1"\n");
+      }
+
+  		this.vertices.push(this.botRad*1, 0, 0);
+  		this.normals.push(0, 0, -1);
+  		this.texCoords.push(1, 0.5);
 
     }
 
