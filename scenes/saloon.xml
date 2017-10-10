@@ -1,6 +1,3 @@
-<!-- PARA TESTAR APENAS -->
-
-
 <SCENE>
 
 <INITIALS>
@@ -88,12 +85,7 @@
         <file path="images/counterSide.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
-
-    <TEXTURE id="bank">
-        <file path="images/bank.jpg" />               
-        <amplif_factor s="1" t="1" />                           
-    </TEXTURE>
-
+    
     <TEXTURE id="heart">
         <file path="images/heart.png" />               
         <amplif_factor s="1" t="1" />                           
@@ -492,7 +484,7 @@
 
     <NODE id="canto1">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />  
+        <TEXTURE id="cornerCube" />  
 
         <TRANSLATION x="5.8" y="25.5" z="6.5" />        
 
@@ -504,7 +496,7 @@
 
     <NODE id="canto2">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />    
+        <TEXTURE id="cornerCube" />    
 
         <TRANSLATION x="25" y="25.5" z="6.5" />    
 
@@ -516,7 +508,7 @@
 
      <NODE id="canto3">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />   
+        <TEXTURE id="cornerCube" />   
 
         <TRANSLATION x="5.8" y="25.5" z="25" />  
 
@@ -528,7 +520,7 @@
 
     <NODE id="canto4">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />    
+        <TEXTURE id="cornerCube" />    
 
         <TRANSLATION x="25" y="25.5" z="25" />  
 
@@ -540,7 +532,7 @@
 
     <NODE id="canto5">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />    
+        <TEXTURE id="cornerCube" />    
 
         <TRANSLATION x="5.8" y="11" z="6.5" />  
 
@@ -552,7 +544,7 @@
 
     <NODE id="canto6">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />   
+        <TEXTURE id="cornerCube" />   
 
         <TRANSLATION x="25" y="11" z="6.5" />    
 
@@ -564,7 +556,7 @@
 
     <NODE id="canto7">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />    
+        <TEXTURE id="cornerCube" />    
 
         <TRANSLATION x="5.8" y="11" z="25" /> 
 
@@ -576,7 +568,7 @@
 
     <NODE id="canto8">
     	<MATERIAL id="null" />     
-        <TEXTURE id="bank" />    
+        <TEXTURE id="cornerCube" />    
 
         <TRANSLATION x="25" y="11" z="25" />  
 
