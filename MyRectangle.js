@@ -15,7 +15,7 @@ function MyRectangle(scene, args) {
 	for(let i = 0; i < args.length; i++){
 			this.args[i] = parseFloat(this.args[i]);
 	}
-
+	this.texCoords = new Array();
 
 
 	this.minS = 0;
@@ -50,16 +50,31 @@ this.vertices = [
 		0, 0, 1,
     ]
 
-	//coordenadas de textura, tendo em conta os vértices
-
-   this.texCoords = [
+    this.baseTexCoords = [
 		this.minS, this.minT,
 		this.minS, this.maxT,
 		this.maxS, this.maxT,
 		this.maxS, this.minT,
 	];
 
+	this.updateTexCoords(1,1);
 
 	this.primitiveType=this.scene.gl.TRIANGLES;
 	this.initGLBuffers();
 };
+
+
+MyRectangle.prototype.updateTexCoords = function (sFactor, tFactor) {
+
+	for(let i = 0; i < this.baseTexCoords.length; i++){
+		if(i%2 == 0)
+			this.texCoords[i] = this.baseTexCoords[i]/sFactor;
+		else
+			this.texCoords[i] = this.baseTexCoords[i]/tFactor;
+	}
+	this.updateTexCoordsGLBuffers();
+
+};
+
+
+

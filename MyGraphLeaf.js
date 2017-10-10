@@ -35,10 +35,12 @@ function MyGraphLeaf(graph, leafInfo) {
              this.obj = new MyTriangle(this.graph.scene, this.args);
             break;
         }
-
-
-}
+};
 
 MyGraphLeaf.prototype.display = function() {      
 	this.obj.display();
-}
+};
+
+MyGraphLeaf.prototype.updateTexCoords = function(sFactor, tFactor) {	
+    this.obj.updateTexCoords(sFactor, tFactor);
+};

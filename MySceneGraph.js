@@ -1433,7 +1433,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
 
-  if (node.textureID != null) {
+  if (node.textureID !='null') {
     if (node.textureID == 'clear')
       textura = null;
     else
@@ -1450,9 +1450,6 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
   else if (node.textureID == "clear")
     textura = null;
 
-
-
-
   for (var i = 0; i < node.children.length; i++) {
     this.processNode(this.nodes[node.children[i]], textura, material);
   }
@@ -1464,6 +1461,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     }
 
     if (textura != null) {
+        node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
         textura.bind();
     }
 
