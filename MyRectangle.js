@@ -31,12 +31,12 @@ MyRectangle.prototype.constructor=MyRectangle;
 
 MyRectangle.prototype.initBuffers = function () {
 
-this.vertices = [
+	this.vertices = [
             this.args[0], this.args[1], 0,
             this.args[0], this.args[3] ,0,
             this.args[2], this.args[3], 0,
             this.args[2], this.args[1], 0,
-			];
+		];
 
 	this.indices = [
            0,1,2,
@@ -56,6 +56,7 @@ this.vertices = [
 		this.maxS, this.maxT,
 		this.maxS, this.minT,
 	];
+
 
 	this.updateTexCoords(1,1);
 

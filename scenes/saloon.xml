@@ -728,7 +728,7 @@
         <MATERIAL id="null" />     
         <TEXTURE id="null" />       		
 
-        <TRANSLATION x="-0.33" y="0" z="0.03" />
+        <TRANSLATION x="-0.31" y="0" z="0.11" />
         <ROTATION axis="x" angle="-1" />       
 
         <ROTATION axis="z" angle="-12" />

@@ -34,6 +34,10 @@ function MyGraphLeaf(graph, leafInfo) {
             case 'triangle':
              this.obj = new MyTriangle(this.graph.scene, this.args);
             break;
+
+            case 'patch':
+             this.obj = new MyPatch(this.graph.scene, this.args);
+            break;
         }
 };
 

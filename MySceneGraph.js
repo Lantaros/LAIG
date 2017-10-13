@@ -1340,7 +1340,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
 
 						if (type != null)
 							this.log("   Leaf: "+ type);
@@ -1348,7 +1348,52 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 
 						//parse leaf
-						this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+						//this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
+
+                         if(type!="patch")
+                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
+                         else {                            
+                           var clines = nodeSpecs[descendantsIndex].children[0].children;
+                           var cpoints = [];
+
+                           for (var k = 0; k < clines.length; k++) {
+                                var cLineCpoints = nodeSpecs[descendantsIndex].children[0].children[k].children;
+                                var lineCpoints = [];
+
+                                for(var l = 0; l < cLineCpoints.length; l++) {
+                                    var points = [];
+
+                                    var x = this.reader.getFloat(cLineCpoints[l], 'xx');
+                                    if (x == null)
+                                        return "failed to retrieve cpoint arguments";
+
+                                    var y = this.reader.getFloat(cLineCpoints[l], 'yy');
+                                    if (y == null)
+                                        return "failed to retrieve cpoint arguments";
+
+                                    var z = this.reader.getFloat(cLineCpoints[l], 'zz');
+                                    if (z == null)
+                                        return "failed to retrieve cpoint arguments";
+
+                                    var w = this.reader.getFloat(cLineCpoints[l], 'ww');
+                                    if (w == null)
+                                        return "failed to retrieve cpoint arguments";
+
+                                    points.push(x,y,z,w);
+            
+                                    lineCpoints.push(points);
+                                }
+                                
+                                cpoints.push(lineCpoints);
+                                var vDegree = cLineCpoints.length-1;
+                           }
+                           
+                            var uDegree = clines.length-1;
+                            
+                            var patchArgs = [args[0], args[1], uDegree, vDegree, cpoints];
+
+                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, nodeID, type, patchArgs));        
+                        }
                         sizeChildren++;
 					}
 					else
