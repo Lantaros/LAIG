@@ -100,6 +100,11 @@
         <file path="images/sideCube.png" />               
         <amplif_factor s="1" t="1" />                           
     </TEXTURE>
+
+    <TEXTURE id="claptrapTop">
+        <file path="images/claptrapTop.png" />               
+        <amplif_factor s="1" t="1" />                           
+    </TEXTURE>
     
 </TEXTURES>
 
@@ -662,93 +667,92 @@
 
 
     <NODE id="claptraps">
-    	<MATERIAL id="null" />     
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />   
 
         <DESCENDANTS>
-        	<NODEREF id="claptrap1"/>
-        	<NODEREF id="claptrap2"/>
+            <NODEREF id="claptrap1"/>
+            <NODEREF id="claptrap2"/>
         </DESCENDANTS>
 
     </NODE>  
 
   <NODE id="claptrap1">
-    	<MATERIAL id="null" />     
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />   
 
         <DESCENDANTS>
-        	<NODEREF id="claptrap"/>
+            <NODEREF id="claptrap"/>
         </DESCENDANTS>
 
     </NODE>  
 
       <NODE id="claptrap2">
-    	<MATERIAL id="null" />     
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />   
 
         <DESCENDANTS>
-        	<NODEREF id="claptrap"/>
+            <NODEREF id="claptrap"/>
         </DESCENDANTS>
 
     </NODE>  
 
 
-	  <NODE id="claptrap">
-	    	<MATERIAL id="null" />     
-	        <TEXTURE id="null" />   
+      <NODE id="claptrap">
+            <MATERIAL id="null" />     
+            <TEXTURE id="null" />   
 
-      		<TRANSLATION x="20" y="1" z="20" />
+            <DESCENDANTS>
+                <NODEREF id="claptrapBody"/>
+           <!-- <NODEREF id="claptrapEye"/>
+                <NODEREF id="claptrapWheel"/>
+                <NODEREF id="claptrapArms"/> -->
+            </DESCENDANTS>
 
-	        <DESCENDANTS>
-	        	<NODEREF id="claptrapBody"/>
-	       <!-- <NODEREF id="claptrapEye"/>
-	       		<NODEREF id="claptrapWheel"/>
-	        	<NODEREF id="claptrapArms"/> -->
-	        </DESCENDANTS>
-
-	    </NODE>  
+        </NODE>  
 
 
-	  <NODE id="claptrapBody">
-	    	<MATERIAL id="null" />     
-	        <TEXTURE id="null" />   
+      <NODE id="claptrapBody">
+            <MATERIAL id="null" />     
+            <TEXTURE id="null" />   
 
-	        <DESCENDANTS>
-	        <!-- 	<NODEREF id="faceClap1" />
-	           <NODEREF id="faceClap2" />
-	          	<NODEREF id="faceClap3" />
-	            <NODEREF id="faceClap4" /> -->
-	            <NODEREF id="faceClap5" />
-	            <NODEREF id="faceClap6" />     
-	        </DESCENDANTS>
+            <DESCENDANTS>
+                <NODEREF id="faceClap1" /> 
+                <NODEREF id="faceClap2" />
+                <NODEREF id="faceClap3" />
+                <NODEREF id="faceClap4" /> 
+                <NODEREF id="faceClap5" />
+                <NODEREF id="faceClap6" />     
+            </DESCENDANTS>
 
-	    </NODE>  
-<!--
-	  <NODE id="faceClap1">       
+        </NODE>  
+
+      <NODE id="faceClap1">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       		
+        <TEXTURE id="null" />               
 
-        <TRANSLATION x="-0.36" y="0" z="0.13" />
-      <ROTATION axis="x" angle="-1.5" />  
-        <ROTATION axis="z" angle="-10.3" />
+        <TRANSLATION x="1.8" y="0.069" z="1.71" />
+
+        <ROTATION axis="z" angle="-11.5" />
 
         <DESCENDANTS>
-			<NODEREF id="trapezoid"/>        
+            <NODEREF id="trapezoid"/>        
         </DESCENDANTS>
 
     </NODE>
 
      <NODE id="faceClap2">      
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="null" />                   
 
-        <TRANSLATION x="-1.23" y="-0.01" z="-0.892" /> 
-        <ROTATION axis="x" angle="-1" />  
-        <ROTATION axis="z" angle="10" />
+
+        <TRANSLATION x="0.795" y="0.07" z="0.7" /> 
+
+        <ROTATION axis="z" angle="11.5" />
         <ROTATION axis="y" angle="180" />
 
         <DESCENDANTS>
-			<NODEREF id="trapezoid"/>           
+            <NODEREF id="trapezoid"/>           
         </DESCENDANTS>
 
     </NODE>
@@ -756,16 +760,16 @@
 
     <NODE id="faceClap3">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="null" />                   
 
-        <TRANSLATION x="-0.27" y="-0.01" z="-0.88" />        
-        <ROTATION axis="x" angle="-1" />  
-        <ROTATION axis="x" angle="-10" />        
+
+        <TRANSLATION x="1.8" y="0.07" z="0.707" /> 
+
+        <ROTATION axis="x" angle="-11.5" />        
         <ROTATION axis="y" angle="90" />
-        <SCALE sx="0.89" sy="1" sz="0.89" /> 
 
         <DESCENDANTS>
-			<NODEREF id="trapezoid"/>           
+            <NODEREF id="trapezoid"/>           
         </DESCENDANTS>
 
     </NODE>
@@ -773,44 +777,44 @@
 
     <NODE id="faceClap4">       
         <MATERIAL id="null" />    
-        <TEXTURE id="null" />       		
+        <TEXTURE id="null" />                   
 
-        <TRANSLATION x="-1.27" y="0" z="0.11" />
-        <ROTATION axis="x" angle="10" />        
+        <ROTATION axis="x" angle="11.5" />   
+
+        <TRANSLATION x="0.799" y="0.402" z="1.64" /> 
+
         <ROTATION axis="y" angle="-90" />
 
-        <SCALE sx="0.89" sy="1" sz="0.89" /> 
-
         <DESCENDANTS>
-			<NODEREF id="trapezoid"/>           
+            <NODEREF id="trapezoid"/>           
         </DESCENDANTS>
     </NODE>
---> 
+
      <NODE id="faceClap5">       
         <MATERIAL id="null" />    
-        <TEXTURE id="null" />       		
+        <TEXTURE id="claptrapTop" />               
 
-        <TRANSLATION x="-2" y="4" z="1" />   
+
+        <TRANSLATION x="0" y="3.986" z="2.5" />   
 
         <ROTATION axis="x" angle="-90" />  
-        <SCALE sx="0.89" sy="1" sz="0.89" /> 
 
         <DESCENDANTS>
-			<LEAF type="rectangle" args="0 4 4 0"/>   
+            <LEAF type="rectangle" args="0 2.6 2.6 0"/>   
         </DESCENDANTS>
     </NODE>
 
 
     <NODE id="faceClap6">       
         <MATERIAL id="null" />     
-        <TEXTURE id="null" />       			
+        <TEXTURE id="null" />                   
 
-        <TRANSLATION x="-1" y="0" z="-1" />   
+
+        <TRANSLATION x="0.797" y="0.068" z="0.70" />   
         <ROTATION axis="x" angle="90" />
-        <SCALE sx="1" sy="1.25" sz="1" />
 
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 2 2 0" />        
+            <LEAF  type="rectangle" args="0 1 1 0" />        
         </DESCENDANTS>
 
     </NODE>
@@ -818,53 +822,57 @@
 
 
 
-	<NODE id="trapezoid"> 
-		<MATERIAL id="null" />     
+
+
+
+    <NODE id="trapezoid"> 
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />         
 
         <DESCENDANTS>
-			<NODEREF id="trapezoidRec"/>   
-			<NODEREF id="trapezoidTri1"/>     
-			<NODEREF id="trapezoidTri2"/>   
+            <NODEREF id="trapezoidRec"/>   
+            <NODEREF id="trapezoidTri1"/>     
+            <NODEREF id="trapezoidTri2"/>   
 
         </DESCENDANTS>
 
-	</NODE>
+    </NODE>
 
-	<NODE id="trapezoidRec"> 
-		<MATERIAL id="null" />     
+    <NODE id="trapezoidRec"> 
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />         
 
           <ROTATION axis="y" angle="90" />
 
         <DESCENDANTS>
-			<LEAF  type="rectangle" args="0 4 1 0" />  
+            <LEAF  type="rectangle" args="0 4 1 0" />  
         </DESCENDANTS>
 
-	</NODE>
+    </NODE>
 
 
-	<NODE id="trapezoidTri1"> 
-		<MATERIAL id="null" />     
+    <NODE id="trapezoidTri1"> 
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />  
 
         <DESCENDANTS>
-			
-			<LEAF  type="triangle" args="0 0 0 0 4 0 0 4 0.8 " />  
+            
+            <LEAF  type="triangle" args="0 0 0 0 4 0 0 4 0.8 " />  
 
         </DESCENDANTS>
 
-	</NODE>
+    </NODE>
 
-	<NODE id="trapezoidTri2"> 
-		<MATERIAL id="null" />     
+    <NODE id="trapezoidTri2"> 
+        <MATERIAL id="null" />     
         <TEXTURE id="null" />         
 
         <DESCENDANTS>
-			<LEAF  type="triangle" args="0 4 -1.8 0 4 -1 0 0 -1" />  
+            <LEAF  type="triangle" args="0 4 -1.8 0 4 -1 0 0 -1" />  
         </DESCENDANTS>
 
-	</NODE>
+    </NODE>
+
 
 
 
