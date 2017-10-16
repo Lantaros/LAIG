@@ -110,6 +110,4 @@ MyCylinder.prototype.initBuffers = function() {
     this.initGLBuffers();
 };
 
-MyCylinder.prototype.updateTexCoords = function (sFactor, tFactor) {	
-
-};
+MyCylinder.prototype.updateTexCoords = function (sFactor, tFactor) {};

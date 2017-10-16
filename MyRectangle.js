@@ -20,8 +20,8 @@ function MyRectangle(scene, args) {
 
 	this.minS = 0;
 	this.minT = 0;
-	this.maxS = 1;
-	this.maxT = 1;
+	this.maxS = this.args[2] - this.args[0]; //deltaS rectangle width
+	this.maxT = this.args[1] - this.args[3]; //Rectangle height
 
 	this.initBuffers();
 };
@@ -34,13 +34,13 @@ MyRectangle.prototype.initBuffers = function () {
 	this.vertices = [
             this.args[0], this.args[1], 0,
             this.args[0], this.args[3] ,0,
-            this.args[2], this.args[3], 0,
             this.args[2], this.args[1], 0,
+            this.args[2], this.args[3], 0,
 		];
 
 	this.indices = [
            0,1,2,
-           2,3,0,
+           1,3,2,
         ];
 
     this.normals = [
@@ -53,9 +53,10 @@ MyRectangle.prototype.initBuffers = function () {
     this.baseTexCoords = [
 		this.minS, this.minT,
 		this.minS, this.maxT,
-		this.maxS, this.maxT,
 		this.maxS, this.minT,
+		this.maxS, this.maxT,
 	];
+	this.texCoords = new Array(this.baseTexCoords.length);
 
 
 	this.updateTexCoords(1,1);
@@ -76,6 +77,3 @@ MyRectangle.prototype.updateTexCoords = function (sFactor, tFactor) {
 	this.updateTexCoordsGLBuffers();
 
 };
-
-
-

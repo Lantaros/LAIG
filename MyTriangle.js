@@ -24,20 +24,30 @@ MyTriangle.prototype.constructor=MyTriangle;
     this.vertices = new Array();
     this.indices = new Array();
     this.normals = new Array();
-    this.texCoords = new Array();
     this.baseTexCoords = new Array();
+
 
     this.vertices.push(this.args[0], this.args[1], this.args[2]);
     this.vertices.push(this.args[3], this.args[4], this.args[5]);
     this.vertices.push(this.args[6], this.args[7], this.args[8]);
 
-    this.normals.push(0,1,0);
-    this.normals.push(0,1,0);
-    this.normals.push(0,1,0);
+    this.normals.push(0, 1, 0);
+    this.normals.push(0, 1, 0);
+    this.normals.push(0, 1, 0);
 
     this.baseTexCoords.push(0, 0);
-    this.baseTexCoords.push(0, 1);
+
+    var c = Math.sqrt((this.args[0]-this.args[3])* (this.args[0]-this.args[3]) +
+    (this.args[1]-this.args[4])* (this.args[1]-this.args[4]) +
+    (this.args[2]-this.args[5])* (this.args[2]-this.args[5]));
+
+    this.baseTexCoords.push(c, 1);
+
     this.baseTexCoords.push(1, 1);
+
+    this.texCoords = new Array(this.baseTexCoords.length);
+
+
 
     this.updateTexCoords(1,1);
 
@@ -48,9 +58,7 @@ MyTriangle.prototype.constructor=MyTriangle;
     this.initGLBuffers();
 };
 
-MyTriangle.prototype.updateTexCoords = function (sFactor, tFactor) {    
-
-   
+MyTriangle.prototype.updateTexCoords = function (sFactor, tFactor) {
     for(let i = 0; i < this.baseTexCoords.length; i++){
         if(i%2 == 0)
             this.texCoords[i] = this.baseTexCoords[i]/sFactor;
