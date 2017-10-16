@@ -925,8 +925,6 @@
 
         <ROTATION axis="y" angle="90"/>
 
-
-
         <DESCENDANTS>
            <NODEREF id="claptrapUpperMemberLeft"/>
            <NODEREF id="claptrapUpperMemberRight"/>
@@ -941,7 +939,7 @@
         <TEXTURE id="null" />
 
 
-        <TRANSLATION x="-1" y="2" z="-0.3"/>
+        <TRANSLATION x="-1" y="1" z="-0.3"/>
 
         <DESCENDANTS>
            <NODEREF id="claptrapLeftForearm"/>
@@ -954,8 +952,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <ROTATION axis="x" angle="-45"/>
-        <SCALE sx = "0.1" sy ="0.1" sz ="0.7"/>
+        <ROTATION axis="x" angle="-75"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="1"/>
 
         <DESCENDANTS>           
            <LEAF id="cylinder7" type="cylinder" args="2 1 1 20 50 1 1" />     
@@ -984,7 +982,7 @@
         <TEXTURE id="null" />
 
 
-        <TRANSLATION x="-1.3" y="3.1" z="1.8"/>
+        <TRANSLATION x="-1.3" y="3" z="2.3"/>
 
         <DESCENDANTS>
            <NODEREF id="claptrapRightForearm"/>
@@ -997,8 +995,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <ROTATION axis="x" angle="45"/>
-        <SCALE sx = "0.1" sy ="0.1" sz ="0.7"/>
+        <ROTATION axis="x" angle="75"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="1"/>
 
         <DESCENDANTS>           
            <LEAF id="cylinder7" type="cylinder" args="2 1 1 20 50 1 1" />     
@@ -1010,7 +1008,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-1.2" y="-1" z="1"/>
+        <TRANSLATION x="-1.2" y="-1.9" z="0.5"/>
         <ROTATION axis="y" angle="90"/>
         <SCALE sx = "0.1" sy ="0.1" sz ="0.6"/>
 
