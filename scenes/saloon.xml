@@ -723,14 +723,15 @@
             <MATERIAL id="null" />     
             <TEXTURE id="null" />  
 
-      	  <TRANSLATION x="0" y="2" z="0" />
+      	    <TRANSLATION x="20" y="2" z="18" />
 
 
             <DESCENDANTS>
                 <NODEREF id="claptrapBody"/>
             	<NODEREF id="claptrapEye"/>
            		<NODEREF id="claptrapWheel"/>
-             <!--  <NODEREF id="claptrapArms"/> -->
+                <NODEREF id="antenna"/>
+                <NODEREF id="claptrapUpperMembers"/> 
             </DESCENDANTS>
 
         </NODE>  
@@ -903,6 +904,125 @@
     </NODE>
 
 
+    <NODE id="antenna">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0.8" y="4" z="0.5"/>
+        <SCALE sx="0.06" sy ="0.8" sz="0.06"/>        
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+           <LEAF id="cylinder6" type="cylinder" args="2 1 1 20 50 1 1" />     
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="claptrapUpperMembers">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="y" angle="90"/>
+
+
+
+        <DESCENDANTS>
+           <NODEREF id="claptrapUpperMemberLeft"/>
+           <NODEREF id="claptrapUpperMemberRight"/>
+
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="claptrapUpperMemberLeft">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+
+        <TRANSLATION x="-1" y="2" z="-0.3"/>
+
+        <DESCENDANTS>
+           <NODEREF id="claptrapLeftForearm"/>
+           <NODEREF id="claptrapLeftArm"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="claptrapLeftForearm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="-45"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="0.7"/>
+
+        <DESCENDANTS>           
+           <LEAF id="cylinder7" type="cylinder" args="2 1 1 20 50 1 1" />     
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="claptrapLeftArm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-1.2" y="0" z="0"/>
+        <ROTATION axis="y" angle="90"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="0.6"/>
+
+        <DESCENDANTS>
+           <LEAF id="cylinder8" type="cylinder" args="2 1 1 20 50 1 1" />     
+
+        </DESCENDANTS>
+
+    </NODE>
+
+
+     <NODE id="claptrapUpperMemberRight">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+
+        <TRANSLATION x="-1.3" y="3.1" z="1.8"/>
+
+        <DESCENDANTS>
+           <NODEREF id="claptrapRightForearm"/>
+           <NODEREF id="claptrapRightArm"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="claptrapRightForearm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="45"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="0.7"/>
+
+        <DESCENDANTS>           
+           <LEAF id="cylinder7" type="cylinder" args="2 1 1 20 50 1 1" />     
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="claptrapRightArm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-1.2" y="-1" z="1"/>
+        <ROTATION axis="y" angle="90"/>
+        <SCALE sx = "0.1" sy ="0.1" sz ="0.6"/>
+
+        <DESCENDANTS>
+           <LEAF id="cylinder8" type="cylinder" args="2 1 1 20 50 1 1" />     
+
+        </DESCENDANTS>
+
+    </NODE>
+
+
+
 
 
 
@@ -954,8 +1074,6 @@
         </DESCENDANTS>
 
     </NODE>
-
-
 
 
      <NODE id="paralelepipedo">       
