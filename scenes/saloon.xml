@@ -98,17 +98,17 @@
 
     <TEXTURE id="sideCube">
         <file path="images/sideCube.png" />
-        <amplif_factor s="5" t="5" />
+        <amplif_factor s="4" t="4" />
     </TEXTURE>
 
     <TEXTURE id="claptrapTop">
         <file path="images/claptrapTop.png" />
-        <amplif_factor s="3" t="3" />
+        <amplif_factor s="2.6" t="2.6" />
     </TEXTURE>
 
     <TEXTURE id="claptrapBody">
         <file path="images/claptrapBody.png" />
-        <amplif_factor s="1" t="1" />
+        <amplif_factor s="3" t="3" />
     </TEXTURE>
 
       <TEXTURE id="black">
@@ -194,7 +194,7 @@
             <NODEREF id="paredes" />
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>
-            <NODEREF id="mesas"/>
+            <NODEREF id="companionCubes"/>
             <NODEREF id="escadas"/>
             <NODEREF id="parapeitos"/>
             <NODEREF id="claptraps"/>
@@ -338,7 +338,7 @@
         <SCALE sx="0.2" sy="0.695" sz="1.45" />
 
         <DESCENDANTS>
-       		<NODEREF id="paralelepipedo" />
+       		<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -351,7 +351,7 @@
         <SCALE sx="4.3" sy="0.7" sz="0.5" />
 
         <DESCENDANTS>
-       		<NODEREF id="paralelepipedo" />
+       		<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -365,55 +365,53 @@
         <SCALE sx="0.81" sy="0.2" sz="0.5" />
 
         <DESCENDANTS>
-       		<NODEREF id="paralelepipedo" />
+       		<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
 
 
-    <NODE id="mesas">
+    <NODE id="companionCubes">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-       		<NODEREF id="mesa1" />
-            <NODEREF id="mesa2" />
+       		<NODEREF id="companionCube1" />
+            <NODEREF id="companionCube2" />
         </DESCENDANTS>
 
     </NODE>
 
 
-    <NODE id="mesa1">
+    <NODE id="companionCube1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="26" y="-2.6" z="13" />
 
         <DESCENDANTS>
-       		<NODEREF id="mesa" />
+       		<NODEREF id="companionCube" />
         </DESCENDANTS>
 
     </NODE>
 
 
-    <NODE id="mesa2">
+    <NODE id="companionCube2">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="8" y="-2.6" z="10" />
 
         <DESCENDANTS>
-       		<NODEREF id="mesa" />
+       		<NODEREF id="companionCube" />
         </DESCENDANTS>
 
     </NODE>
 
 
-    <NODE id="mesa">
+    <NODE id="companionCube">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-        <SCALE sx="0.6" sy="0.7" sz="0.6" />
 
         <DESCENDANTS>
         	<NODEREF id="parteCentral" />
@@ -428,7 +426,7 @@
         <TEXTURE id="sideCube" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
          </DESCENDANTS>
 
     </NODE>
@@ -516,7 +514,7 @@
         <TRANSLATION x="5.8" y="25.5" z="6.5" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -528,7 +526,7 @@
         <TRANSLATION x="25" y="25.5" z="6.5" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -540,7 +538,7 @@
         <TRANSLATION x="5.8" y="25.5" z="25" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -552,7 +550,7 @@
         <TRANSLATION x="25" y="25.5" z="25" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -564,7 +562,7 @@
         <TRANSLATION x="5.8" y="11" z="6.5" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -576,7 +574,7 @@
         <TRANSLATION x="25" y="11" z="6.5" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -588,7 +586,7 @@
         <TRANSLATION x="5.8" y="11" z="25" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -600,7 +598,7 @@
         <TRANSLATION x="25" y="11" z="25" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -615,7 +613,7 @@
 
         <DESCENDANTS>
         <!--	<LEAF type="triangle" args=" 1 0 0 0 1 0 0 0 2" /> -->
-        	<NODEREF id="paralelepipedo" />
+        	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -681,7 +679,7 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-        	<NODEREF id="paralelepipedo"/>
+        	<NODEREF id="cubo"/>
         </DESCENDANTS>
 
     </NODE>
@@ -720,19 +718,19 @@
 
 
       <NODE id="claptrap">
-            <MATERIAL id="null" />
-            <TEXTURE id="null" />
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
 
-      	    <TRANSLATION x="20" y="0.55" z="18" />
+  	    <TRANSLATION x="20" y="0.55" z="18" />
 
 
-            <DESCENDANTS>
-                <NODEREF id="claptrapBody"/>
-            	<NODEREF id="claptrapEye"/>
-           		<NODEREF id="claptrapWheel"/>
-                <NODEREF id="antenna"/>
-                <NODEREF id="claptrapUpperMembers"/>
-            </DESCENDANTS>
+        <DESCENDANTS>
+            <NODEREF id="claptrapBody"/>
+        	<NODEREF id="claptrapEye"/>
+       		<NODEREF id="claptrapWheel"/>
+            <NODEREF id="antenna"/>
+            <NODEREF id="claptrapUpperMembers"/>
+        </DESCENDANTS>
 
         </NODE>
 
@@ -1056,9 +1054,7 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-
             <LEAF  type="triangle" args="0 0 0 0 4 0 0 4 0.8" />
-
         </DESCENDANTS>
 
     </NODE>
@@ -1068,13 +1064,13 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <LEAF  type="triangle" args="0 4 -1.8 0 4 -1 0 0 -1" />
+            <LEAF  type="triangle" args="0 0 -1 0 4 -1.8 0 4 -1" />
         </DESCENDANTS>
 
     </NODE>
 
 
-     <NODE id="paralelepipedo">
+     <NODE id="cubo">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -1098,7 +1094,7 @@
         <TRANSLATION x="2.5" y="4" z="7.5" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1111,7 +1107,7 @@
 		<ROTATION axis="y" angle="-90" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1124,7 +1120,7 @@
 		<ROTATION axis="y" angle="90" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1137,7 +1133,7 @@
         <ROTATION axis="y" angle="180" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>
@@ -1148,10 +1144,9 @@
 
         <ROTATION axis="x" angle="-90" />
         <TRANSLATION x="2.5" y="-7.5" z="8" />
-        <SCALE sx="1" sy="1.25" sz="1" />
 
         <DESCENDANTS>
- 					<LEAF  type="rectangle" args="0 4 5 0" />
+ 					<LEAF  type="rectangle" args="0 4 4 0" />
        </DESCENDANTS>
 
     </NODE>
@@ -1162,10 +1157,9 @@
 
         <TRANSLATION x="2.5" y="4" z="2.5" />
         <ROTATION axis="x" angle="90" />
-        <SCALE sx="1" sy="1.25" sz="1" />
 
         <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 5 0" />
+					<LEAF  type="rectangle" args="0 4 4 0" />
         </DESCENDANTS>
 
     </NODE>

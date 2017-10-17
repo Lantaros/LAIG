@@ -27,26 +27,49 @@ MyTriangle.prototype.constructor=MyTriangle;
     this.baseTexCoords = new Array();
 
 
-    this.vertices.push(this.args[0], this.args[1], this.args[2]);
-    this.vertices.push(this.args[3], this.args[4], this.args[5]);
-    this.vertices.push(this.args[6], this.args[7], this.args[8]);
+    this.vertices.push(this.args[0], this.args[1], this.args[2]); //P0
+    this.vertices.push(this.args[3], this.args[4], this.args[5]); //P1
+    this.vertices.push(this.args[6], this.args[7], this.args[8]); //P2
 
     this.normals.push(0, 1, 0);
     this.normals.push(0, 1, 0);
     this.normals.push(0, 1, 0);
 
-    this.baseTexCoords.push(0, 0);
 
-    var c = Math.sqrt((this.args[0]-this.args[3])* (this.args[0]-this.args[3]) +
-    (this.args[1]-this.args[4])* (this.args[1]-this.args[4]) +
-    (this.args[2]-this.args[5])* (this.args[2]-this.args[5]));
+    //a -> dist(P0, P2)
+    var a = Math.sqrt( (this.args[0]-this.args[6]) * (this.args[0]-this.args[6]) +
+                       (this.args[1]-this.args[7]) * (this.args[1]-this.args[7]) + 
+                       (this.args[2]-this.args[8]) * (this.args[2]-this.args[8]));
 
-    this.baseTexCoords.push(c, 1);
 
-    this.baseTexCoords.push(1, 1);
+    //b -> dist(P0, P1)
+    var b = Math.sqrt((this.args[3]-this.args[0]) * (this.args[3]-this.args[0]) +
+                      (this.args[4]-this.args[1]) * (this.args[4]-this.args[1]) +
+                      (this.args[5]-this.args[2]) * (this.args[5]-this.args[2]));
+
+    //c -> dist(P1, P2)
+    var c = Math.sqrt((this.args[6]-this.args[3]) * (this.args[6]-this.args[3]) +
+                      (this.args[7]-this.args[4]) * (this.args[7]-this.args[4]) +
+                      (this.args[8]-this.args[5]) * (this.args[8]-this.args[5]));
+
+
+
+    var cosBeta = (a*a - b*b + c*c)/(2*a*c);
+
+    var beta = Math.acos(cosBeta);
+
+    var a_sinBeta = a*Math.sin(beta);
+
+    var a_cosBeta = a*cosBeta;
+
+    this.baseTexCoords.push(c - a * cosBeta, a_sinBeta); //for P0
+
+    this.baseTexCoords.push(0, 0); //for P1
+
+    this.baseTexCoords.push(c, 0); //for P2
+
 
     this.texCoords = new Array(this.baseTexCoords.length);
-
 
 
     this.updateTexCoords(1,1);
@@ -63,8 +86,10 @@ MyTriangle.prototype.updateTexCoords = function (sFactor, tFactor) {
         if(i%2 == 0)
             this.texCoords[i] = this.baseTexCoords[i]/sFactor;
         else
-            this.texCoords[i] = this.baseTexCoords[i]/tFactor;
+            this.texCoords[i] = (tFactor - this.baseTexCoords[i])/tFactor;
     }
+
+    console.warn(this.texCoords);
 
     this.updateTexCoordsGLBuffers();
 };
