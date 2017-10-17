@@ -1,3 +1,5 @@
+<!-- T1G10 -->
+
 <SCENE>
 
 <INITIALS>
@@ -447,9 +449,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="1.2" sy="1.2" sz ="1"/>
-        <SCALE sx="1" sy="0.8" sz ="2.7"/>
-        <TRANSLATION x="4.15" y="6.25" z="0.85" />
+        <TRANSLATION x="4.5" y="6" z="3.3" />
+        <SCALE sx="1" sy="1" sz ="2.2"/>
 
         <DESCENDANTS>
            <LEAF id="cylinder1" type="cylinder" args="2 1 1 20 50 1 1" />
@@ -461,11 +462,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="5" y="8.12" z="5" />
-
+        <TRANSLATION x="4.5" y="8.2" z="5.5" />
+        <SCALE sx="1" sy="2.2" sz ="1"/>        
         <ROTATION axis="x" angle="90" />
         <ROTATION axis="z" angle="180" />
-        <SCALE sx="1.2" sy="1.2" sz ="2.1"/>
 
         <DESCENDANTS>
             <LEAF id="cylinder2" type="cylinder" args="2 1 1 20 50 1 1" />
@@ -477,9 +477,9 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.3" y="6" z="5" />
+        <TRANSLATION x="2.3" y="6" z="5.5" />
+        <SCALE sx="2.2" sy="1" sz ="1"/>   
         <ROTATION axis="y" angle="90" />
-        <SCALE sx="1.2" sy="1" sz ="2.7"/>
 
 
         <DESCENDANTS>
@@ -495,14 +495,14 @@
         <SCALE sx="0.25" sy="0.25" sz="0.25" />
 
         <DESCENDANTS>
-        	<NODEREF id="canto1" />
-        	<NODEREF id="canto2" />
+       	<NODEREF id="canto1" />
+        <!-- 	<NODEREF id="canto2" />
         	<NODEREF id="canto3" />
         	<NODEREF id="canto4" />
         	<NODEREF id="canto5" />
         	<NODEREF id="canto6" />
         	<NODEREF id="canto7" />
-        	<NODEREF id="canto8" />
+        	<NODEREF id="canto8" /> -->
          </DESCENDANTS>
 
     </NODE>
@@ -1022,7 +1022,7 @@
 
 
 
-
+<!--Generic trapezoid -->
     <NODE id="trapezoid">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -1070,6 +1070,11 @@
     </NODE>
 
 
+
+
+
+
+<!-- Generic Cube -->
      <NODE id="cubo">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -1082,7 +1087,6 @@
             <NODEREF id="faceCubo5" />
             <NODEREF id="faceCubo6" />
         </DESCENDANTS>
-
 
     </NODE>
 
@@ -1103,7 +1107,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.5" y="4" z="2.5" />
+        <TRANSLATION x="2.5" y="4" z="3.5" />
 		<ROTATION axis="y" angle="-90" />
 
         <DESCENDANTS>
@@ -1116,7 +1120,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="7.5" y="4" z="7.5" />
+        <TRANSLATION x="6.5" y="4" z="7.5" />
 		<ROTATION axis="y" angle="90" />
 
         <DESCENDANTS>
@@ -1129,7 +1133,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="7.5" y="4" z="2.5" />
+        <TRANSLATION x="6.5" y="4" z="3.5" />
         <ROTATION axis="y" angle="180" />
 
         <DESCENDANTS>
@@ -1155,7 +1159,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="2.5" y="4" z="2.5" />
+        <TRANSLATION x="2.5" y="4" z="3.5" />
         <ROTATION axis="x" angle="90" />
 
         <DESCENDANTS>
