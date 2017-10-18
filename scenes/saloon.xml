@@ -605,19 +605,163 @@
 
     </NODE>
 
-
-
-    <NODE id="escadas">
+  <NODE id="escadas">
     	<MATERIAL id="null" />
         <TEXTURE id="floor" />
 
-        <TRANSLATION x="-2" y="26" z="-3" />
-		<ROTATION axis="x" angle="40" />
-        <SCALE sx="0.9" sy="0.1" sz="5" />
 
         <DESCENDANTS>
-        <!--	<LEAF type="triangle" args=" 1 0 0 0 1 0 0 0 2" /> -->
-        	<NODEREF id="cubo" />
+          	<NODEREF id="degrau1" />
+         	<NODEREF id="degrau2" />
+          	<NODEREF id="degrau3" />
+          	<NODEREF id="degrau4" />
+          	<NODEREF id="degrau5" />
+            <NODEREF id="degrau6" />
+          	<NODEREF id="degrau7" />
+          	<NODEREF id="degrau8" />
+          	<NODEREF id="degrau9" />
+          	<NODEREF id="degrau10" />  
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="degrau1">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="-1.15" z="18.2" />
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="degrau2">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="0" z="16.672" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="degrau3">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="1.15" z="15.144" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="degrau4">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="2.30" z="13.616" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="degrau5">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="3.45" z="12.088" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="degrau6">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="4.60" z="10.56" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="degrau7">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="5.75" z="9.032" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="degrau8">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="6.90" z="7.504" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="degrau9">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="8.05" z="5.976" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+ 	<NODE id="degrau10">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <TRANSLATION x="-2" y="9.20" z="4.448" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+ 	
+
+
+
+    <!-- Generic Step -->
+    <NODE id="degrau">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <SCALE sx="0.8" sy="0.2875" sz="0.382" />
+
+        <DESCENDANTS>
+          	<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -654,7 +798,7 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="-2.2" y="11.5" z="-4.5" />
-        <SCALE sx="0.9" sy="0.1" sz="1.3" />
+        <SCALE sx="0.9" sy="0.125" sz="1.3" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
