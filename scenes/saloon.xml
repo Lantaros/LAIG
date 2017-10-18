@@ -113,6 +113,17 @@
         <amplif_factor s="3" t="3" />
     </TEXTURE>
 
+    <TEXTURE id="claptrapTopG">
+        <file path="images/claptrapTopG.png" />
+        <amplif_factor s="2.6" t="2.6" />
+    </TEXTURE>
+
+    <TEXTURE id="claptrapBodyG">
+        <file path="images/claptrapBodyG.png" />
+        <amplif_factor s="3" t="3" />
+    </TEXTURE>
+
+
       <TEXTURE id="black">
         <file path="images/black.jpg" />
         <amplif_factor s="1" t="1" />
@@ -125,7 +136,7 @@
 
     <TEXTURE id="wheel">
         <file path="images/wheel.png" />
-        <amplif_factor s="1" t="1" />
+        <amplif_factor s="0.75" t="0.75" />
     </TEXTURE>
 
 
@@ -335,9 +346,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="counterSide" />
 
-
-        <TRANSLATION x="9.25" y="-2.75" z="-3.625" />
-        <SCALE sx="0.2" sy="0.695" sz="1.45" />
+        <TRANSLATION x="9.25" y="-2.75" z="-6.4" />
+        <SCALE sx="0.2" sy="0.695" sz="1.82" />
 
         <DESCENDANTS>
        		<NODEREF id="cubo" />
@@ -349,8 +359,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="counter" />
 
-        <TRANSLATION x="0" y="-2.79" z="3.5" />
-        <SCALE sx="4.3" sy="0.7" sz="0.5" />
+        <TRANSLATION x="-3.2" y="-2.79" z="3.5" />
+        <SCALE sx="5.5" sy="0.7" sz="0.5" />
 
         <DESCENDANTS>
        		<NODEREF id="cubo" />
@@ -363,8 +373,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="counterSide" />
 
-        <TRANSLATION x="30" y="1.22" z="3.5" />
-        <SCALE sx="0.81" sy="0.2" sz="0.5" />
+        <TRANSLATION x="30.3" y="2" z="3.5" />
+        <SCALE sx="0.9" sy="0.1" sz="0.5" />
 
         <DESCENDANTS>
        		<NODEREF id="cubo" />
@@ -414,6 +424,9 @@
     <NODE id="companionCube">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
+
+        <SCALE sx="0.7" sy="0.7" sz ="0.7"/>
+
 
         <DESCENDANTS>
         	<NODEREF id="parteCentral" />
@@ -621,6 +634,7 @@
           	<NODEREF id="degrau8" />
           	<NODEREF id="degrau9" />
           	<NODEREF id="degrau10" />  
+          	<NODEREF id="degrau11" />  
         </DESCENDANTS>
 
     </NODE>
@@ -749,7 +763,19 @@
     </NODE>
 
 
- 	
+ 	<NODE id="degrau11">
+    	<MATERIAL id="null" />
+        <TEXTURE id="floor" />
+
+        <SCALE sx="1" sy="0.9" sz="0.95" />
+        <TRANSLATION x="-2" y="11.6" z="3.3" />
+
+        <DESCENDANTS>
+          	<NODEREF id="degrau" />
+        </DESCENDANTS>
+
+    </NODE>
+
 
 
 
@@ -784,7 +810,7 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="-16.6" y="11.5" z="-2.72" />
-        <SCALE sx="8.1" sy="0.1" sz="0.8" />
+        <SCALE sx="8.1" sy="0.125" sz="0.8" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
@@ -797,8 +823,8 @@
     	<MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-2.2" y="11.5" z="-4.5" />
-        <SCALE sx="0.9" sy="0.125" sz="1.3" />
+        <TRANSLATION x="-2.2" y="11.5" z="-3.7" />
+        <SCALE sx="0.9" sy="0.125" sz="1.08" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
@@ -811,8 +837,8 @@
     	<MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-2" y="-0.38" z="17.4" />
-        <SCALE sx="0.8" sy="0.1" sz="0.88" />
+        <TRANSLATION x="-2.3" y="-0.38" z="18.5" />
+        <SCALE sx="0.9" sy="0.1" sz="0.74" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
@@ -833,6 +859,8 @@
     </NODE>
 
 
+
+
     <NODE id="claptraps">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
@@ -848,6 +876,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+  	    <TRANSLATION x="10" y="0.55" z="9" />
+
         <DESCENDANTS>
             <NODEREF id="claptrap"/>
         </DESCENDANTS>
@@ -857,6 +887,9 @@
       <NODE id="claptrapGentleman">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
+
+
+  	    <TRANSLATION x="20" y="0.55" z="1" />
 
         <DESCENDANTS>
             <NODEREF id="claptrap"/>
@@ -868,8 +901,6 @@
       <NODE id="claptrap">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
-
-  	    <TRANSLATION x="20" y="0.55" z="18" />
 
 
         <DESCENDANTS>
