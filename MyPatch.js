@@ -12,7 +12,7 @@
 
 	var knots1 = this.getKnotsVector(uDegree);
 	var knots2 = this.getKnotsVector(vDegree);
-	
+
 	console.log(cPoints);
 
  	this.nurbsSurface = new CGFnurbsSurface(uDegree, vDegree, knots1, knots2, cPoints);
@@ -31,7 +31,7 @@ MyPatch.prototype.display = function(){
 	CGFnurbsObject.prototype.display.call(this);
 }
 
-MyPatch.prototype.getKnotsVector = function(degree) { 
+MyPatch.prototype.getKnotsVector = function(degree) {
 	var v = new Array();
 	for (var i=0; i<=degree; i++) {
 		v.push(0);
@@ -42,5 +42,4 @@ MyPatch.prototype.getKnotsVector = function(degree) {
 	return v;
 };
 
-MyPatch.prototype.scaleTexCoords = function(scaleS, scaleT) {
-};
+MyPatch.prototype.updateTexCoords = function(scaleS, scaleT) {};

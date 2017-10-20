@@ -13,7 +13,8 @@ function getUrlVars() {
 
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js',
-             'MyRectangle.js', 'MySphere.js', 'MyTriangle.js', 'MyCylinder.js',
+       'MyRectangle.js', 'MySphere.js', 'MyTriangle.js',
+       'MyCylinder.js', 'MyPatch.js',
 
 main=function()
 {
@@ -31,7 +32,7 @@ main=function()
 
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
-  
+
    var filename=getUrlVars()['file'] || "saloon.xml";
    //  var filename=getUrlVars()['file'] || "clapTest.xml";
 

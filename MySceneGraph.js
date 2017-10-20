@@ -1362,10 +1362,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                         for (let i = 0; i < argsSplit.length; i++) {
                           argsSplit[i] = parseFloat(argsSplit[i]);
                         }
-                        
+
                         if(type!="patch")
                           this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
-                        
+
                         else {
                            var clines = nodeSpecs[descendantsIndex].children[0].children;
                            var cpoints = [];
@@ -1401,12 +1401,10 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                                 cpoints.push(lineCpoints);
                                 var vDegree = cLineCpoints.length-1;
                            }
-
                             var uDegree = clines.length-1;
 
-                            //var patchArgs = [args[0], args[1], uDegree, vDegree, cpoints];
-                            descendants[j].attributes[1];
-                            //this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, nodeID, type, patchArgs));
+                            argsSplit.push(uDegree, vDegree, cpoints);
+                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
                         }
                         sizeChildren++;
 					}
@@ -1525,8 +1523,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     }
 
     if (textura != null) {
-        node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
-        //alert("1 " + this.scene.currTexture[1] + " 2 " + this.scene.currTexture[2]);
+        node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);        
         textura.bind();
     }
 
