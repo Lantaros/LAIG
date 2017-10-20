@@ -6,15 +6,13 @@
 function MyCylinder(scene, args) {
     CGFobject.call(this, scene);
 
-    args = args.split(" ");
-
-    this.height = parseFloat(args[0]);
-    this.botRad = parseFloat(args[1]);
-    this.topRad = parseFloat(args[2]);
-    this.stacks = parseFloat(args[3]);
-    this.slices = parseFloat(args[4]);
-    this.topFlag = parseFloat(args[5]);
-    this.botFlag = parseFloat(args[6]);
+    this.height = args[0];
+    this.botRad = args[1];
+    this.topRad = args[2];
+    this.stacks = args[3];
+    this.slices = args[4];
+    this.topFlag = args[5];
+    this.botFlag = args[6];
 
     //Testing
     this.topFlag = 1;

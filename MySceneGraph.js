@@ -22,7 +22,7 @@ function MySceneGraph(filename, scene) {
 
     this.nodes = [];
 
-    this.idRoot = null;                    // The id of the root element.
+    this.idRoot = null;// The id of the root element.
 
     this.axisCoords = [];
     this.axisCoords['x'] = [1, 0, 0];
@@ -1348,11 +1348,25 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 
 						//parse leaf
-						//this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
-
-                         if(type!="patch")
-                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, descendants[j]));
-                         else {
+						//MyGraphLeaf(graph, leafID, type, args)
+                        if(descendants[j].attributes.length != 3){
+                            var leafType = null;
+                            var leafType = descendants[j].attributes.item(0).value;
+                            var argsSplit = descendants[j].attributes.item(1).nodeValue.split(' ');
+                        }
+                        else{
+                            var leafID = descendants[j].attributes.item(0).value;
+                            var leafType = descendants[j].attributes.item(1).value;
+                            var argsSplit = descendants[j].attributes.item(2).nodeValue.split(' ');
+                        }
+                        for (let i = 0; i < argsSplit.length; i++) {
+                          argsSplit[i] = parseFloat(argsSplit[i]);
+                        }
+                        
+                        if(type!="patch")
+                          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
+                        
+                        else {
                            var clines = nodeSpecs[descendantsIndex].children[0].children;
                            var cpoints = [];
 
@@ -1390,9 +1404,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
                             var uDegree = clines.length-1;
 
-                            var patchArgs = [args[0], args[1], uDegree, vDegree, cpoints];
-
-                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, nodeID, type, patchArgs));
+                            //var patchArgs = [args[0], args[1], uDegree, vDegree, cpoints];
+                            descendants[j].attributes[1];
+                            //this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, nodeID, type, patchArgs));
                         }
                         sizeChildren++;
 					}
@@ -1467,7 +1481,12 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-      	this.processNode(this.nodes[this.idRoot], null, null);
+  var rootNode = this.nodes[this.idRoot];
+
+  if(this.textures[rootNode.textureID] != null)
+   this.processNode(rootNode, this.textures[rootNode.textureID][0], this.materials[rootNode.materialID]);
+  else
+   this.processNode(rootNode, null, this.materials[rootNode.materialID]);
 }
 
 MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {

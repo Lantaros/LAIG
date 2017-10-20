@@ -3,20 +3,14 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph, leafInfo) {
+function MyGraphLeaf(graph, leafID, type, args) {
 
 	this.graph = graph;
-	this.obj = null;
+	this.id = leafID;
+	this.type = type;
+	this.args = args;
 
-	if (leafInfo.attributes.length == 3){ //id, type and args
-		this.id = leafInfo.attributes.item(0).value;
-		this.type = leafInfo.attributes.item(1).value;
-		this.args = leafInfo.attributes.item(2).value;
-	}
-	else {
-		this.type = leafInfo.attributes.item(0).value;
-		this.args = leafInfo.attributes.item(1).value;
-	}
+	this.obj = null;
 
 	switch(this.type) {
             case 'rectangle':
@@ -41,10 +35,10 @@ function MyGraphLeaf(graph, leafInfo) {
         }
 };
 
-MyGraphLeaf.prototype.display = function() {      
+MyGraphLeaf.prototype.display = function() {
 	this.obj.display();
 };
 
-MyGraphLeaf.prototype.updateTexCoords = function(sFactor, tFactor) {	
+MyGraphLeaf.prototype.updateTexCoords = function(sFactor, tFactor) {
     this.obj.updateTexCoords(sFactor, tFactor);
 };

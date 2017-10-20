@@ -7,12 +7,7 @@
  function MyTriangle(scene, args) {
  	CGFobject.call(this,scene);
 
-  	this.args = [];
-	args = args.split(" ");
-	for(let i = 0; i < args.length; i++){
-			this.args.push(parseFloat(args[i]));
-	}
-
+  	this.args = args;
   this.initBuffers(args);
  };
 
@@ -110,8 +105,5 @@ MyTriangle.prototype.updateTexCoords = function (sFactor, tFactor) {
         else
             this.texCoords[i] = (tFactor - this.baseTexCoords[i])/tFactor;
     }
-
-    console.warn(this.texCoords);
-
     this.updateTexCoordsGLBuffers();
 };

@@ -9,12 +9,7 @@
 function MyRectangle(scene, args) {
 	CGFobject.call(this,scene);
 
-	this.args = [];
 	this.args = args;
-	this.args = this.args.split(" ");
-	for(let i = 0; i < args.length; i++){
-			this.args[i] = parseFloat(this.args[i]);
-	}
 	this.texCoords = new Array();
 
 
