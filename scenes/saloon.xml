@@ -69,7 +69,6 @@
      <TEXTURE id="doorsWall">
         <file path="images/doorsWall.png" />
         <amplif_factor s="4" t="4" />
-
     </TEXTURE>
 
 	<TEXTURE id="floor">
@@ -149,43 +148,11 @@
 
 
 <MATERIALS>
-    <MATERIAL id="piramideMaterial">
-        <shininess value="1" />
-        <specular r="0" g="0" b="0" a="1" />
-        <diffuse r="1.0" g="0.68" b="0.4" a="1" />
-        <ambient r="0.2" g="0.2" b="0.2" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-	<MATERIAL id="leavesTreeMaterial">
-        <shininess value="1" />
-        <specular r="0.2" g="0.2" b="0.2" a="1" />
-        <diffuse r="0.0" g="0.207" b="0.0" a="1" />
-        <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-	<MATERIAL id="trunkTreeMaterial">
-        <shininess value="1" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.6" g="0.298" b="0.0" a="1" />
-        <ambient r="0.1" g="0.1" b="0.1" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <MATERIAL id="lightPostMaterial">
-        <shininess value="100" />
-        <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.447" g="0.416" b="0.416" a="1" />
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />
-        <emission r="0.0" g="0.0" b="0.0" a="1" />
-    </MATERIAL>
-
-    <MATERIAL id="lightMaterial">
-        <shininess value="100" />
-        <specular r="0.5" g="0.5" b="0.5" a="1" />
-        <diffuse r="0.5" g="0.5" b="0.5" a="1" />
-        <ambient r="0.0" g="0.0" b="0.0" a="1" />
+    <MATERIAL id="silver">
+        <shininess value="89.6" />
+        <specular r="0.773911" g="0.773911" b="0.773911" a="1" />
+        <diffuse r="0.2775" g="0.2775" b="0.2775" a="1" />
+        <ambient r="0.23125" g="0.23125" b="0.23125" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
@@ -890,7 +857,7 @@
 
     <NODE id="parapeitos">
     	<MATERIAL id="null" />
-        <TEXTURE id="floor" />
+        <TEXTURE id="staircase" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeitoComprido" />
@@ -904,8 +871,8 @@
     	<MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-16.6" y="11.5" z="-2.72" />
-        <SCALE sx="8.1" sy="0.125" sz="0.8" />
+        <TRANSLATION x="-17.3" y="11.5" z="-2.7" />
+        <SCALE sx="8.2" sy="0.125" sz="0.8" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
@@ -918,8 +885,8 @@
     	<MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="-2.2" y="11.5" z="-3.7" />
-        <SCALE sx="0.9" sy="0.125" sz="1.08" />
+        <TRANSLATION x="-2" y="11.5" z="-3.7" />
+        <SCALE sx="0.8" sy="0.125" sz="1.08" />
 
         <DESCENDANTS>
         	<NODEREF id="parapeito" />
@@ -928,7 +895,9 @@
 
     </NODE>
 
-       <NODE id="parapeito">
+    	<!-- Generic balcony -->
+
+    <NODE id="parapeito">
     	<MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -937,8 +906,6 @@
         </DESCENDANTS>
 
     </NODE>
-
-
 
 
     <NODE id="claptraps">
@@ -959,7 +926,11 @@
   	    <TRANSLATION x="10" y="0.55" z="9" />
 
         <DESCENDANTS>
-            <NODEREF id="claptrap"/>
+            <NODEREF id="claptrapBody"/>
+        	<NODEREF id="claptrapEye"/>
+       		<NODEREF id="claptrapWheel"/>
+            <NODEREF id="antenna"/>
+            <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
 
     </NODE>
@@ -968,33 +939,19 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-
   	    <TRANSLATION x="20" y="0.55" z="1" />
 
         <DESCENDANTS>
-            <NODEREF id="claptrap"/>
-        </DESCENDANTS>
-
-    </NODE>
-
-
-      <NODE id="claptrap">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-
-        <DESCENDANTS>
-            <NODEREF id="claptrapBody"/>
+            <NODEREF id="claptrapBodyG"/>
         	<NODEREF id="claptrapEye"/>
        		<NODEREF id="claptrapWheel"/>
             <NODEREF id="antenna"/>
             <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
 
-        </NODE>
+    </NODE>
 
-
-      <NODE id="claptrapBody">
+ 	<NODE id="claptrapBody">
             <MATERIAL id="null" />
             <TEXTURE id="claptrapBody" />
 
@@ -1007,7 +964,22 @@
                 <NODEREF id="faceClap6" />
             </DESCENDANTS>
 
-        </NODE>
+ </NODE>
+
+    <NODE id="claptrapBodyG">
+        <MATERIAL id="null" />
+        <TEXTURE id="claptrapBodyG" />
+
+        <DESCENDANTS>
+            <NODEREF id="faceClap1" />
+            <NODEREF id="faceClap2" />
+            <NODEREF id="faceClap3" />
+            <NODEREF id="faceClap4" />
+            <NODEREF id="faceClap5G" />
+            <NODEREF id="faceClap6" />
+        </DESCENDANTS>
+
+    </NODE>
 
       <NODE id="faceClap1">
         <MATERIAL id="null" />
@@ -1075,6 +1047,18 @@
      <NODE id="faceClap5">
         <MATERIAL id="null" />
         <TEXTURE id="claptrapTop" />
+
+        <TRANSLATION x="0" y="3.986" z="2.5" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 2.6 2.6 0"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="faceClap5G">
+        <MATERIAL id="null" />
+        <TEXTURE id="claptrapTopG" />
 
 
         <TRANSLATION x="0" y="3.986" z="2.5" />
@@ -1162,7 +1146,7 @@
 
 
     <NODE id="antenna">
-        <MATERIAL id="null" />
+        <MATERIAL id="silver"/>
         <TEXTURE id="null" />
 
         <TRANSLATION x="0.8" y="4" z="0.5"/>
@@ -1177,7 +1161,7 @@
 
 
     <NODE id="claptrapUpperMembers">
-        <MATERIAL id="null" />
+        <MATERIAL id="silver" />
         <TEXTURE id="null" />
 
         <ROTATION axis="y" angle="90"/>
