@@ -304,26 +304,12 @@
 
     <NODE id="balcao">
         <MATERIAL id="null" />
-        <TEXTURE id="counterSide" />
+        <TEXTURE id="counter" />
 
         <DESCENDANTS>
             <NODEREF id="balcaoComprido" />
             <NODEREF id="balcaoCurva" />
-       		<NODEREF id="balcaoLado" />
             <NODEREF id="balcaoPorta" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="balcaoLado">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="4.25" y="-2.75" z="-6.4" /> <!-- originaL: <TRANSLATION x="9.25" y="-2.75" z="-6.4" /> -->
-        <SCALE sx="0.2" sy="0.695" sz="1.82" />
-
-        <DESCENDANTS>
-       		<NODEREF id="cubo" />
         </DESCENDANTS>
 
     </NODE>
@@ -332,13 +318,11 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="9.25" y="3" z="5" />
-
-
         <DESCENDANTS>
           <NODEREF id="balcaoCurvaFrente"/>
           <NODEREF id="balcaoCurvaTras"/>
           <NODEREF id="balcaoCurvaCima"/>
+          <NODEREF id="balcaoCurvaEx"/>
         </DESCENDANTS>
 
     </NODE>
@@ -347,46 +331,48 @@
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
 
-
-        <TRANSLATION x="1" y="4" z="5" />    
-
-        <ROTATION axis="z" angle="90" />
+        <TRANSLATION x="7.6" y="1.4" z="6.25" />
 
         <DESCENDANTS>
             <LEAF type="patch" args="20 20" >
-                <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="0" ww="1" /> 
-                    <CPOINT xx="-1" yy="1" zz="0" ww="1" />
+               <CPLINE>
+                    <CPOINT xx="-1" yy="-1.4" zz="-6.3" ww="1" />
+                    <CPOINT xx="-1" yy="1.4" zz="-6.3" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="1" ww="1" />
-                    <CPOINT xx="-1" yy="1" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
                 </CPLINE>
+                <CPLINE>
+                    <CPOINT xx="3" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="3" yy="1.4" zz="1" ww="1" />
+                </CPLINE>                
             </LEAF>
         </DESCENDANTS>
     </NODE>
 
-       <NODE id="balcaoCurvaTras">
+    <NODE id="balcaoCurvaTras">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
+
+        <TRANSLATION x="8.55" y="1.4" z="1" />
+
+        <ROTATION axis = "y" angle="180" />
+
         <DESCENDANTS>
             <LEAF type="patch" args="20 20" >
-                <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="0" ww="1" />
-                    <CPOINT xx="-1" yy="1" zz="0" ww="1" />
+               <CPLINE>
+                    <CPOINT xx="-2" yy="-1.4" zz="-6" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="-6" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="1" ww="1" />
-                    <CPOINT xx="-1" yy="1" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="1" yy="-1" zz="1" ww="1" />
-                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
-                </CPLINE>
-                <CPLINE>
-                    <CPOINT xx="1" yy="-1" zz="0" ww="1" />
-                    <CPOINT xx="1" yy="1" zz="0" ww="1" />
-                </CPLINE>
+                    <CPOINT xx="-2" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
+                </CPLINE>                
             </LEAF>
         </DESCENDANTS>
     </NODE>
@@ -395,32 +381,49 @@
    <NODE id="balcaoCurvaCima">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="null" />
-        <DESCENDANTS>
+
+	    <TRANSLATION x="8.5" y="4.8" z="8.8" />
+	    <SCALE sx ="1.46" sy="1" sz="1.1"/>
+		<ROTATION axis="y" angle="180" />
+		<ROTATION axis="z" angle="90" />
+
+         <DESCENDANTS>
             <LEAF type="patch" args="20 20" >
-                <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="0" ww="1" />
-                    <CPOINT xx="-1" yy="1" zz="0" ww="1" />
+               <CPLINE>
+                    <CPOINT xx="-2" yy="-1.4" zz="8" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="8" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="-1" yy="-1" zz="1" ww="1" />
-                    <CPOINT xx="-1" yy="1" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
                 </CPLINE>
                 <CPLINE>
-                    <CPOINT xx="1" yy="-1" zz="1" ww="1" />
-                    <CPOINT xx="1" yy="1" zz="1" ww="1" />
-                </CPLINE>
+                    <CPOINT xx="-2" yy="-1.4" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
+                </CPLINE>         
                 <CPLINE>
-                    <CPOINT xx="1" yy="-1" zz="0" ww="1" />
-                    <CPOINT xx="1" yy="1" zz="0" ww="1" />
-                </CPLINE>
+                    <CPOINT xx="-2" yy="8" zz="1" ww="1" />
+                    <CPOINT xx="-2" yy="1.4" zz="1" ww="1" />
+                </CPLINE>       
             </LEAF>
         </DESCENDANTS>
     </NODE>
 
+    
+   <NODE id="balcaoCurvaEx">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="counterSide" />
 
+	    <TRANSLATION x="10.6" y="0" z="0" />
+	    <ROTATION axis ="y" angle ="180"/>
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 2.8 4 0"/>
+        </DESCENDANTS>
+
+    </NODE>
     <NODE id="balcaoComprido">
         <MATERIAL id="null" />
-        <TEXTURE id="counter" />
+        <TEXTURE id="null" />
 
         <TRANSLATION x="-3.2" y="-2.79" z="3.5" />
         <SCALE sx="5.5" sy="0.7" sz="0.5" />
@@ -434,7 +437,7 @@
 
     <NODE id="balcaoPorta">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="counterSide" />
 
         <TRANSLATION x="30.3" y="2" z="3.5" />
         <SCALE sx="0.9" sy="0.1" sz="0.5" />
@@ -451,8 +454,8 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-       		<NODEREF id="companionCube1" />
-            <NODEREF id="companionCube2" />
+      		<NODEREF id="companionCube1" />
+            <NODEREF id="companionCube2" /> 
         </DESCENDANTS>
 
     </NODE>
@@ -919,11 +922,41 @@
 
     </NODE>
 
-  <NODE id="claptrapSimple">
+
+    <NODE id="claptrapSimple">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
   	    <TRANSLATION x="10" y="0.55" z="9" />
+
+        <DESCENDANTS>
+            <NODEREF id="claptrapSimple1"/>
+        	<NODEREF id="claptrapSimple2"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+
+  <NODE id="claptrapSimple1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="claptrapBody"/>
+        	<NODEREF id="claptrapEye"/>
+       		<NODEREF id="claptrapWheel"/>
+            <NODEREF id="antenna"/>
+            <NODEREF id="claptrapUpperMembers"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+
+  <NODE id="claptrapSimple2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+  	    <TRANSLATION x="18" y="0.55" z="3" />
 
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
