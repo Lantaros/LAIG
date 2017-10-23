@@ -37,8 +37,8 @@
 			this.vertices.push(this.radius * Math.sin(currtRadius + radius) * Math.cos(j*stepAng), this.radius * Math.sin(currtRadius + radius) * Math.sin(j*stepAng), this.radius * Math.cos(radius * (i+1)));
 			this.normals.push(this.radius * Math.sin(currtRadius + radius) * Math.cos(j*stepAng), this.radius * Math.sin(currtRadius + radius) * Math.sin(j*stepAng), this.radius * Math.cos(radius * (i+1))); //Normals in line with the vertexes
 
-			this.texCoords.push(((i + 1)/this.stacks) * (Math.cos(j*stepAng)/2 + 0.5), (i + 1)/this.stacks) * (1- (Math.sin(j*stepAng)/2 + 0.5));
-			this.texCoords.push(((i + 1)/this.stacks) * (Math.cos(j*stepAng)/2 + 0.5), (i + 2)/this.stacks) * (1- (Math.sin(j*stepAng)/2 + 0.5));
+      this.texCoords.push(j/this.slices, i/this.stacks);
+      this.texCoords.push(j/this.slices, (i+1)/this.stacks);
 
 
  			this.indices.push((i*2*this.slices)+(2*j)+0);
