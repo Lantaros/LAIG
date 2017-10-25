@@ -3,10 +3,9 @@
  * @constructor
 **/
 
-function MyGraphLeaf(graph, leafID, type, args) {
+function MyGraphLeaf(graph, type, args) {
 
 	this.graph = graph;
-	this.id = leafID;
 	this.type = type;
 	this.args = args;
 

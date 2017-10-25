@@ -1348,25 +1348,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 
 						//parse leaf
-						//MyGraphLeaf(graph, leafID, type, args)
-                        if(descendants[j].attributes.length != 3){
-                            var leafType = null;
-                            var leafType = descendants[j].attributes.item(0).value;
-                            var argsSplit = descendants[j].attributes.item(1).nodeValue.split(' ');
-                        }
-                        else{
-                            var leafID = descendants[j].attributes.item(0).value;
-                            var leafType = descendants[j].attributes.item(1).value;
-                            var argsSplit = descendants[j].attributes.item(2).nodeValue.split(' ');
-                        }
+						//MyGraphLeaf(graph, type, args)
+                     
+                        var leafType = descendants[j].attributes.getNamedItem('type').value;
+                        var argsSplit = descendants[j].attributes.getNamedItem('args').nodeValue.split(' ');
+                            
                         for (let i = 0; i < argsSplit.length; i++) {
                           argsSplit[i] = parseFloat(argsSplit[i]);
                         }
 
                         if(type!="patch")
-                          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
-
-                        else {
+                          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafType, argsSplit));
+                        else {//LAIGPROB1_fim
                            var clines = nodeSpecs[descendantsIndex].children[0].children;
                            var cpoints = [];
 
@@ -1404,7 +1397,9 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                             var uDegree = clines.length-1;
 
                             argsSplit.push(uDegree, vDegree, cpoints);
-                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
+                            //LAIGPROB1_inicio
+                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafType, argsSplit));
+                            //LAIGPROB1_fim
                         }
                         sizeChildren++;
 					}
@@ -1482,15 +1477,19 @@ MySceneGraph.prototype.displayScene = function() {
   var rootNode = this.nodes[this.idRoot];
 
   if(this.textures[rootNode.textureID] != null)
-   this.processNode(rootNode, this.textures[rootNode.textureID][0], this.materials[rootNode.materialID]);
+  //LAIGPROB1_inicio
+   this.processNode(rootNode, this.textures[rootNode.textureID][0], this.materials[rootNode.materialID], 1, 1);
   else
-   this.processNode(rootNode, null, this.materials[rootNode.materialID]);
+   this.processNode(rootNode, null, this.materials[rootNode.materialID], 1, 1);
+ //LAIGPROB1_fim
 }
-
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
+  //LAIGPROB1_inicio
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp, parS, parT) {
 
 	var textura = parTex;
 	var material = parAsp;
+	var ampS = parS;
+	var ampT = parT;
 
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
@@ -1499,9 +1498,11 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     if (node.textureID == 'clear')
       textura = null;
     else{
-      this.scene.currTexture = this.textures[node.textureID];
-      textura = this.textures[node.textureID][0];
+        textura = this.textures[node.textureID][0];
+        ampS = this.textures[node.textureID][1];
+        ampT = this.textures[node.textureID][2];
     }
+
   }
 
   if (node.materialID != "null") {
@@ -1509,7 +1510,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
   }
 
   for (var i = 0; i < node.children.length; i++) {
-    this.processNode(this.nodes[node.children[i]], textura, material);
+    this.processNode(this.nodes[node.children[i]], textura, material, ampS, ampT);
   }
 
   if (material != null) {
@@ -1520,8 +1521,9 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
       textura.bind();
   }
 
+ //LAIGPROB1_fim
   for (var j = 0; j < node.leaves.length; j++) {
-    node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
+    node.leaves[j].updateTexCoords(ampS,ampT);
     node.leaves[j].display();
   }
   this.scene.popMatrix();
