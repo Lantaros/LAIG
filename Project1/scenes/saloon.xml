@@ -179,10 +179,12 @@
             <NODEREF id="paredes" />
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>
+            <NODEREF id="pokeball"/>
             <NODEREF id="companionCubes"/>
             <NODEREF id="escadas"/>
             <NODEREF id="parapeitos"/>
             <NODEREF id="claptraps"/>
+            <NODEREF id="pod"/>
         </DESCENDANTS>
 
     </NODE>
@@ -447,6 +449,20 @@
         </DESCENDANTS>
 
     </NODE>
+
+    <NODE id="pokeball">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="30.3" y="3.4" z="6.3" />
+        <SCALE sx="0.4" sy="0.4" sz="0.4" />
+
+        <DESCENDANTS>
+          <LEAF type="sphere" args="1 50 50" />
+        </DESCENDANTS>
+
+    </NODE>
+
 
 
     <NODE id="companionCubes">
@@ -930,7 +946,7 @@
   	    <TRANSLATION x="10" y="0.55" z="9" />
 
         <DESCENDANTS>
-            <NODEREF id="claptrapSimple1"/>
+          <NODEREF id="claptrapSimple1"/>
         	<NODEREF id="claptrapSimple2"/>
         </DESCENDANTS>
 
@@ -943,8 +959,8 @@
 
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
-        	<NODEREF id="claptrapEye"/>
-       		<NODEREF id="claptrapWheel"/>
+        	  <NODEREF id="claptrapEye"/>
+       		  <NODEREF id="claptrapWheel"/>
             <NODEREF id="antenna"/>
             <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
@@ -960,8 +976,8 @@
 
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
-        	<NODEREF id="claptrapEye"/>
-       		<NODEREF id="claptrapWheel"/>
+        	  <NODEREF id="claptrapEye"/>
+       		  <NODEREF id="claptrapWheel"/>
             <NODEREF id="antenna"/>
             <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
@@ -976,8 +992,8 @@
 
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>
-        	<NODEREF id="claptrapEye"/>
-       		<NODEREF id="claptrapWheel"/>
+        	  <NODEREF id="claptrapEye"/>
+       		  <NODEREF id="claptrapWheel"/>
             <NODEREF id="antenna"/>
             <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
@@ -985,17 +1001,17 @@
     </NODE>
 
  	<NODE id="claptrapBody">
-            <MATERIAL id="null" />
-            <TEXTURE id="claptrapBody" />
+        <MATERIAL id="null" />
+        <TEXTURE id="claptrapBody" />
 
-            <DESCENDANTS>
-                <NODEREF id="faceClap1" />
-                <NODEREF id="faceClap2" />
-                <NODEREF id="faceClap3" />
-                <NODEREF id="faceClap4" />
-                <NODEREF id="faceClap5" />
-                <NODEREF id="faceClap6" />
-            </DESCENDANTS>
+        <DESCENDANTS>
+            <NODEREF id="faceClap1" />
+            <NODEREF id="faceClap2" />
+            <NODEREF id="faceClap3" />
+            <NODEREF id="faceClap4" />
+            <NODEREF id="faceClap5" />
+            <NODEREF id="faceClap6" />
+        </DESCENDANTS>
 
  </NODE>
 
@@ -1074,6 +1090,22 @@
 
         <DESCENDANTS>
             <NODEREF id="trapezoid"/>
+            <NODEREF id="claptrapFrontPanel"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="claptrapFrontPanel">
+        <MATERIAL id="null" />
+        <TEXTURE id="clear" />
+
+        <ROTATION axis="z" angle="-2" />
+
+        <TRANSLATION x="-0.03" y="0.7" z="0" />
+
+        <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 0.8 1 0"/>
         </DESCENDANTS>
     </NODE>
 
@@ -1092,7 +1124,6 @@
     <NODE id="faceClap5G">
         <MATERIAL id="null" />
         <TEXTURE id="claptrapTopG" />
-
 
         <TRANSLATION x="0" y="3.986" z="2.5" />
 
@@ -1294,8 +1325,114 @@
     </NODE>
 
 
+    <NODE id="pod">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podHead"/>
+             <NODEREF id="podCenter"/>
+        <!--   <NODEREF id="podArms"/>  -->
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podHead">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podHeadRec"/>
+            <NODEREF id="podHeadAntenna"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podHeadRec">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <SCALE sx="0.26" sy ="0.4" sz ="0.2"/>
+
+        <DESCENDANTS>
+          <NODEREF id="cubo"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podHeadAntenna">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podHeadAntenna1"/>
+            <NODEREF id="podHeadAntenna2"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podHeadAntenna1">
+        <MATERIAL id="silver"/>
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1" y="3.3" z="1.3"/>
+        <SCALE sx="0.1" sy ="0.1" sz="0.1"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="podHeadAntenna2">
+        <MATERIAL id="silver"/>
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1" y="3.2" z="1.3"/>
+        <SCALE sx="0.06" sy ="0.1" sz="0.06"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
+        </DESCENDANTS>
+
+    </NODE>
 
 
+    <NODE id="podCenter">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podCenterSphere"/>
+            <NODEREF id="podCenterCyl"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podCenterSphere">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <LEAF type="sphere" args="1 50 50" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podCenterCyl">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArms">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podCenterSphere"/>
+            <NODEREF id="podCenterCyl"/>
+        </DESCENDANTS>
+    </NODE>
 
 
 <!--Generic trapezoid -->
