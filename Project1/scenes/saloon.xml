@@ -143,6 +143,16 @@
         <amplif_factor s="0.75" t="0.75" />
     </TEXTURE>
 
+    <TEXTURE id="pokeball">
+        <file path="images/pokeball.png" />
+        <amplif_factor s="0.4" t="0.4" />
+    </TEXTURE>
+
+    <TEXTURE id="claptrapFrontPanel">
+        <file path="images/claptrapFrontPanel.png" />
+        <amplif_factor s="1" t="0.8" />
+    </TEXTURE>
+
 
 </TEXTURES>
 
@@ -452,7 +462,7 @@
 
     <NODE id="pokeball">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="pokeball" />
 
         <TRANSLATION x="30.3" y="3.4" z="6.3" />
         <SCALE sx="0.4" sy="0.4" sz="0.4" />
@@ -1096,7 +1106,7 @@
 
     <NODE id="claptrapFrontPanel">
         <MATERIAL id="null" />
-        <TEXTURE id="clear" />
+        <TEXTURE id="claptrapFrontPanel" />
 
         <ROTATION axis="z" angle="-2" />
 
@@ -1329,16 +1339,20 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+        <TRANSLATION x="20" y="2" z="10"/>
+
         <DESCENDANTS>
             <NODEREF id="podHead"/>
-             <NODEREF id="podCenter"/>
-        <!--   <NODEREF id="podArms"/>  -->
+            <NODEREF id="podCenter"/>
+            <NODEREF id="podArms"/>
         </DESCENDANTS>
     </NODE>
 
     <NODE id="podHead">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
+
+        <TRANSLATION x="-0.07" y="-0.06" z="-0.05"/>
 
         <DESCENDANTS>
             <NODEREF id="podHeadRec"/>
@@ -1350,7 +1364,8 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="0.26" sy ="0.4" sz ="0.2"/>
+        <TRANSLATION x="0.2" y="0.5" z="0.28"/>
+        <SCALE sx="0.23" sy ="0.3" sz ="0.16"/>
 
         <DESCENDANTS>
           <NODEREF id="cubo"/>
@@ -1361,6 +1376,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+        <TRANSLATION x="0" y="-0.3" z="0"/>
         <DESCENDANTS>
             <NODEREF id="podHeadAntenna1"/>
             <NODEREF id="podHeadAntenna2"/>
@@ -1402,7 +1418,7 @@
 
         <DESCENDANTS>
             <NODEREF id="podCenterSphere"/>
-            <NODEREF id="podCenterCyl"/>
+            <NODEREF id="podCenterCylinders"/>
         </DESCENDANTS>
     </NODE>
 
@@ -1410,18 +1426,71 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+        <SCALE sx="0.35" sy ="0.35" sz="0.35"/>
+        <TRANSLATION x="3.3" y="4.55" z="3.22"/>
+
         <DESCENDANTS>
-            <LEAF type="sphere" args="1 50 50" />
+            <LEAF type="sphere" args="0.85 50 50" />
         </DESCENDANTS>
     </NODE>
 
-    <NODE id="podCenterCyl">
+    <NODE id="podCenterCylinders">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+        <ROTATION axis="y" angle="-90"/>
+
         <DESCENDANTS>
-           <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
+          <NODEREF id="podCenterCylBig"/>
+          <NODEREF id="podCenterCylSmall"/>
         </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podCenterCylBig">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.1" y="1.4" z="-1.9"/>
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="1.5 0.1 0.1 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podCenterCylSmall">
+        <MATERIAL id="silver"/>
+        <TEXTURE id="null" />
+
+        <SCALE sx="0.1" sy ="0.1" sz="0.1"/>
+
+        <DESCENDANTS>
+          <NODEREF id="podCenterCylS1"/>
+          <NODEREF id="podCenterCylS2"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podCenterCylS1">
+        <MATERIAL id="silver"/>
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="11" y="14" z="-5"/>
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="1.8 1.5 1.5 20 50 1 1" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="podCenterCylS2">
+        <MATERIAL id="silver"/>
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="11" y="14" z="-20"/>
+
+        <DESCENDANTS>
+           <LEAF type="cylinder" args="1.8 1.5 1.5 20 50 1 1" />
+        </DESCENDANTS>
+
     </NODE>
 
     <NODE id="podArms">
@@ -1429,11 +1498,89 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <NODEREF id="podCenterSphere"/>
-            <NODEREF id="podCenterCyl"/>
+            <NODEREF id="podLeftArm"/>
+            <NODEREF id="podRightArm"/>
         </DESCENDANTS>
     </NODE>
 
+    <NODE id="podLeftArm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podArm"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podRightArm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-1.5" y="0" z="0"/>
+
+        <DESCENDANTS>
+            <NODEREF id="podArm"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArm">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="podArmCyl1"/>
+            <NODEREF id="podArmCyl2"/>
+            <NODEREF id="podArmSphere"/>
+            <NODEREF id="podArmCyl3"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="podArmCyl1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.9" y="1.4" z="0.5"/>
+
+        <DESCENDANTS>
+          <LEAF type="cylinder" args="0.6 0.07 0.07 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmCyl2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.9" y="0.7" z="0.5"/>
+        <ROTATION axis="x" angle="-90"/>
+
+        <DESCENDANTS>
+          <LEAF type="cylinder" args="0.9 0.08 0.08 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmSphere">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.9" y="0.77" z="0.5"/>
+
+        <DESCENDANTS>
+            <LEAF type="sphere" args="0.1 50 50" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmCyl3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.9" y="0.77" z="0.5"/>
+        <ROTATION axis="x" angle="8"/>
+
+        <DESCENDANTS>
+          <LEAF type="cylinder" args="0.9 0.08 0.08 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
 
 <!--Generic trapezoid -->
     <NODE id="trapezoid">
