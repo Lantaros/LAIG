@@ -1532,6 +1532,7 @@
             <NODEREF id="podArmCyl2"/>
             <NODEREF id="podArmSphere"/>
             <NODEREF id="podArmCyl3"/>
+            <NODEREF id="podArmFingers"/>
         </DESCENDANTS>
     </NODE>
 
@@ -1581,6 +1582,59 @@
           <LEAF type="cylinder" args="0.9 0.08 0.08 20 50 1 1" />
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="podArmFingers">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <SCALE sx="0.01" sy="0.003" sz="0.1"/>
+
+        <DESCENDANTS>
+             <NODEREF id="podArmFinger1"/>
+            <NODEREF id="podArmFinger2"/>
+  <!--            <NODEREF id="podArmFinger3"/>  -->
+
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmFinger1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="z" angle="45"/>
+        <TRANSLATION x="287" y="22" z="10"/>
+
+        <DESCENDANTS>
+           <NODEREF id="cubo"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmFinger2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="186.5" y="225.5" z="10"/>
+      <ROTATION axis="z" angle="-45"/>
+
+      <DESCENDANTS>
+         <NODEREF id="cubo"/>
+      </DESCENDANTS>
+    </NODE>
+
+    <NODE id="podArmFinger3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="1.9" y="0.77" z="0.5"/>
+        <ROTATION axis="x" angle="8"/>
+
+        <DESCENDANTS>
+          <LEAF type="cylinder" args="0.9 0.08 0.08 20 50 1 1" />
+        </DESCENDANTS>
+    </NODE>
+
+
+
 
 <!--Generic trapezoid -->
     <NODE id="trapezoid">
