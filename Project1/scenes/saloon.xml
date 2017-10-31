@@ -1243,7 +1243,6 @@
         <DESCENDANTS>
            <NODEREF id="claptrapUpperMemberLeft"/>
            <NODEREF id="claptrapUpperMemberRight"/>
-
         </DESCENDANTS>
 
     </NODE>
@@ -1259,6 +1258,7 @@
         <DESCENDANTS>
            <NODEREF id="claptrapLeftForearm"/>
            <NODEREF id="claptrapLeftArm"/>
+           <NODEREF id="claptrapLeftElbow"/>
         </DESCENDANTS>
 
     </NODE>
@@ -1286,7 +1286,16 @@
 
         <DESCENDANTS>
            <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
+        </DESCENDANTS>
 
+    </NODE>
+
+    <NODE id="claptrapLeftElbow">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <LEAF type="sphere" args="0.1 50 50" />
         </DESCENDANTS>
 
     </NODE>
@@ -1296,12 +1305,13 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-
         <TRANSLATION x="-1.3" y="3" z="2.3"/>
 
         <DESCENDANTS>
            <NODEREF id="claptrapRightForearm"/>
            <NODEREF id="claptrapRightArm"/>
+           <NODEREF id="claptrapRightElbow"/>
+           <NODEREF id="claptrapRightFingers"/>
         </DESCENDANTS>
 
     </NODE>
@@ -1329,10 +1339,62 @@
 
         <DESCENDANTS>
            <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
-
         </DESCENDANTS>
 
-    </NODE>
+
+        </NODE>
+
+        <NODE id="claptrapRightElbow">
+            <MATERIAL id="null" />
+            <TEXTURE id="null" />
+
+            <TRANSLATION x="0" y="-1.9" z="0.51"/>
+
+            <DESCENDANTS>
+                <LEAF type="sphere" args="0.1 50 50" />
+            </DESCENDANTS>
+
+        </NODE>
+
+      <NODE id="claptrapRightFingers">
+          <MATERIAL id="silver" />
+          <TEXTURE id="null" />
+
+          <TRANSLATION x="-1.35" y="-1.85" z="0.46"/>
+          <ROTATION axis="z" angle="90"/>
+          <ROTATION axis="x" angle="180"/>
+          <SCALE sx = "0.04" sy ="0.08" sz ="0.08"/>
+
+          <DESCENDANTS>
+              <NODEREF id="claptrapRightFinger1"/>
+              <NODEREF id="claptrapRightFinger2"/>
+          </DESCENDANTS>
+
+      </NODE>
+
+      <NODE id="claptrapRightFinger1">
+          <MATERIAL id="null" />
+          <TEXTURE id="null" />
+
+
+
+          <DESCENDANTS>
+              <NODEREF id="trapezoid"/>
+          </DESCENDANTS>
+
+      </NODE>
+
+      <NODE id="claptrapRightFinger2">
+          <MATERIAL id="null" />
+          <TEXTURE id="null" />
+
+          <DESCENDANTS>
+              <NODEREF id="trapezoid"/>
+          </DESCENDANTS>
+
+      </NODE>
+
+
 
 
     <NODE id="pod">
@@ -1590,10 +1652,9 @@
         <SCALE sx="0.01" sy="0.003" sz="0.1"/>
 
         <DESCENDANTS>
-             <NODEREF id="podArmFinger1"/>
+            <NODEREF id="podArmFinger1"/>
             <NODEREF id="podArmFinger2"/>
-  <!--            <NODEREF id="podArmFinger3"/>  -->
-
+            <NODEREF id="podArmFinger3"/>
         </DESCENDANTS>
     </NODE>
 
@@ -1602,7 +1663,7 @@
         <TEXTURE id="null" />
 
         <ROTATION axis="z" angle="45"/>
-        <TRANSLATION x="287" y="22" z="10"/>
+        <TRANSLATION x="287" y="22" z="9"/>
 
         <DESCENDANTS>
            <NODEREF id="cubo"/>
@@ -1613,7 +1674,7 @@
       <MATERIAL id="null" />
       <TEXTURE id="null" />
 
-      <TRANSLATION x="186.5" y="225.5" z="10"/>
+      <TRANSLATION x="186.5" y="225.5" z="9"/>
       <ROTATION axis="z" angle="-45"/>
 
       <DESCENDANTS>
@@ -1625,11 +1686,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="1.9" y="0.77" z="0.5"/>
-        <ROTATION axis="x" angle="8"/>
+        <TRANSLATION x="185" y="200" z="8"/>
 
         <DESCENDANTS>
-          <LEAF type="cylinder" args="0.9 0.08 0.08 20 50 1 1" />
+           <NODEREF id="cubo"/>
         </DESCENDANTS>
     </NODE>
 
