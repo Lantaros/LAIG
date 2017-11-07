@@ -1493,7 +1493,8 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var material = parAsp;
 
   this.scene.pushMatrix();
-  this.scene.multMatrix(node.transformMatrix);
+//  this.scene.multMatrix(node.transformMatrix);
+  this.scene.multMatrix(node.applyAnimation());
 
   if (node.textureID !='null') {
     if (node.textureID == 'clear')

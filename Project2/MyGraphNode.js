@@ -7,7 +7,7 @@ function MyGraphNode(graph, nodeID) {
     this.graph = graph;
 
     this.nodeID = nodeID;
-    
+
     // IDs of child nodes.
     this.children = [];
 
@@ -38,4 +38,10 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
+MyGraphNode.prototype.applyAnimation = function() {
+    let tempMatrix = mat4.create();
+    this.transformMatrix.copy(tempMatrix);
+    tempMatrix.multMatrix(this.graph.scene.animations[this.animationID].transformMatrix);
 
+    return tempMatrix;
+}
