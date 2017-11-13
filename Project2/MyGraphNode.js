@@ -40,8 +40,10 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 
 MyGraphNode.prototype.applyAnimation = function() {
     let tempMatrix = mat4.create();
-    this.transformMatrix.copy(tempMatrix);
-    tempMatrix.multMatrix(this.graph.scene.animations[this.animationID].transformMatrix);
+    mat4.copy(tempMatrix, this.transformMatrix);
+  //  this.transformMatrix.copy(tempMatrix);
+  //  tempMatrix.multMatrix(this.graph.scene.animations[this.animationID].transformMatrix);
+    this.graph.scene.animations[this.animationID].transformMatrix.multMatrix(tempMatrix);
 
     return tempMatrix;
 }

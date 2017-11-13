@@ -6,7 +6,7 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-var LEAVES_INDEX = 5;
+var ANIMATIONS_INDEX = 5;
 var NODES_INDEX = 6;
 
 /**
@@ -137,6 +137,14 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
 
         if ((error = this.parseMaterials(nodes[index])) != null )
             return error;
+    }
+
+    // <ANIMATIONS>
+    if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+        return "tag <ANIMATIONS> missing";
+    else {
+      if ((error = this.parseAnimations(nodes[index])) != null )
+          return error;
     }
 
     // <NODES>
@@ -1158,6 +1166,117 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
     console.log("Parsed materials");
 }
 
+/**
+ * Parses the <ANIMATIONS> node.
+ */
+MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+
+    let children = animationsNode.children;
+    // Each animation.
+
+    for (let i = 0; i < children.length; i++) {
+
+        if (children[i].nodeName != "ANIMATION") {
+            this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+            continue;
+        }
+
+        //animation ID
+        let animationID = this.reader.getString(children[i], 'id');
+        if (animationID == null )
+            return "no ID defined for animation";
+
+        if (this.animations[animationID] != null )
+            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+        //animation speed
+        let animationSpeed = this.reader.getFloat(children[i], 'speed');
+        if (animationSpeed == null )
+            return "no speed defined for animation";
+
+        //animation type
+        let animationType = this.reader.getFloat(children[i], 'type');
+        if (animationType == null )
+            return "no type defined for animation";
+
+        //animation loop -> TODO confirm with teacher
+         let animationLoop = this.reader.getString(children[i], 'loop');
+         if (animationLoop == null )
+            animationLoop = false;
+         else
+            animationLoop = true;
+
+        let animation;
+        switch (animationType) {
+
+          case "linear":
+            let x, y , z;
+            let controlPoints = new Array();
+            let controlPointsParser = children[i].children;
+            for (let i = 0; i < controlPointsParser.length; i++){
+                x = this.reader.getFloat(controlPointsParser[i], 'xx');
+                y = this.reader.getFloat(controlPointsParser[i], 'yy');
+                z = this.reader.getFloat(controlPointsParser[i], 'zz');
+                controlPoints.push(new Array(x, y, z));
+            }
+            animation = new LinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
+            break;
+
+          case "circular":
+            let cx,cy,cz, radius, startAng, rotAng;
+            cx = this.reader.getFloat(controlPointsParser[i], 'centerx');
+            cy = this.reader.getFloat(controlPointsParser[i], 'centery');
+            cz = this.reader.getFloat(controlPointsParser[i], 'centerz');
+            radius = this.reader.getFloat(controlPointsParser[i], 'radius');
+            startAng = this.reader.getFloat(controlPointsParser[i], 'startang');
+            rotAng = this.reader.getFloat(controlPointsParser[i], 'rotang');
+            animation = new CircularAnimation(this.scene, animationID, animationSpeed, new Array(cx, cy, cz), radius, startAng, rotAng);
+            break;
+
+          case "bezier":
+            let x, y , z;
+            let controlPoints = new Array();
+            let controlPointsParser = children[i].children;
+
+            if (controlPointsParser.length != 4)
+              return "Bezier Curves need 4 Points!";
+
+            for (let i = 0; i < controlPointsParser.length; i++){
+                x = this.reader.getFloat(controlPointsParser[i], 'xx');
+                y = this.reader.getFloat(controlPointsParser[i], 'yy');
+                z = this.reader.getFloat(controlPointsParser[i], 'zz');
+                controlPoints.push(new Array(x, y, z));
+            }
+            animation = new BezierAnimation(this.scene, animationID, animationSpeed, controlPoints);
+            break;
+
+          case "combo":
+            let idRef;
+            let animationRefs = new Array();
+            let animationRefsParser = children[i].children;
+            for (let i = 0; i < animationRefsParser.length; i++){
+              if (animationRefsParser[i].nodeName != "SPANREF") {
+                  this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+                  continue;
+              }
+              idRef = this.reader.getString(animationRefsParser[i], 'id');
+              if (this.scene.animations[idRef] == null) //in case the animation wasn't defined prior to this
+                return "The Animation wasn't defined!";
+              animationRefs.push(idRef);
+            }
+            animation = new ComboAnimation(this.scene, animationID, animationRefs);
+            break;
+
+          default:
+            break;
+
+        }
+
+        this.scene.animations.push(animation);
+    }
+
+    console.log("Parsed animations");
+}
 
 /**
  * Parses the <NODES> block.
