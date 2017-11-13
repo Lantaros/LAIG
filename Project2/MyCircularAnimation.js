@@ -15,7 +15,7 @@ class CircularAnimation extends Animation{
 
 }
 
-  LinearAnimation.prototype.update = function(dt) {
+ update(dt) {
     if(this.lastAng >= this.rotAng)
       return;
 

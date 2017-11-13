@@ -14,7 +14,7 @@ class LinearAnimation extends Animation{
       let cosAlfa = (controlPoints[i+1][0] - controlPoints[i][0])/dist;
       let senAlfa = (controlPoints[i+1][1] - controlPoints[i][1])/dist;
       let alfa = Math.acos(cosAlfa);
-      values.push([animationVelocity * cosAlfa], animationVelocity * senAlfa, alfa])
+      values.push([animationVelocity * cosAlfa, animationVelocity * senAlfa, alfa]);
       initValues.push(values);
     }
 
@@ -22,7 +22,7 @@ class LinearAnimation extends Animation{
     this.time = 0;
   }
 
-  LinearAnimation.prototype.update = function(dt) {
+   update(dt) {
     if(this.currentAnimation < this.controlPoints.length - 1){
       this.time += dt;
       let dx = this.time * this.initValues[this.currentAnimation][0];

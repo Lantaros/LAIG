@@ -143,6 +143,10 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
     if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
         return "tag <ANIMATIONS> missing";
     else {
+      if (index != ANIMATIONS_INDEX)
+          this.onXMLMinorError("tag <MATERIALS> out of order");
+
+
       if ((error = this.parseAnimations(nodes[index])) != null )
           return error;
     }
@@ -1207,19 +1211,20 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             animationLoop = true;
 
         let animation;
+        let controlPointsParser = children[i].children;
+
         switch (animationType) {
 
           case "linear":
-            let x, y , z;
-            let controlPoints = new Array();
-            let controlPointsParser = children[i].children;
-            for (let i = 0; i < controlPointsParser.length; i++){
-                x = this.reader.getFloat(controlPointsParser[i], 'xx');
-                y = this.reader.getFloat(controlPointsParser[i], 'yy');
-                z = this.reader.getFloat(controlPointsParser[i], 'zz');
-                controlPoints.push(new Array(x, y, z));
+            let x_l, y_l , z_l;
+            let controlPoints_l = new Array();
+            for (let i = 0; i < controlPointsParser_l.length; i++){
+                x_l = this.reader.getFloat(controlPointsParser[i], 'xx');
+                y_l = this.reader.getFloat(controlPointsParser[i], 'yy');
+                z_l = this.reader.getFloat(controlPointsParser[i], 'zz');
+                controlPoints_l.push(new Array(x_l, y_l, z_l));
             }
-            animation = new LinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
+            animation = new LinearAnimation(this.scene, animationID, animationSpeed, controlPoints_l);
             break;
 
           case "circular":
@@ -1234,32 +1239,29 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             break;
 
           case "bezier":
-            let x, y , z;
-            let controlPoints = new Array();
-            let controlPointsParser = children[i].children;
-
+            let x_b, y_b , z_b;
+            let controlPoints_b = new Array();
             if (controlPointsParser.length != 4)
               return "Bezier Curves need 4 Points!";
 
             for (let i = 0; i < controlPointsParser.length; i++){
-                x = this.reader.getFloat(controlPointsParser[i], 'xx');
-                y = this.reader.getFloat(controlPointsParser[i], 'yy');
-                z = this.reader.getFloat(controlPointsParser[i], 'zz');
-                controlPoints.push(new Array(x, y, z));
+                x_b = this.reader.getFloat(controlPointsParser[i], 'xx');
+                y_b = this.reader.getFloat(controlPointsParser[i], 'yy');
+                z_b = this.reader.getFloat(controlPointsParser[i], 'zz');
+                controlPoints_b.push(new Array(x_b, y_b, z_b));
             }
-            animation = new BezierAnimation(this.scene, animationID, animationSpeed, controlPoints);
+            animation = new BezierAnimation(this.scene, animationID, animationSpeed, controlPoints_b);
             break;
 
           case "combo":
             let idRef;
             let animationRefs = new Array();
-            let animationRefsParser = children[i].children;
-            for (let i = 0; i < animationRefsParser.length; i++){
-              if (animationRefsParser[i].nodeName != "SPANREF") {
+            for (let i = 0; i < controlPointsParser.length; i++){
+              if (controlPointsParser[i].nodeName != "SPANREF") {
                   this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
                   continue;
               }
-              idRef = this.reader.getString(animationRefsParser[i], 'id');
+              idRef = this.reader.getString(controlPointsParser[i], 'id');
               if (this.scene.animations[idRef] == null) //in case the animation wasn't defined prior to this
                 return "The Animation wasn't defined!";
               animationRefs.push(idRef);

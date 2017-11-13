@@ -8,6 +8,8 @@ class Animation{
   }
 
 
-  Animation.prototype.update = function(dt) {
+ update(dt) {
+
   }
+  
 }
