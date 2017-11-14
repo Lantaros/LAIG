@@ -1638,7 +1638,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
-  this.scene.multMatrix(node.applyAnimation());
+  this.scene.multMatrix(node.animationMatix);
 
   if (node.textureID !='null') {
     if (node.textureID == 'clear')

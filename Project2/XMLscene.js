@@ -163,16 +163,9 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(currTime){
-  // this.animations.forEach(function(element) {
-  //   console.log(element);
-  //   element.update(currTime - this.lastTime);
-  // });
-
-/*  for(Animation element in this.animations) {
-    element.update(currTime - this.lastTime);
-  }*/
-   for(let i = 0; i < this.graph.nodes.length; i++){
-     this.graph.nodes[i].updateAnimation(currTime - this.lastTime);
+ for(var node in this.graph.nodes) {
+    this.graph.nodes[node].updateAnimationMatrix(currTime - this.lastTime);
   }
-   this.lastTime = currTime;
+
+ this.lastTime = currTime;
 }

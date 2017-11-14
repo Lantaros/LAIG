@@ -182,20 +182,11 @@
         <controlpoint xx="8" yy="8" zz="8" />
     </ANIMATION>
 
-    <ANIMATION id="123" speed="1.5" type="linear">
+    <ANIMATION id="test2" speed="1.5" type="linear">
         <controlpoint xx="5" yy="5" zz="5" />
         <controlpoint xx="8" yy="8" zz="8" />
     </ANIMATION>
 
-        <ANIMATION id="345" speed="1.5" type="linear">
-            <controlpoint xx="5" yy="5" zz="5" />
-            <controlpoint xx="8" yy="8" zz="8" />S
-        </ANIMATION>
-
-            <ANIMATION id="456" speed="1.5" type="linear">
-                <controlpoint xx="5" yy="5" zz="5" />
-                <controlpoint xx="8" yy="8" zz="8" />
-            </ANIMATION>
 </ANIMATIONS>
 
 
