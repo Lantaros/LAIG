@@ -5,11 +5,13 @@ class Animation{
       this.id = id;
       this.animationVelocity = animationVelocity;
       this.controlPoints = controlPoints;
+      this.animationEnd = false;
   }
 
 
- update(dt) {
+ // update(dt) {}
 
-  }
-  
+ hasEnded(){
+      return this.animationEnd;
+ }
 }

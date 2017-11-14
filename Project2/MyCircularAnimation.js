@@ -17,17 +17,17 @@ class CircularAnimation extends Animation{
 
  update(dt) {
     if(this.lastAng >= this.rotAng)
-      return;
+       this.animationEnd = true;
+    else {
+      this.time += dt;
+      let dAlfa = this.startAng + this.angVelocity* this.time;
 
-    this.time += dt;
-    let dAlfa = this.startAng + this.angVelocity* this.time;
+      mat4.identity(this.transformMatrix);
 
-    mat4.identity(this.transformMatrix);
-
-    this.transformMatrix.translate(this.center[0], this.center[1], 0);
-    this.transformMatrix.rotate(dAlfa, 0, 1, 0);
-    this.transformMatrix.translate(this.radius, 0, 0);
-    this.transformMatrix.rotate(Math.PI/2, 0, 1, 0);
+      this.transformMatrix.translate(this.center[0], this.center[1], 0);
+      this.transformMatrix.rotate(dAlfa, 0, 1, 0);
+      this.transformMatrix.translate(this.radius, 0, 0);
+      this.transformMatrix.rotate(Math.PI/2, 0, 1, 0);
+    }
   }
-
 }

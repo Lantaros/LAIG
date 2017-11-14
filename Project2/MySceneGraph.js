@@ -144,7 +144,7 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
         return "tag <ANIMATIONS> missing";
     else {
       if (index != ANIMATIONS_INDEX)
-          this.onXMLMinorError("tag <MATERIALS> out of order");
+          this.onXMLMinorError("tag <ANIMATIONS> out of order");
 
 
       if ((error = this.parseAnimations(nodes[index])) != null )
@@ -1190,7 +1190,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         if (animationID == null )
             return "no ID defined for animation";
 
-        if (this.animations[animationID] != null )
+        if (this.scene.animations[animationID] != null )
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
         //animation speed
@@ -1199,16 +1199,16 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             return "no speed defined for animation";
 
         //animation type
-        let animationType = this.reader.getFloat(children[i], 'type');
+        let animationType = this.reader.getString(children[i], 'type');
         if (animationType == null )
             return "no type defined for animation";
 
         //animation loop -> TODO confirm with teacher
-         let animationLoop = this.reader.getString(children[i], 'loop');
+      /*   let animationLoop = this.reader.getString(children[i], 'loop');
          if (animationLoop == null )
             animationLoop = false;
          else
-            animationLoop = true;
+            animationLoop = true;*/
 
         let animation;
         let controlPointsParser = children[i].children;
@@ -1218,7 +1218,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
           case "linear":
             let x_l, y_l , z_l;
             let controlPoints_l = new Array();
-            for (let i = 0; i < controlPointsParser_l.length; i++){
+            for (let i = 0; i < controlPointsParser.length; i++){
                 x_l = this.reader.getFloat(controlPointsParser[i], 'xx');
                 y_l = this.reader.getFloat(controlPointsParser[i], 'yy');
                 z_l = this.reader.getFloat(controlPointsParser[i], 'zz');
@@ -1274,7 +1274,9 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
         }
 
-        this.scene.animations.push(animation);
+        // this.scene.animations.push(animation);
+        this.scene.animations[animationID]= animation;
+        this.scene.animations.length++;
     }
 
     console.log("Parsed animations");
@@ -1312,13 +1314,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
             this.log("Processing node "+nodeID);
 
+            var selectable = false;
+            if(this.reader.hasAttribute(children[i], 'selectable'))
+              selectable = this.reader.getBoolean(children[i], 'selectable');
+
+
             // Creates node.
-            this.nodes[nodeID] = new MyGraphNode(this,nodeID);
+            this.nodes[nodeID] = new MyGraphNode(this,nodeID, selectable);
 
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
-            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
             for (var j = 0; j < nodeSpecs.length; j++) {
                 var name = nodeSpecs[j].nodeName;
                 specsNames.push(nodeSpecs[j].nodeName);
@@ -1433,6 +1440,22 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 }
             }
 
+           // Retrieves possible animations.
+            var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+            if (animationsIndex != -1){
+                var animationsChildren = nodeSpecs[animationsIndex].children;
+                for (let i = 0; i < animationsChildren.length; i++){
+                    if(animationsChildren[i].nodeName != "ANIMATIONREF"){
+                      console.warn("Unknown tag " + animationsChildren[i].nodeName + " inside ANIMATIONREFS block\n");
+                      continue;
+                    }
+                    var animationID = this.reader.getString(animationsChildren[i], 'id');
+                    // for (let a = 0; a < this.scene.animations.length; a++)
+                      if (animationID != "null" && this.scene.animations[animationID] == null )
+                          return "ID does not correspond to a valid animation (node ID = " + nodeID + ")";
+                    this.nodes[nodeID].animationRefs.push(animationID);
+                }
+            }
             // Retrieves information about children.
             var descendantsIndex = specsNames.indexOf("DESCENDANTS");
             if (descendantsIndex == -1)
@@ -1614,7 +1637,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var material = parAsp;
 
   this.scene.pushMatrix();
-//  this.scene.multMatrix(node.transformMatrix);
+  this.scene.multMatrix(node.transformMatrix);
   this.scene.multMatrix(node.applyAnimation());
 
   if (node.textureID !='null') {

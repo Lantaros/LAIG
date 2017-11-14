@@ -177,8 +177,25 @@
 </MATERIALS>
 
 <ANIMATIONS>
-   
+    <ANIMATION id="test" speed="1.5" type="linear">
+        <controlpoint xx="5" yy="5" zz="5" />
+        <controlpoint xx="8" yy="8" zz="8" />
+    </ANIMATION>
 
+    <ANIMATION id="123" speed="1.5" type="linear">
+        <controlpoint xx="5" yy="5" zz="5" />
+        <controlpoint xx="8" yy="8" zz="8" />
+    </ANIMATION>
+
+        <ANIMATION id="345" speed="1.5" type="linear">
+            <controlpoint xx="5" yy="5" zz="5" />
+            <controlpoint xx="8" yy="8" zz="8" />S
+        </ANIMATION>
+
+            <ANIMATION id="456" speed="1.5" type="linear">
+                <controlpoint xx="5" yy="5" zz="5" />
+                <controlpoint xx="8" yy="8" zz="8" />
+            </ANIMATION>
 </ANIMATIONS>
 
 
@@ -954,11 +971,13 @@
     </NODE>
 
 
-    <NODE id="claptrapSimple">
+    <NODE id="claptrapSimple" selectable = "true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
   	    <TRANSLATION x="10" y="0.55" z="9" />
+
+
 
         <DESCENDANTS>
           <NODEREF id="claptrapSimple1"/>
@@ -1407,6 +1426,11 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="20" y="2" z="10"/>
+
+
+        <ANIMATIONREFS>
+          <ANIMATIONREF id="test"/>
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="podHead"/>

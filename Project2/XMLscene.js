@@ -38,6 +38,7 @@ XMLscene.prototype.init = function(application) {
 
     this.primitives = [];
     this.animations = [];
+    this.setUpdatePeriod(100);
 }
 
 /**
@@ -162,8 +163,16 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.update = function(currTime){
-  for(let i = 0; i < this.animations.length; i++){
-    this.animations[i].update(currTime - this.lastTime);
+  // this.animations.forEach(function(element) {
+  //   console.log(element);
+  //   element.update(currTime - this.lastTime);
+  // });
+
+/*  for(Animation element in this.animations) {
+    element.update(currTime - this.lastTime);
+  }*/
+   for(let i = 0; i < this.graph.nodes.length; i++){
+     this.graph.nodes[i].updateAnimation(currTime - this.lastTime);
   }
-  this.lastTime = currTime;
+   this.lastTime = currTime;
 }

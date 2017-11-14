@@ -3,7 +3,7 @@
  * @constructor
 **/
 
-function MyGraphNode(graph, nodeID) {
+function MyGraphNode(graph, nodeID, selectable) {
     this.graph = graph;
 
     this.nodeID = nodeID;
@@ -19,6 +19,10 @@ function MyGraphNode(graph, nodeID) {
 
     // The texture ID.
     this.textureID = null ;
+
+    this.animationRefs = new Array();
+
+    this.currAnimation = 0;
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
@@ -38,12 +42,21 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
+MyGraphNode.prototype.updateAnimation = function(dt){
+  if (this.currAnimation < this.animationRefs.length){
+    this.graph.scene.animations[this.animationRefs[this.currAnimation]].update(dt);
+  }
+}
 MyGraphNode.prototype.applyAnimation = function() {
-    let tempMatrix = mat4.create();
+  let tempMatrix = mat4.create();
+  mat4.identity(tempMatrix);
+  if (this.currAnimation < this.animationRefs.length){
     mat4.copy(tempMatrix, this.transformMatrix);
-  //  this.transformMatrix.copy(tempMatrix);
-  //  tempMatrix.multMatrix(this.graph.scene.animations[this.animationID].transformMatrix);
-    this.graph.scene.animations[this.animationID].transformMatrix.multMatrix(tempMatrix);
-
-    return tempMatrix;
+    if(this.graph.scene.animations[this.animationRefs[this.currAnimation]].hasEnded())
+      this.currAnimation++;
+    mat4.multiply(tempMatrix, tempMatrix,
+      this.graph.scene.animations[this.animationRefs[this.currAnimation]].transformMatrix);
+    //  alert(this.graph.scene.animations[this.animationRefs[this.currAnimation]].transformMatrix);
+  }
+  return tempMatrix;
 }
