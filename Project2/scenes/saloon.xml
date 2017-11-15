@@ -178,8 +178,8 @@
 
 <ANIMATIONS>
     <ANIMATION id="test" speed="1.5" type="linear">
-        <controlpoint xx="5" yy="5" zz="5" />
-        <controlpoint xx="8" yy="8" zz="8" />
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="3" yy="3" zz="3" />
     </ANIMATION>
 
     <ANIMATION id="test2" speed="1.5" type="linear">
@@ -1326,7 +1326,6 @@
            <NODEREF id="claptrapRightForearm"/>
            <NODEREF id="claptrapRightArm"/>
            <NODEREF id="claptrapRightElbow"/>
-           <NODEREF id="claptrapRightFingers"/>
         </DESCENDANTS>
 
     </NODE>
@@ -1356,7 +1355,6 @@
            <LEAF type="cylinder" args="2 1 1 20 50 1 1" />
         </DESCENDANTS>
 
-
         </NODE>
 
         <NODE id="claptrapRightElbow">
@@ -1371,53 +1369,12 @@
 
         </NODE>
 
-      <NODE id="claptrapRightFingers">
-          <MATERIAL id="silver" />
-          <TEXTURE id="null" />
-
-          <TRANSLATION x="-1.35" y="-1.85" z="0.46"/>
-          <ROTATION axis="z" angle="90"/>
-          <ROTATION axis="x" angle="180"/>
-          <SCALE sx = "0.04" sy ="0.08" sz ="0.08"/>
-
-          <DESCENDANTS>
-              <NODEREF id="claptrapRightFinger1"/>
-              <NODEREF id="claptrapRightFinger2"/>
-          </DESCENDANTS>
-
-      </NODE>
-
-      <NODE id="claptrapRightFinger1">
-          <MATERIAL id="null" />
-          <TEXTURE id="null" />
-
-
-
-          <DESCENDANTS>
-              <NODEREF id="trapezoid"/>
-          </DESCENDANTS>
-
-      </NODE>
-
-      <NODE id="claptrapRightFinger2">
-          <MATERIAL id="null" />
-          <TEXTURE id="null" />
-
-          <DESCENDANTS>
-              <NODEREF id="trapezoid"/>
-          </DESCENDANTS>
-
-      </NODE>
-
-
-
 
     <NODE id="pod">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="20" y="2" z="10"/>
-
+        <TRANSLATION x="20" y="12" z="1"/>
 
         <ANIMATIONREFS>
           <ANIMATIONREF id="test"/>
