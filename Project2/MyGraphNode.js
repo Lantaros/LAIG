@@ -23,6 +23,7 @@ function MyGraphNode(graph, nodeID, selectable) {
     this.animationRefs = new Array();
     this.currAnimation = 0;
     this.animationMatix = mat4.create();
+    mat4.identity(this.animationMatix);
     this.time = 0;
 
     this.transformMatrix = mat4.create();
@@ -45,13 +46,11 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
   this.time += dt/1000;
-  if (this.currAnimation < this.animationRefs.length){
-    if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
-      this.time = 0;
-      this.currAnimation++;
+    if (this.currAnimation < this.animationRefs.length){
+      this.animationMatix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time);
+      if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
+        this.time = 0;
+        this.currAnimation++;
+      }
     }
-  this.animationMatix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time);
-  }
-  else
-      mat4.identity(this.animationMatix);
 }

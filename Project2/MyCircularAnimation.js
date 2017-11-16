@@ -4,30 +4,27 @@ class CircularAnimation extends Animation{
     super(scene, id, animationVelocity, new Array());
 
     this.radius = radius;
-    this.startAng = startAng;
-    this.rotAng = rotAng;
+    this.startAng = startAng * Math.PI/180;;
+    this.rotAng = rotAng * Math.PI/180;
     this.center = center;
     this.angVelocity = this.animationVelocity/this.radius;
 
     this.transformMatrix = mat4.create();
-    this.lastAng = 0;
-    this.time = 0;
+    this.totalTime = this.rotAng / this.angVelocity;
 
 }
 
- update(dt) {
-    if(this.lastAng >= this.rotAng)
+   getTransformMatrix(time) {
+    if(time * this.angVelocity >=  this.rotAng)
        this.animationEnd = true;
     else {
-      this.time += dt;
-      let dAlfa = this.startAng + this.angVelocity* this.time;
-
       mat4.identity(this.transformMatrix);
-
-      this.transformMatrix.translate(this.center[0], this.center[1], 0);
-      this.transformMatrix.rotate(dAlfa, 0, 1, 0);
-      this.transformMatrix.translate(this.radius, 0, 0);
-      this.transformMatrix.rotate(Math.PI/2, 0, 1, 0);
+      let dAlfa = this.startAng + this.angVelocity* time;
+      mat4.translate(this.transformMatrix, this.transformMatrix, [this.center[0], this.center[1], 0]);
+      mat4.rotate(this.transformMatrix, this.transformMatrix, dAlfa, [0, 1, 0]);
+      mat4.translate(this.transformMatrix, this.transformMatrix, [this.radius, 0, 0]);
+      mat4.rotate(this.transformMatrix, this.transformMatrix, Math.PI/2, [0, 1, 0]);
     }
+    return this.transformMatrix;
   }
 }

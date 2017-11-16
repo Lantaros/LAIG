@@ -24,22 +24,22 @@ class LinearAnimation extends Animation{
     this.transformMatrix = mat4.create();
     this.time = 0;
   }
-  getTotalTime(){
-    return this.totalTime;
-  }
 
    getTransformMatrix(time) {
     mat4.identity(this.transformMatrix);
     if(this.currentAnimation < this.controlPoints.length - 1){
       let dx = time * this.initValues[this.currentAnimation][0];
       let dy = time * this.initValues[this.currentAnimation][1];
-      if (dx == this.controlPoints[this.currentAnimation][0] &&  dy == this.controlPoints[this.currentAnimation][1]) // currentAnimation has ended
+
+      console.log("dx: "+ dx +  "-" + "CPx: " + this.controlPoints[this.currentAnimation+1][0]);
+      console.log("idx " + this.currentAnimation);
+      if (dx > this.controlPoints[this.currentAnimation+1][0] && dy > this.controlPoints[this.currentAnimation+1][1]) // currentAnimation has ended
         this.currentAnimation++;
 
       mat4.identity(this.transformMatrix);
       mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, 0]);
       mat4.translate(this.transformMatrix, this.transformMatrix,
-         [this.controlPoints[this.currentAnimation][0],this.controlPoints[this.currentAnimation][1],0]);
+         [this.controlPoints[this.currentAnimation][0], this.controlPoints[this.currentAnimation][1], 0]);
 
       mat4.rotate(this.transformMatrix, this.transformMatrix, Math.acos(this.initValues[this.currentAnimation][2]), [0, 1, 0]);
       // this.transformMatrix.translate(this.controlPoints[this.currentAnimation][0],this.controlPoints[this.currentAnimation][1],0);

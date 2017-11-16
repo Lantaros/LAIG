@@ -1227,16 +1227,17 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             animation = new LinearAnimation(this.scene, animationID, animationSpeed, controlPoints_l);
             break;
 
-          case "circular":
-            let cx,cy,cz, radius, startAng, rotAng;
-            cx = this.reader.getFloat(controlPointsParser[i], 'centerx');
-            cy = this.reader.getFloat(controlPointsParser[i], 'centery');
-            cz = this.reader.getFloat(controlPointsParser[i], 'centerz');
-            radius = this.reader.getFloat(controlPointsParser[i], 'radius');
-            startAng = this.reader.getFloat(controlPointsParser[i], 'startang');
-            rotAng = this.reader.getFloat(controlPointsParser[i], 'rotang');
-            animation = new CircularAnimation(this.scene, animationID, animationSpeed, new Array(cx, cy, cz), radius, startAng, rotAng);
-            break;
+            case "circular":
+               let cx,cy,cz, radius, startAng, rotAng;
+               cx = this.reader.getFloat(children[i], 'centerx');
+               cy = this.reader.getFloat(children[i], 'centery');
+               cz = this.reader.getFloat(children[i], 'centerz');
+               radius = this.reader.getFloat(children[i], 'radius');
+               startAng = this.reader.getFloat(children[i], 'startang');
+               rotAng = this.reader.getFloat(children[i], 'rotang');
+               animation = new CircularAnimation(this.scene, animationID, animationSpeed, new Array(cx, cy, cz), radius, startAng, rotAng);
+               break;
+
 
           case "bezier":
             let x_b, y_b , z_b;

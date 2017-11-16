@@ -6,10 +6,15 @@ class Animation{
       this.animationVelocity = animationVelocity;
       this.controlPoints = controlPoints;
       this.animationEnd = false;
+      this.totalTime = 0;
   }
 
 
  // update(dt) {}
+
+ getTotalTime(){
+   return this.totalTime;
+ }
 
  hasEnded(){
       return this.animationEnd;
