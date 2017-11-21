@@ -50,7 +50,7 @@ MyInterface.prototype.addLightsGroup = function(lights) {
 
 MyInterface.prototype.addNodesDropDown = function(nodes) {
 
-  for (let i = 0; i < nodes.size(); i++)
+  /*for (let i = 0; i < nodes.size(); i++)
     if (nodes[i].selectable){
         this.guy.add(this.scene, 'SelectableNodes'), {nodes[i].nodeID: i,
             }).name('Selected Node');
