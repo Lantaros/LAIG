@@ -3,7 +3,7 @@
  * @constructor
  */
 function MyInterface() {
-    //call CGFinterface constructor 
+    //call CGFinterface constructor
     CGFinterface.call(this);
 }
 ;
@@ -21,11 +21,12 @@ MyInterface.prototype.init = function(application) {
 
     // init GUI. For more information on the methods, check:
     //  http://workshop.chromeexperiments.com/examples/gui
-    
+
     this.gui = new dat.GUI();
 
     // add a group of controls (and open/expand by defult)
-    
+
+
     return true;
 };
 
@@ -46,5 +47,44 @@ MyInterface.prototype.addLightsGroup = function(lights) {
             group.add(this.scene.lightValues, key);
         }
     }
-}
 
+MyInterface.prototype.addNodesDropDown = function(nodes) {
+
+  /*for (let i = 0; i < nodes.size(); i++)
+    if (nodes[i].selectable){
+        this.guy.add(this.scene, 'SelectableNodes'), {nodes[i].nodeID: i,
+            }).name('Selected Node');
+    }
+
+    gui.add(text, 'speed', {
+      for (let i = 0; i < nodes.size(); i++)
+        if (nodes[i].selectable){
+          node[i].nodeID: i
+        }
+      } );
+
+  /*  for (var node in nodes) {
+      if (node.selectable){
+            this.guy.add(this.scene, 'SelectableNodes'), {node.nodeID: }
+        }
+    }
+
+  this.gui.add(this.scene, 'SelectableNodes', {
+       'Flat Shading': 0,
+       'Passing a scale as uniform': 1,
+       'Passing a varying parameter from VS -> FS': 2,
+       'Simple texturing': 3,
+       'Multiple textures in the FS': 4,
+       'Multiple textures in VS and FS': 5,
+       'Sepia': 6,
+       'Convolution': 7
+
+  /*   */
+
+
+  obj=this;
+  this.gui.add(this.scene, 'wireframe').onChange(function(v)
+    { obj.scene.updateWireframe(v)	});
+
+
+}

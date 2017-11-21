@@ -7,7 +7,7 @@ class ComboAnimation{
   this.animationIDs = animationIDs;
   }
 
-   update(dt) {
+   update(time, section) {
     if(this.currAnimation < this.animationIDs.length)
       this.scene.animations[this.currAnimation].update(dt);
   }

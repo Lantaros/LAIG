@@ -7,6 +7,7 @@ class Animation{
       this.controlPoints = controlPoints;
       this.animationEnd = false;
       this.totalTime = 0;
+      this.secTimes = new Array();
   }
 
 

@@ -100,6 +100,9 @@ XMLscene.prototype.onGraphLoaded = function()
 
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
+
+
+    this.interface.addNodesDropdown(this.graph.nodes);
 }
 
 /**
@@ -166,6 +169,5 @@ XMLscene.prototype.update = function(currTime){
  for(var node in this.graph.nodes) {
     this.graph.nodes[node].updateAnimationMatrix(currTime - this.lastTime);
   }
-
  this.lastTime = currTime;
 }
