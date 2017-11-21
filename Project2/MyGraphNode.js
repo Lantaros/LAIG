@@ -20,6 +20,8 @@ function MyGraphNode(graph, nodeID, selectable) {
     // The texture ID.
     this.textureID = null ;
 
+    this.selectable = selectable;
+
     this.animationRefs = new Array();
     this.currAnimation = 0;
     this.animationMatrix = mat4.create();
