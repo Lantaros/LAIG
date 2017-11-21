@@ -166,6 +166,5 @@ XMLscene.prototype.update = function(currTime){
  for(var node in this.graph.nodes) {
     this.graph.nodes[node].updateAnimationMatrix(currTime - this.lastTime);
   }
-
  this.lastTime = currTime;
 }

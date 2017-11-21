@@ -11,10 +11,10 @@ class CircularAnimation extends Animation{
 
     this.transformMatrix = mat4.create();
     this.totalTime = this.rotAng / this.angVelocity;
-
+    this.secTimes.push(this.totalTime);
 }
 
-   getTransformMatrix(time) {
+   getTransformMatrix(time, section) {
     if(time * this.angVelocity >=  this.rotAng)
        this.animationEnd = true;
     else {

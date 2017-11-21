@@ -22,12 +22,14 @@ function MyGraphNode(graph, nodeID, selectable) {
 
     this.animationRefs = new Array();
     this.currAnimation = 0;
-    this.animationMatix = mat4.create();
-    mat4.identity(this.animationMatix);
+    this.animationMatrix = mat4.create();
+    mat4.identity(this.animationMatrix);
     this.time = 0;
 
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
+
+    this.currentSection = 0;//Used in Linear and Combo Animations
 }
 
 /**
@@ -45,12 +47,15 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
-  this.time += dt/1000;
-    if (this.currAnimation < this.animationRefs.length){
-      this.animationMatix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time);
-      if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
-        this.time = 0;
-        this.currAnimation++;
+  this.time += dt/1000; // to seconds
+  if (this.currAnimation < this.animationRefs.length){
+    this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time, this.currentSection);
+    if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
+      this.time = 0;
+      this.currentSection = 0;
+      this.currAnimation++;
       }
+     else if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection])
+        this.currentSection++;
     }
 }

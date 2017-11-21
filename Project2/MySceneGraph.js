@@ -1203,13 +1203,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         if (animationType == null )
             return "no type defined for animation";
 
-        //animation loop -> TODO confirm with teacher
-      /*   let animationLoop = this.reader.getString(children[i], 'loop');
-         if (animationLoop == null )
-            animationLoop = false;
-         else
-            animationLoop = true;*/
-
         let animation;
         let controlPointsParser = children[i].children;
 
@@ -1639,7 +1632,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 
   this.scene.pushMatrix();
   this.scene.multMatrix(node.transformMatrix);
-  this.scene.multMatrix(node.animationMatix);
+  this.scene.multMatrix(node.animationMatrix);
 
   if (node.textureID !='null') {
     if (node.textureID == 'clear')
