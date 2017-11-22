@@ -11,6 +11,7 @@ function XMLscene(interface) {
 
     this.lightValues = {};
     this.lastTime = 0;
+
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -102,7 +103,7 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addLightsGroup(this.graph.lights);
 
 
-    this.interface.addNodesDropdown(this.graph.nodes);
+    this.interface.addNodesDropdown(this.graph.selectableNodes);
 }
 
 /**

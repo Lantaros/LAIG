@@ -47,44 +47,22 @@ MyInterface.prototype.addLightsGroup = function(lights) {
             group.add(this.scene.lightValues, key);
         }
     }
+  }
 
-MyInterface.prototype.addNodesDropDown = function(nodes) {
+MyInterface.prototype.addNodesDropdown = function(nodes) {
 
-  /*for (let i = 0; i < nodes.size(); i++)
-    if (nodes[i].selectable){
-        this.guy.add(this.scene, 'SelectableNodes'), {nodes[i].nodeID: i,
-            }).name('Selected Node');
-    }
 
-    gui.add(text, 'speed', {
-      for (let i = 0; i < nodes.size(); i++)
-        if (nodes[i].selectable){
-          node[i].nodeID: i
+   /*for (var node in nodes) {
+        this.gui.add(this.scene, 'selectableNodes', {node} );
+
+    }*/
+
+    let selectableGroup = this.gui.addFolder("Selected Node");
+    selectableGroup.open();
+
+   for (var node in nodes) {
+            selectableGroup.add(this.scene.graph.selectableNodes, node);
         }
-      } );
-
-  /*  for (var node in nodes) {
-      if (node.selectable){
-            this.guy.add(this.scene, 'SelectableNodes'), {node.nodeID: }
-        }
-    }
-
-  this.gui.add(this.scene, 'SelectableNodes', {
-       'Flat Shading': 0,
-       'Passing a scale as uniform': 1,
-       'Passing a varying parameter from VS -> FS': 2,
-       'Simple texturing': 3,
-       'Multiple textures in the FS': 4,
-       'Multiple textures in VS and FS': 5,
-       'Sepia': 6,
-       'Convolution': 7
-
-  /*   */
-
-
-  obj=this;
-  this.gui.add(this.scene, 'wireframe').onChange(function(v)
-    { obj.scene.updateWireframe(v)	});
 
 
 }
