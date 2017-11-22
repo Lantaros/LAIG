@@ -22,15 +22,14 @@ function MyGraphNode(graph, nodeID, selectable) {
 
     this.selectable = selectable;
 
-    this.animationRefs = new Array();
-    this.currAnimation = 0;
-    this.animationMatrix = mat4.create();
-    mat4.identity(this.animationMatrix);
-    this.time = 0;
-
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
 
+    this.animationRefs = new Array();
+    this.animationMatrix = mat4.create();
+    mat4.identity(this.animationMatrix);
+    this.time = 0;
+    this.currAnimation = 0;
     this.currentSection = 0;//Used in Linear and Combo Animations
 }
 

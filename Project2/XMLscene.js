@@ -38,7 +38,7 @@ XMLscene.prototype.init = function(application) {
 
     this.primitives = [];
     this.animations = [];
-    this.setUpdatePeriod(100);
+    this.setUpdatePeriod(16);
 }
 
 /**

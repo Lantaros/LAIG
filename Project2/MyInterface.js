@@ -33,22 +33,23 @@ MyInterface.prototype.init = function(application) {
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
-MyInterface.prototype.addLightsGroup = function(lights) {
+MyInterface.prototype.addLightsGroup = function (lights) {
 
-    var group = this.gui.addFolder("Lights");
-    group.open();
+  var group = this.gui.addFolder("Lights");
+  group.open();
 
-    // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
-    // e.g. this.option1=true; this.option2=false;
+  // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
+  // e.g. this.option1=true; this.option2=false;
 
-    for (var key in lights) {
-        if (lights.hasOwnProperty(key)) {
-            this.scene.lightValues[key] = lights[key][0];
-            group.add(this.scene.lightValues, key);
-        }
+  for (var key in lights) {
+    if (lights.hasOwnProperty(key)) {
+        this.scene.lightValues[key] = lights[key][0];
+        group.add(this.scene.lightValues, key);
     }
+  }
+}
 
-MyInterface.prototype.addNodesDropDown = function(nodes) {
+MyInterface.prototype.addNodesDropdown = function(nodes) {
 
   /*for (let i = 0; i < nodes.size(); i++)
     if (nodes[i].selectable){
@@ -80,11 +81,6 @@ MyInterface.prototype.addNodesDropDown = function(nodes) {
        'Convolution': 7
 
   /*   */
-
-
-  obj=this;
-  this.gui.add(this.scene, 'wireframe').onChange(function(v)
-    { obj.scene.updateWireframe(v)	});
-
-
+  // let obj=this;
+  // this.gui.add(this.scene, 'wireframe').onChange(function(v){ obj.scene.updateWireframe(v) })
 }

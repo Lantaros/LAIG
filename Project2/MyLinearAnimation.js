@@ -44,8 +44,8 @@ class LinearAnimation extends Animation{
          this.controlPoints[section][1],
          this.controlPoints[section][2]]);
 
-      console.log("idx " + section);
-      console.log("a " + this.initValues[section][3]);
+      console.log("Section " + section);
+      // console.log("a " + this.initValues[section][3]);
       mat4.rotate(this.transformMatrix, this.transformMatrix, Math.acos(this.initValues[section][3]), [0, 1, 0]);
     }
     else
