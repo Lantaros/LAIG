@@ -240,7 +240,7 @@
 
     </NODE>
 
-      <NODE id = "paredeBalcao">
+      <NODE id = "paredeBalcao" selectable = "true">
         <MATERIAL id ="null" />
         <TEXTURE id="balconyWall" />
 

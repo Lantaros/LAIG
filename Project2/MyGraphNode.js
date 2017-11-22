@@ -22,6 +22,7 @@ function MyGraphNode(graph, nodeID, selectable) {
 
     this.selectable = selectable;
 
+
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
 
@@ -31,6 +32,7 @@ function MyGraphNode(graph, nodeID, selectable) {
     this.time = 0;
     this.currAnimation = 0;
     this.currentSection = 0;//Used in Linear and Combo Animations
+
 }
 
 /**
