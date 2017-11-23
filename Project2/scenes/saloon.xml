@@ -183,10 +183,10 @@
         <controlpoint xx="3" yy="6" zz="3" />
     </ANIMATION>
 
-    <ANIMATION id="test2" speed="1.5" type="linear">
+    <!-- <ANIMATION id="test2" speed="1.5" type="linear">
         <controlpoint xx="4" yy="4" zz="4" />
             <controlpoint xx="1" yy="1" zz="1" />
-    </ANIMATION>
+    </ANIMATION> -->
 
     <ANIMATION id="testCirc" speed="1.5" type="circular"
                  centerx = "0" centery = "0" centerz = "0"

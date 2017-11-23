@@ -51,5 +51,6 @@ MyInterface.prototype.addLightsGroup = function (lights) {
 
 MyInterface.prototype.addNodesDropdown = function(nodes) {
   var shadersGroup = this.gui.addFolder("Shader Options");
-  this.gui.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
+  shadersGroup.open();
+  shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
 };
