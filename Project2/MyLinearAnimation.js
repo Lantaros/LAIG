@@ -39,8 +39,6 @@ class LinearAnimation extends Animation{
     for(let i = 0; i < section; i++)
       secTime -= this.secTimes[i];
 
-
-
     if(section < this.controlPoints.length - 1){
       mat4.identity(this.transformMatrix);
       let dx = secTime * this.initValues[section][0];

@@ -177,22 +177,19 @@
 </MATERIALS>
 
 <ANIMATIONS>
-    <ANIMATION id="test" speed="1.5" type="linear">
+    <ANIMATION id="testLin" speed="1.5" type="linear">
         <controlpoint xx="0" yy="0" zz="0" />
         <controlpoint xx="3" yy="0" zz="3" />
         <controlpoint xx="3" yy="6" zz="3" />
+        <controlpoint xx="4" yy="0" zz="4" />
+        <controlpoint xx="0" yy="0" zz="-6" />
     </ANIMATION>
-
-    <!-- <ANIMATION id="test2" speed="1.5" type="linear">
-        <controlpoint xx="4" yy="4" zz="4" />
-            <controlpoint xx="1" yy="1" zz="1" />
-    </ANIMATION> -->
 
     <ANIMATION id="testCirc" speed="1.5" type="circular"
                  centerx = "0" centery = "0" centerz = "0"
                  radius="2" startang ="-90" rotang ="90" />
 
-     <ANIMATION id="testBez" speed="1.5" type="bezier">
+     <ANIMATION id="testBez" speed="5" type="bezier">
          <controlpoint xx="0" yy="0" zz="0" />
          <controlpoint xx="3" yy="0" zz="0" />
          <controlpoint xx="3" yy="3" zz="0" />
@@ -987,7 +984,6 @@
   	    <TRANSLATION x="10" y="0.55" z="9" />
 
 
-
         <DESCENDANTS>
           <NODEREF id="claptrapSimple1"/>
         	<NODEREF id="claptrapSimple2"/>
@@ -1399,7 +1395,7 @@
         <TRANSLATION x="20" y="12" z="1"/>
 
         <ANIMATIONREFS>
-          <ANIMATIONREF id="test"/>
+          <ANIMATIONREF id="testLin"/>
         </ANIMATIONREFS>
 
         <DESCENDANTS>
