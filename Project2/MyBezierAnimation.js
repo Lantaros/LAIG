@@ -4,6 +4,9 @@ class BezierAnimation extends Animation{
     super(scene, id, animationVelocity, controlPoints);
 
     this.bezierPoints = new Array();
+    this.points = new Array();
+    this.secTimes = new Array();
+
     this.totalDistance = 0;
     for(let i = 0; i < 4; i++)
       this.bezierPoints.push(vec3.fromValues(controlPoints[i][0], controlPoints[i][1], controlPoints[i][2]));
@@ -57,32 +60,42 @@ class BezierAnimation extends Animation{
 
   }
 
-   getTransformMatrix(time, section) {
-    mat4.identity(this.transformMatrix);
-    if(this.currentAnimation < this.controlPoints.length - 1){
-      let dx = time * this.initValues[this.currentAnimation][0];
-      let dy = time * this.initValues[this.currentAnimation][1];
+getTransformMatrix(time, section) {
 
-      console.log("dx: "+ dx +  "-" + "CPx: " + this.controlPoints[this.currentAnimation+1][0]);
-      console.log("idx " + this.currentAnimation);
-      if (dx > this.controlPoints[this.currentAnimation+1][0] && dy > this.controlPoints[this.currentAnimation+1][1]) // currentAnimation has ended
-        this.currentAnimation++;
+     mat4.identity(this.transformMatrix);
+     if(section < this.points.length - 1){
 
-      mat4.identity(this.transformMatrix);
-      mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, 0]);
-      mat4.translate(this.transformMatrix, this.transformMatrix,
-         [this.controlPoints[this.currentAnimation][0], this.controlPoints[this.currentAnimation][1], 0]);
+       let dx = Math.pow(1-time,3) * this.bezierPoints[0][0] + 3*time*Math.pow(1-time,2) * this.bezierPoints[1][0] + 3*time*time*(1-time)* this.bezierPoints[2][0] + Math.pow(time,3)* this.bezierPoints[3][0];
+       let dy = Math.pow(1-time,3) * this.bezierPoints[0][1] + 3*time*Math.pow(1-time,2) * this.bezierPoints[1][1] + 3*time*time*(1-time)* this.bezierPoints[2][1] + Math.pow(time,3)* this.bezierPoints[3][1];
+       let dz = Math.pow(1-time,3) * this.bezierPoints[0][2] + 3*time*Math.pow(1-time,2) * this.bezierPoints[1][2] + 3*time*time*(1-time)* this.bezierPoints[2][2] + Math.pow(time,3)* this.bezierPoints[3][2];
 
-      mat4.rotate(this.transformMatrix, this.transformMatrix, Math.acos(this.initValues[this.currentAnimation][2]), [0, 1, 0]);
-      // this.transformMatrix.translate(this.controlPoints[this.currentAnimation][0],this.controlPoints[this.currentAnimation][1],0);
-      // this.transformMatrix.rotate(Math.acos(this.initValues[this.currentAnimation][3]), 0, 1, 0);
-    }
-    else
-      this.animationEnd = true;
+      let xAng = 3 * this.p4[0] * time * time
+       - 3 * this.bezierPoints[2][0] * time * time
+       + 6 * this.bezierPoints[2][0] * (1 - time) * time
+       - 6 * this.bezierPoints[1][0] * (1 - time) * time
+       + 3 * this.bezierPoints[1][0] * Math.pow(1 - time, 2)
+       - 3 * this.bezierPoints[0][0] * Math.pow(1 - time, 2);
 
-    return this.transformMatrix;
+      let zAng = 3 * this.p4[2] * time * time
+       - 3 * this.bezierPoints[2][2] * time * time
+       + 6 * this.bezierPoints[2][2] * (1 - time) * time
+       - 6 * this.bezierPoints[1][2] * (1 - time) * time
+       + 3 * this.bezierPoints[1][2] * Math.pow(1 - time, 2)
+       - 3 * this.bezierPoints[0][2] * Math.pow(1 - time, 2);
+
+       let ang = -Math.atan2(xAng, zAng);
+
+       mat4.identity(this.transformMatrix);
+       mat4.translate(this.transformMatrix, this.transformMatrix, [dx, dy, dz]);
+       mat4.rotate(this.transformMatrix, this.transformMatrix, ang , [0, 1, 0]);
+
+       console.log("Section Bez" + section);
+    //   mat4.rotate(this.transformMatrix, this.transformMatrix, Math.acos(this.points[section][3]), [0, 1, 0]);
+     }
+     else
+       this.animationEnd = true;
+
+     return this.transformMatrix;
   }
-
-
 
 }
