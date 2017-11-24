@@ -192,8 +192,8 @@
      <ANIMATION id="testBez" speed="5" type="bezier">
          <controlpoint xx="0" yy="0" zz="0" />
          <controlpoint xx="3" yy="0" zz="0" />
-         <controlpoint xx="3" yy="3" zz="0" />
-         <controlpoint xx="0" yy="3" zz="0" />
+         <controlpoint xx="3" yy="0" zz="3" />
+         <controlpoint xx="0" yy="0" zz="3" />
      </ANIMATION>
 
 </ANIMATIONS>
