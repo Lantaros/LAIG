@@ -31,6 +31,7 @@ function MyGraphNode(graph, nodeID, selectable) {
     mat4.identity(this.animationMatrix);
     this.time = 0;
     this.currAnimation = 0;
+    this.combIte = 0;
     this.currentSection = 0;//Used in Linear and Combo Animations
 
 }
@@ -52,10 +53,11 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
   this.time += dt/1000; // to seconds
   if (this.currAnimation < this.animationRefs.length){
-    this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time, this.currentSection);
+    this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time, this.combIte, this.currentSection);
     if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
       this.time = 0;
       this.currentSection = 0;
+      this.combIte = 0;
       this.currAnimation++;
       }
      else if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection])

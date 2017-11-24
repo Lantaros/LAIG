@@ -1,23 +1,32 @@
 
 class ComboAnimation{
-  constructor(scene, id, animations){
+  constructor(scene, id, animationRefs){
     this.scene = scene;
     this.id = id;
-    this.animstions = animations;
+    this.animationRefs = animationRefs;
+    this.animationMatrix = mat4.create();
+    mat4.identity(this.animationMatrix);
+    this.currentSection = 0;//Used in Linear and Combo Animations
+
+    for(let i; i <this.animationRefs.length; i++){
+      this.totalTime += this.animationRefs[i].getTotalTime();
+      this.secTimes.push(this.animationRefs[i].getTotalTime());
+    }
   }
 
-getTransformMatrix(time, section) {
-   if(time * this.angVelocity >=  this.rotAng)
-      this.animationEnd = true;
-   else {
-     mat4.identity(this.transformMatrix);
-     let dAlfa = this.startAng + this.angVelocity* time;
-     mat4.translate(this.transformMatrix, this.transformMatrix, [this.center[0], this.center[1], this.center[2] ]);
-     mat4.rotate(this.transformMatrix, this.transformMatrix, dAlfa, [0, 1, 0]);
-     mat4.translate(this.transformMatrix, this.transformMatrix, [this.radius, 0, 0]);
-     mat4.rotate(this.transformMatrix, this.transformMatrix, Math.PI/2, [0, 1, 0]);
-   }
-   return this.transformMatrix;
- }
+  getTransformMatrix(time, combIte, section) {
+    let combSecTime = time;
 
+    for(let i = 0; i < section; i++)
+      combSecTime -= this.secTimes[i];
+    if (combIte < this.animationRefs.length){
+      return  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(time, combIte, this.currentSection);
+      if(time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
+        this.currentSection = 0;
+        combIte++;
+        }
+       else if (time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection])
+          this.currentSection++;
+      }
+  }
 }

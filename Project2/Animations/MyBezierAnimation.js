@@ -54,7 +54,7 @@ casteljau(nIterations){
 
   }
 
-getTransformMatrix(time, section) {
+getTransformMatrix(time, combIte, section) {
 
      let t = time  / this.totalTime;
 
