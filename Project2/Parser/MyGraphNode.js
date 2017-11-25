@@ -51,6 +51,8 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
+    if(this.nodeID == 'claptrapGentleman')
+        console.log("");
   this.time += dt/1000; // to seconds
   if (this.currAnimation < this.animationRefs.length){
     this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this.time, this.combIte, this.currentSection);

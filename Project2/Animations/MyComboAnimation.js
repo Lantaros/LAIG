@@ -19,6 +19,9 @@ class ComboAnimation{
 
 
   }
+  getTotalTime(){
+    return this.totalTime;
+  }
 
   getTransformMatrix(time, combIte, section) {
     let combSecTime = time;
