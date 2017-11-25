@@ -1054,9 +1054,9 @@
   	    <TRANSLATION x="20" y="0.55" z="1" />
 
 
-        <ANIMATIONREFS>
+  <!--      <ANIMATIONREFS>
             <ANIMATIONREF id="testCombo"/>
-          </ANIMATIONREFS>
+          </ANIMATIONREFS> -->
 
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>

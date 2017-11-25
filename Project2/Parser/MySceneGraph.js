@@ -1654,8 +1654,16 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     material = this.materials[node.materialID];
   }
 
+  if (this.scene.currentSelectable == node.nodeID) {
+      this.scene.setActiveShader(this.scene.shader);
+  }
+
   for (var i = 0; i < node.children.length; i++) {
     this.processNode(this.nodes[node.children[i]], textura, material);
+  }
+
+  if (this.scene.currentSelectable == node.nodeID && node.children.length != 0) {
+        this.scene.setActiveShader(this.scene.defaultShader);
   }
 
   if (material != null) {
@@ -1666,9 +1674,12 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
       textura.bind();
   }
 
+
   for (var j = 0; j < node.leaves.length; j++) {
     node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
     node.leaves[j].display();
+    if (this.scene.currentSelectable == node.nodeID && node.children.length == 0)
+        this.scene.setActiveShader(this.scene.defaultShader);
   }
   this.scene.popMatrix();
 }

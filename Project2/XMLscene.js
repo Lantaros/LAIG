@@ -13,6 +13,8 @@ function XMLscene(interface) {
     this.currentSelectable = "None";
     this.lastTime = 0;
 
+    let currentDate = new Date();
+    this.initialTime = currentDate.getTime();
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -23,6 +25,10 @@ XMLscene.prototype.constructor = XMLscene;
  */
 XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
+
+    this.shader = new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag");
+    this.shader.setUniformsValues({selectedRed: 1.0, selectedGreen: 0.0, selectedBlue: 0.0});
+    this.updateScalingFactor();
 
     this.initCameras();
 
@@ -150,6 +156,13 @@ XMLscene.prototype.display = function() {
             }
         }
 
+       let newDate = new Date();
+       currTime = newDate.getTime();
+       if(this.initialTime == null) {
+           this.initialTime = currTime;
+       }
+       dT = (currTime - this.initialTime)/1000;
+       this.updateScalingFactor(dT);
         // Displays the scene.
         this.graph.displayScene();
 
@@ -173,3 +186,9 @@ XMLscene.prototype.update = function(currTime){
   }
  this.lastTime = currTime;
 }
+
+
+XMLscene.prototype.updateScalingFactor = function(date)
+{
+    this.shader.setUniformsValues({timeFactor: date});
+};
