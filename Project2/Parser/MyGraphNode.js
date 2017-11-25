@@ -51,7 +51,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
-    if(this.nodeID == 'claptrapGentleman')
+  if(this.nodeID == 'claptrapGentleman' && this.combIte == 0)
         console.log("");
   this.time += dt/1000; // to seconds
   if (this.currAnimation < this.animationRefs.length){
