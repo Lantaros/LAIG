@@ -211,7 +211,7 @@
          <controlpoint xx="0" yy="0" zz="3" />
      </ANIMATION>
 
-    <ANIMATION id="testCombo" type="combo">
+    <ANIMATION id="testCombo"  type="combo">
       	<SPANREF id="testLin"/>
       	<SPANREF id="testCirc"/>
      </ANIMATION>
@@ -1054,10 +1054,10 @@
   	    <TRANSLATION x="20" y="0.55" z="1" />
 
 
-    <!--     <ANIMATIONREFS>
+        <ANIMATIONREFS>
             <ANIMATIONREF id="testCombo"/>
           </ANIMATIONREFS>
- -->
+
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>
         	  <NODEREF id="claptrapEye"/>

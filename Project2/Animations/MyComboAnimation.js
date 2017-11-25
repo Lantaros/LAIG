@@ -17,22 +17,23 @@ class ComboAnimation{
       this.secTimes.push(time);
     }
 
+
   }
 
   getTransformMatrix(time, combIte, section) {
-    alert('here');
     let combSecTime = time;
 
     for(let i = 0; i < section; i++)
       combSecTime -= this.secTimes[i];
+
     if (combIte < this.animationRefs.length){
-      return  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(time, combIte, this.currentSection);
-      if(time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
+      return this.scene.animations[this.animationRefs[combIte]].getTransformMatrix(time, combIte, this.currentSection);
+    if(time >= this.scene.animations[this.animationRefs[combIte]].getTotalTime()){
         this.currentSection = 0;
         combIte++;
         }
-       else if (time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection])
-          this.currentSection++;
-      }
+    else if (time >= this.scene.animations[this.animationRefs[combIte]].secTimes[this.currentSection])
+        this.currentSection++;
+    }
   }
 }
