@@ -1,20 +1,26 @@
 
 class ComboAnimation{
   constructor(scene, id, animationRefs){
+
     this.scene = scene;
     this.id = id;
     this.animationRefs = animationRefs;
     this.animationMatrix = mat4.create();
     mat4.identity(this.animationMatrix);
     this.currentSection = 0;//Used in Linear and Combo Animations
-
-    for(let i; i <this.animationRefs.length; i++){
-      this.totalTime += this.animationRefs[i].getTotalTime();
-      this.secTimes.push(this.animationRefs[i].getTotalTime());
+    this.secTimes = new Array();
+    this.totalTime = 0;
+    let time = 0;
+    for(let i = 0; i <this.animationRefs.length; i++){
+      time = this.scene.animations[this.animationRefs[i]].getTotalTime();
+      this.totalTime += time;
+      this.secTimes.push(time);
     }
+
   }
 
   getTransformMatrix(time, combIte, section) {
+    alert('here');
     let combSecTime = time;
 
     for(let i = 0; i < section; i++)

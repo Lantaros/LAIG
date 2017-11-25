@@ -1196,13 +1196,17 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
         //animation speed
-        let animationSpeed = this.reader.getFloat(children[i], 'speed');
-        if (animationSpeed == null )
-            return "no speed defined for animation";
+        let animationSpeed = "0";
+        if (this.reader.hasAttribute(children[i], 'speed'))
+          animationSpeed = this.reader.getFloat(children[i], 'speed');
 
         //animation type
         let animationType = this.reader.getString(children[i], 'type');
-        if (animationType == null )
+
+        if (animationSpeed == null && animationType != "combo")
+            return "no speed defined for animation";
+
+        if (animationType == null)
             return "no type defined for animation";
 
         let animation;
@@ -1232,7 +1236,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
                rotAng = this.reader.getFloat(children[i], 'rotang');
                animation = new CircularAnimation(this.scene, animationID, animationSpeed, new Array(cx, cy, cz), radius, startAng, rotAng);
                break;
-
 
           case "bezier":
             let x_b, y_b , z_b;
@@ -1269,7 +1272,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
             break;
 
         }
-
         // this.scene.animations.push(animation);
         this.scene.animations[animationID]= animation;
         this.scene.animations.length++;
