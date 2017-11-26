@@ -51,14 +51,15 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
-  let secTime = 0;
-  for(let i = 0; i < this.currentSection; i++){
-    secTime -= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[i];
-  }
+  
   if(this.nodeID == 'pod')
         console.log("s: " + this.currentSection);
 
   this.time += dt/1000; // to seconds
+  let secTime = this.time;
+  for(let i = 0; i < this.currentSection; i++){
+    secTime -= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[i];
+  }
   if (this.currAnimation < this.animationRefs.length){
     this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this, this.time, this.currentSection);
     if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
