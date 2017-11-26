@@ -64,7 +64,7 @@ MyGraphNode.prototype.updateAnimationMatrix = function(dt){
       this.combIte = 0;
       this.currAnimation++;
       }
-     if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection]){
+     else if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection]){
         this.currentSection++;
         console.log("new currentsection " + this.currentSection);
         }
