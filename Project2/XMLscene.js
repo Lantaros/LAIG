@@ -31,6 +31,10 @@ XMLscene.prototype.init = function(application) {
     this.shaders["Red Pulse"] = new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag");
     this.shadersRefs.push("Red Pulse");
     this.shaders["Red Pulse"].setUniformsValues({selectedRed: 1.0, selectedGreen: 0.0, selectedBlue: 0.0});
+
+    this.shaders["Orange Pulse"] = new CGFshader(this.gl, "shaders/shaderOrange.vert", "shaders/shaderOrange.frag");
+    this.shadersRefs.push("Orange Pulse");
+    this.shaders["Orange Pulse"].setUniformsValues({selectedRed: 1.0, selectedGreen: 0.5, selectedBlue: 0.0});
     this.updateScalingFactor();
 
     this.initCameras();
