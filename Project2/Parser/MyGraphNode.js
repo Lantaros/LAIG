@@ -51,10 +51,6 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 }
 
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
-  
-  if(this.nodeID == 'pod')
-        console.log("s: " + this.currentSection);
-
   this.time += dt/1000; // to seconds
   let secTime = this.time;
   for(let i = 0; i < this.currentSection; i++){
@@ -70,7 +66,6 @@ MyGraphNode.prototype.updateAnimationMatrix = function(dt){
       }
      else if (secTime >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection]){
         this.currentSection++;
-        console.log("new currentsection " + this.currentSection);
         }
     }
 }
