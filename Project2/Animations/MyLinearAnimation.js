@@ -1,5 +1,15 @@
-
+/**
+ * A Linear Animatation
+ * @extends Animation
+ */
 class LinearAnimation extends Animation{
+  /**
+   * Constructor for Linear Animation
+   * @param scene The Scene of the World
+   * @param id Animation ID
+   * @param animationVelocity Animation Velocity
+   * @param controlPoints Animation Control points
+   */
   constructor(scene, id, animationVelocity, controlPoints){
     super(scene, id, animationVelocity, controlPoints);
 
@@ -33,8 +43,14 @@ class LinearAnimation extends Animation{
     this.transformMatrix = mat4.create();
 
   }
-
-   getTransformMatrix(node, time, section) {
+/**
+ * Calculates the new Transform Matrix for the Animation
+ * @param node Node referencing the Animation
+ * @param time Time passed
+ * @param section Current Section of the Animation
+ * @return Returns the new Transform Matrix
+ */
+getTransformMatrix(node, time, section) {
     let secTime = time;
     for(let i = 0; i < section; i++)
       secTime -= this.secTimes[i];

@@ -1,5 +1,13 @@
-
+/**
+ * A Combo Animation
+ */
 class ComboAnimation{
+  /**
+   * Constructs a Combo Animation
+   *  @param scene The Scene of the World
+   * @param id Animation ID
+   * @param animationRefs Animation ID References
+   */
   constructor(scene, id, animationRefs){
     this.scene = scene;
     this.id = id;
@@ -17,13 +25,21 @@ class ComboAnimation{
     }
 
   }
-  getTotalTime(){
-    return this.totalTime;
-  }
-
-  getTransformMatrix(node, time, section) {
-    // if(this.animationRefs[node.combIte] == 'gentlemanClaptrap1')
-       console.log("CombIte: " + node.combIte);
+/**
+ * Returns the sum of all Animations
+ * @return Returns the total time
+ */
+getTotalTime(){
+  return this.totalTime;
+}
+/**
+ * Calculates the new Transform Matrix for the Animation
+ * @param node Node referencing the Animation
+ * @param time Time passed
+ * @param section Current Section of the Animation(not used)
+ * @return Returns the new Transform Matrix
+ */
+getTransformMatrix(node, time, section) {
     let combSecTime = time;
 
     for(let i = 0; i < node.combIte; i++)
@@ -40,11 +56,7 @@ class ComboAnimation{
         mat4.identity(this.animationMatrix);
         this.animationMatrix =  this.scene.animations[this.animationRefs[node.combIte]].getTransformMatrix(node, combSecTime, node.currentSection);
       }
-
-
    }
-   if(this.animationMatrix[0] == 1 && this.animationMatrix[5] == 1 && this.animationMatrix[10] == 1)
-    console.log("Identety");
   return this.animationMatrix;
   }
 

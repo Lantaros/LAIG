@@ -1,5 +1,15 @@
-
+/**
+ * A Bezier Animation
+ * @extends Animation
+ */
 class BezierAnimation extends Animation{
+  /**
+   * Constructs a Bezier Animation
+   * @param scene The Scene of the World
+   * @param id Animation ID
+   * @param animationVelocity Animation Velocity
+   * @param controlPoints Animation Control Points
+   */
   constructor(scene, id, animationVelocity, controlPoints){
     super(scene, id, animationVelocity, controlPoints);
 
@@ -11,7 +21,6 @@ class BezierAnimation extends Animation{
     for(let i = 0; i < 4; i++)
       this.bezierPoints.push(vec3.fromValues(controlPoints[i][0], controlPoints[i][1], controlPoints[i][2]));
 
-
     this.totalDistance = this.casteljau(1);
 
     this.totalTime = this.totalDistance / animationVelocity;
@@ -20,6 +29,11 @@ class BezierAnimation extends Animation{
     this.secTimes.push(this.totalTime);
   }
 
+/**
+ * Calculates Casteljau's Algorithm
+ * @param nIterations number of iterations
+ * @return Returns the distance between points, using convex hulls
+ */
 casteljau(nIterations){
 
     let p12 = vec3.create();
@@ -54,6 +68,13 @@ casteljau(nIterations){
 
   }
 
+/**
+ * Calculates the new Transform Matrix for the Animation
+ * @param node Node referencing the Animation
+ * @param time Time passed
+ * @param section Current Section of the Animation(not used)
+ * @return Returns the new Transform Matrix
+ */
 getTransformMatrix(node, time, section) {
 
      let t = time  / this.totalTime;

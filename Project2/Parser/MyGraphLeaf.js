@@ -34,11 +34,18 @@ function MyGraphLeaf(graph, leafID, type, args) {
             break;
         }
 };
-
+/**
+ * Displays the object
+ */
 MyGraphLeaf.prototype.display = function() {
 	this.obj.display();
 };
 
+/**
+ * Updates the Texture Coordinates
+ * @param sFactor The S Factor
+ * @param tFactor The T Factor
+ */
 MyGraphLeaf.prototype.updateTexCoords = function(sFactor, tFactor) {
     this.obj.updateTexCoords(sFactor, tFactor);
 };

@@ -1,5 +1,18 @@
-
+/**
+ * A Circular Animation
+ * @extends Animation
+ */
 class CircularAnimation extends Animation{
+  /**
+   * Constructs a Circular Animation
+   * @param scene The Scene of the World
+   * @param id Animation ID
+   * @param animationVelocity Animation Velocity
+   * @param center  Center coordinates
+   * @param radius Distance between the object and the center
+   * @param startAng Initial Angle
+   * @param rotAng Rotation Angle
+   */
   constructor(scene, id, animationVelocity, center, radius, startAng, rotAng){
     super(scene, id, animationVelocity, new Array());
 
@@ -13,8 +26,14 @@ class CircularAnimation extends Animation{
     this.totalTime = this.rotAng / this.angVelocity;
     this.secTimes.push(this.totalTime);
 }
-
-   getTransformMatrix(node, time, section) {
+/**
+ * Calculates the new Transform Matrix for the Animation
+ * @param node Node referencing the Animation
+ * @param time Time passed
+ * @param section Current Section of the Animation(not used)
+ * @return Returns the new Transform Matrix
+ */
+getTransformMatrix(node, time, section) {
     if(time * this.angVelocity >=  this.rotAng)
        this.animationEnd = true;
     else {

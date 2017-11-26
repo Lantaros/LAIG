@@ -18,7 +18,7 @@ function XMLscene(interfac) {
     let currentDate = new Date();
     this.initialTime = currentDate.getTime();
 }
-
+/**
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
