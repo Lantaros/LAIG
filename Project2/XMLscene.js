@@ -4,10 +4,10 @@ var DEGREE_TO_RAD = Math.PI / 180;
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
  */
-function XMLscene(interface) {
+function XMLscene(interfac) {
     CGFscene.call(this);
 
-    this.interface = interface;
+    this.interfac = interfac;
 
     this.lightValues = {};
     this.currentSelectable = "None";
@@ -114,11 +114,11 @@ XMLscene.prototype.onGraphLoaded = function()
     this.initLights();
 
     // Adds lights group.
-    this.interface.addLightsGroup(this.graph.lights);
+    this.interfac.addLightsGroup(this.graph.lights);
 
 
-    this.interface.addNodesDropdown(this.graph.selectableNodes);
-    this.interface.addShadersDropdown(this.shadersRefs);
+    this.interfac.addNodesDropdown(this.graph.selectableNodes);
+    this.interfac.addShadersDropdown(this.shadersRefs);
 }
 
 /**
