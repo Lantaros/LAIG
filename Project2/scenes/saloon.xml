@@ -271,6 +271,8 @@
     <ANIMATION id="testCombo"  type="combo">
       	<SPANREF id="testCirc"/>
         <SPANREF id="testBez"/>
+        <SPANREF id="testLin"/>
+        <!-- <SPANREF id="testBez"/> -->
      </ANIMATION>
 
 </ANIMATIONS>
@@ -1482,13 +1484,13 @@
 
         <TRANSLATION x="20" y="12" z="1"/>
 
-        <ANIMATIONREFS>
+        <!-- <ANIMATIONREFS>
           <ANIMATIONREF id="p1"/>
           <ANIMATIONREF id="p2"/>
           <ANIMATIONREF id="p3"/>
           <ANIMATIONREF id="p4"/>
           <ANIMATIONREF id="p5"/>
-        </ANIMATIONREFS>
+        </ANIMATIONREFS> -->
 
         <DESCENDANTS>
             <NODEREF id="podHead"/>
