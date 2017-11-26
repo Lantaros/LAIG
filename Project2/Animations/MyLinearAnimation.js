@@ -24,7 +24,6 @@ class LinearAnimation extends Animation{
 
       let vx = animationVelocity * cosAlfa;
       let vz = animationVelocity * senAlfa;
-      // Math.sqrt(this.velocity * this.velocity - this.vx * this.vx - this.vz * this.vz) * this.yModifier;
       let vy = Math.sqrt(Math.round((this.animationVelocity * this.animationVelocity - vx*vx - vz*vz)*1000)/1000)*dy;
       this.secTimes.push(dist/this.animationVelocity);
       values.push(vx, vy, vz, alfa);
@@ -40,7 +39,7 @@ class LinearAnimation extends Animation{
     for(let i = 0; i < section; i++)
       secTime -= this.secTimes[i];
 
-      
+
     if(section < this.controlPoints.length - 1){
       mat4.identity(this.transformMatrix);
       let dx = secTime * this.initValues[section][0];
