@@ -295,7 +295,7 @@
 
 
 
-          <!-- DOR TESTING ONLY -->
+  <!-- DOR TESTING ONLY -->
   <ANIMATION id="testCirc" speed="1" type="circular"
            centerx = "0" centery = "0" centerz = "0"
            radius="2" startang ="-90" rotang ="90" />

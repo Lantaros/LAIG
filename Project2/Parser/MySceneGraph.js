@@ -1263,6 +1263,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
               idRef = this.reader.getString(controlPointsParser[i], 'id');
               if (this.scene.animations[idRef] == null) //in case the animation wasn't defined prior to this
                 return "The Animation wasn't defined!";
+
+                if (this.scene.animations[idRef] instanceof ComboAnimation)
+                    return "There can't be a combo inside another combo!";
+                    
               animationRefs.push(idRef);
             }
             animation = new ComboAnimation(this.scene, animationID, animationRefs);
