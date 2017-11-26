@@ -1632,54 +1632,50 @@ MySceneGraph.prototype.displayScene = function() {
    this.processNode(rootNode, null, this.materials[rootNode.materialID]);
 }
 
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
+  MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 
-	var textura = parTex;
-	var material = parAsp;
+  	var textura = parTex;
+  	var material = parAsp;
 
-  this.scene.pushMatrix();
-  this.scene.multMatrix(node.transformMatrix);
-  this.scene.multMatrix(node.animationMatrix);
+    this.scene.pushMatrix();
+    this.scene.multMatrix(node.transformMatrix);
+    this.scene.multMatrix(node.animationMatrix);
 
-  if (node.textureID !='null') {
-    if (node.textureID == 'clear')
-      textura = null;
-    else{
-      this.scene.currTexture = this.textures[node.textureID];
-      textura = this.textures[node.textureID][0];
+    if (node.textureID !='null') {
+      if (node.textureID == 'clear')
+        textura = null;
+      else{
+        this.scene.currTexture = this.textures[node.textureID];
+        textura = this.textures[node.textureID][0];
+      }
     }
-  }
 
-  if (node.materialID != "null") {
-    material = this.materials[node.materialID];
-  }
+    if (node.materialID != "null") {
+      material = this.materials[node.materialID];
+    }
 
-  if (this.scene.currentSelectable == node.nodeID) {
-      this.scene.setActiveShader(this.scene.shader);
-  }
+    if (this.scene.currentSelectable == node.nodeID) {
+        this.scene.setActiveShader(this.scene.shader);
+    }
 
-  for (var i = 0; i < node.children.length; i++) {
-    this.processNode(this.nodes[node.children[i]], textura, material);
-  }
+    for (var i = 0; i < node.children.length; i++) {
+      this.processNode(this.nodes[node.children[i]], textura, material);
+    }
 
-  if (this.scene.currentSelectable == node.nodeID && node.children.length != 0) {
+    if (material != null) {
+        material.apply();
+    }
+
+    if (textura != null) {
+        textura.bind();
+    }
+
+
+    for (var j = 0; j < node.leaves.length; j++) {
+      node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
+      node.leaves[j].display();
+    }
+    this.scene.popMatrix();
+    if (this.scene.currentSelectable == node.nodeID)
         this.scene.setActiveShader(this.scene.defaultShader);
   }
-
-  if (material != null) {
-      material.apply();
-  }
-
-  if (textura != null) {
-      textura.bind();
-  }
-
-
-  for (var j = 0; j < node.leaves.length; j++) {
-    node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
-    node.leaves[j].display();
-    if (this.scene.currentSelectable == node.nodeID && node.children.length == 0)
-        this.scene.setActiveShader(this.scene.defaultShader);
-  }
-  this.scene.popMatrix();
-}
