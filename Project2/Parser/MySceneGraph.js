@@ -1266,7 +1266,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
                 if (this.scene.animations[idRef] instanceof ComboAnimation)
                     return "There can't be a combo inside another combo!";
-                    
+
               animationRefs.push(idRef);
             }
             animation = new ComboAnimation(this.scene, animationID, animationRefs);
@@ -1635,8 +1635,13 @@ MySceneGraph.prototype.displayScene = function() {
   else
    this.processNode(rootNode, null, this.materials[rootNode.materialID]);
 }
-
-  MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
+/**
+ * Process all nodes
+ * @param node   current node being processed
+ * @param parTex texture
+ * @param parAsp material
+ */
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 
   	var textura = parTex;
   	var material = parAsp;
@@ -1673,8 +1678,7 @@ MySceneGraph.prototype.displayScene = function() {
     if (textura != null) {
         textura.bind();
     }
-
-
+    
     for (var j = 0; j < node.leaves.length; j++) {
       node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
       node.leaves[j].display();

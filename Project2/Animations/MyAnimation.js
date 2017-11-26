@@ -1,5 +1,14 @@
-
+/**
+ * A Animation that is used by others except Combo
+ */
 class Animation{
+  /**
+   * Constructs an Animation
+   * @param scene The Scene of the World
+   * @param id Animation ID
+   * @param animationVelocity Animation Velocity
+   * @param controlPoints Animation Control Points
+   */
   constructor(scene, id, animationVelocity, controlPoints){
       this.scene = scene;
       this.id = id;
@@ -10,14 +19,12 @@ class Animation{
       this.secTimes = new Array();
   }
 
-
- // update(dt) {}
-
+/**
+ * Returns the Total Time for the Animation
+ * @return Returns the total time
+ */
  getTotalTime(){
    return this.totalTime;
  }
 
- hasEnded(){
-      return this.animationEnd;
- }
 }

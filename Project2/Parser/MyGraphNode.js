@@ -50,6 +50,10 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
+/**
+ * Updates the Animation Matrix for the Node
+ * @param dt Time between interrupts
+ */
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
   if(this.nodeID == "claptrapSimple2")
     console.log("");
