@@ -167,8 +167,6 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
-
-
 </TEXTURES>
 
 
@@ -193,87 +191,132 @@
 
 <ANIMATIONS>
 
-    <!-- Companion Cube  -->
+    <!-- Companion Cube Left  -->
     <ANIMATION id="cc1" speed="3" type="linear">
         <controlpoint xx="0" yy="0" zz="3" />
-        <controlpoint xx="0" yy="8" zz="3" />
+        <controlpoint xx="0" yy="9" zz="3" />
     </ANIMATION>
 
     <ANIMATION id="cc2" speed="0.05" type="circular"
-               centerx = "0" centery = "8" centerz = "3"
+               centerx = "0" centery = "9" centerz = "1"
                radius="0.01" startang ="0" rotang ="360" />
 
-     <ANIMATION id="cc3" speed="3" type="linear">
-         <controlpoint xx="0" yy="8" zz="3" />
-         <controlpoint xx="0" yy="0" zz="3" />
+     <ANIMATION id="cc3" speed="8" type="linear">
+         <controlpoint xx="0" yy="9" zz="3" />
+         <controlpoint xx="0" yy="0.1" zz="3" />
      </ANIMATION>
 
-     <ANIMATION id="cpArms" speed="1" type="bezier">
-         <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="3" />
-         <controlpoint xx="0" yy="0" zz="3" />
+
+     <!-- Companion Cube Right  -->
+     <ANIMATION id="cc4" speed="3" type="linear">
+         <controlpoint xx="0" yy="0" zz="8" />
+         <controlpoint xx="0" yy="9" zz="8" />
      </ANIMATION>
 
+      <ANIMATION id="cc5" speed="9" type="linear">
+          <controlpoint xx="0" yy="9" zz="8" />
+          <controlpoint xx="0" yy="0.06" zz="8" />
+      </ANIMATION>
 
      <!-- Pod -->
 
-     <ANIMATION id="p1" speed="5" type="bezier">
+     <ANIMATION id="dummyAnimationPod" speed="0.09" type="linear">
          <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="0" yy="-2" zz="3" />
-         <controlpoint xx="0" yy="-4" zz="5" />
-         <controlpoint xx="0" yy="-9" zz="7" />
+         <controlpoint xx="0.5" yy="0" zz="0" />
      </ANIMATION>
 
-     <ANIMATION id="p2" speed="1" type="circular"
-                  centerx = "0" centery = "-9" centerz = "6.3"
-                  radius="0.1" startang ="-90" rotang ="90" />
+     <ANIMATION id="p1" speed="5" type="bezier">
+         <controlpoint xx="0" yy="1" zz="0" />
+         <controlpoint xx="0" yy="-0.5" zz="3" />
+         <controlpoint xx="0" yy="-3.8" zz="4.5" />
+         <controlpoint xx="0" yy="-9" zz="6" />
+     </ANIMATION>
 
-
-      <ANIMATION id="p3" speed="2" type="linear">
-          <controlpoint xx="0" yy="-9" zz="6.3" />
-          <controlpoint xx="0" yy="-9" zz="13" />
-          <controlpoint xx="0" yy="-9" zz="6.3" />
+      <ANIMATION id="p2" speed="2" type="linear">
+          <controlpoint xx="0" yy="-9" zz="6" />
+          <controlpoint xx="7" yy="-9" zz="6" />
+          <controlpoint xx="-6" yy="-9" zz="6" />
+          <controlpoint xx="0" yy="-9" zz="6" />
       </ANIMATION>
 
-     <ANIMATION id="p4" speed="5" type="bezier">
-         <controlpoint xx="0" yy="-9" zz="7" />
-         <controlpoint xx="0" yy="-4" zz="6" />
-         <controlpoint xx="0" yy="-1" zz="6" />
+     <ANIMATION id="p3" speed="5" type="bezier">
+         <controlpoint xx="0" yy="-9" zz="6" />
+         <controlpoint xx="0" yy="-4" zz="5" />
+         <controlpoint xx="0" yy="-1" zz="5" />
          <controlpoint xx="0" yy="1" zz="2" />
      </ANIMATION>
-     <ANIMATION id="p5" speed="4" type="circular"
+
+     <ANIMATION id="p4" speed="4" type="circular"
                   centerx = "-1" centery = "1" centerz = "2"
                   radius="0.1" startang ="0" rotang ="-180" />
 
+    <!-- Sphere  -->
 
-    <ANIMATION id="testCirc" speed="1" type="circular"
-                 centerx = "0" centery = "0" centerz = "0"
-                 radius="2" startang ="-90" rotang ="90" />
+    <ANIMATION id="s1" speed="20" type="bezier">
+        <controlpoint xx="0" yy="0" zz="0" />
+        <controlpoint xx="4" yy="13" zz="0" />
+        <controlpoint xx="8" yy="13" zz="0" />
+        <controlpoint xx="12" yy="0" zz="0" />
+    </ANIMATION>
 
-    <ANIMATION id="gentleman1" speed="0.5" type="circular"
-                 centerx = "0" centery = "0" centerz = "2.5"
-                 radius="0.3" startang ="-90" rotang ="90" />
-
-     <ANIMATION id="testLin" speed="1.5" type="linear">
-         <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="3" />
-         <controlpoint xx="3" yy="6" zz="3" />
+     <ANIMATION id="s2" speed="25" type="bezier">
+         <controlpoint xx="12" yy="0" zz="0" />
+         <controlpoint xx="15" yy="8" zz="0" />
+         <controlpoint xx="18" yy="8" zz="0" />
+         <controlpoint xx="21" yy="0" zz="0" />
      </ANIMATION>
 
-     <ANIMATION id="testBez" speed="3" type="bezier">
-         <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="3" />
-         <controlpoint xx="0" yy="0" zz="3" />
+     <ANIMATION id="s3" speed="35" type="bezier">
+         <controlpoint xx="21" yy="0" zz="0" />
+         <controlpoint xx="24" yy="6" zz="0" />
+         <controlpoint xx="26" yy="6" zz="0" />
+         <controlpoint xx="28" yy="0" zz="0" />
      </ANIMATION>
 
-    <ANIMATION id="testCombo"  type="combo">
-      	<SPANREF id="testCirc"/>
-        <SPANREF id="testBez"/>
-        <SPANREF id="testLin"/>
-        <!-- <SPANREF id="testBez"/> -->
+     <ANIMATION id="s4" speed="45" type="bezier">
+         <controlpoint xx="28" yy="0" zz="0" />
+         <controlpoint xx="29" yy="3" zz="0" />
+         <controlpoint xx="30" yy="3" zz="0" />
+         <controlpoint xx="31" yy="0" zz="0" />
      </ANIMATION>
+
+     <ANIMATION id="s5" speed="5" type="linear">
+         <controlpoint xx="31" yy="0" zz="0" />
+         <controlpoint xx="55" yy="0" zz="0" />
+     </ANIMATION>
+
+     <ANIMATION id="comboSphere" type="combo">
+       	<SPANREF id="s1"/>
+        <SPANREF id="s2"/>
+        <SPANREF id="s3"/>
+        <SPANREF id="s4"/>
+        <SPANREF id="s5"/>
+      </ANIMATION>
+
+
+
+          <!-- DOR TESTING ONLY -->
+  <ANIMATION id="testCirc" speed="1" type="circular"
+           centerx = "0" centery = "0" centerz = "0"
+           radius="2" startang ="-90" rotang ="90" />
+
+   <ANIMATION id="testLin" speed="1.5" type="linear">
+       <controlpoint xx="0" yy="0" zz="0" />
+       <controlpoint xx="3" yy="0" zz="3" />
+       <controlpoint xx="3" yy="6" zz="3" />
+   </ANIMATION>
+
+   <ANIMATION id="testBez" speed="3" type="bezier">
+       <controlpoint xx="0" yy="0" zz="0" />
+       <controlpoint xx="3" yy="0" zz="0" />
+       <controlpoint xx="3" yy="0" zz="3" />
+       <controlpoint xx="0" yy="0" zz="3" />
+   </ANIMATION>
+
+  <ANIMATION id="testCombo"  type="combo">
+      <SPANREF id="testCirc"/>
+      <SPANREF id="testBez"/>
+   </ANIMATION>
 
 </ANIMATIONS>
 
@@ -290,7 +333,7 @@
             <NODEREF id="paredes" />
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>
-            <NODEREF id="pokeball"/>
+            <NODEREF id="esfera"/>
             <NODEREF id="companionCubes"/>
             <NODEREF id="escadas"/>
             <NODEREF id="parapeitos"/>
@@ -316,7 +359,7 @@
 
     </NODE>
 
-      <NODE id = "paredeBalcao" selectable = "true">
+      <NODE id = "paredeBalcao" >
         <MATERIAL id ="null" />
         <TEXTURE id="balconyWall" />
 
@@ -415,7 +458,7 @@
     </NODE>
 
 
-    <NODE id="balcao">
+    <NODE id="balcao" selectable = "true">
         <MATERIAL id="null" />
         <TEXTURE id="counter" />
 
@@ -561,13 +604,17 @@
 
     </NODE>
 
-    <NODE id="pokeball">
-        <MATERIAL id="null" />
-        <TEXTURE id="pokeball" />
+    <NODE id="esfera">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
 
-
-        <TRANSLATION x="30.3" y="3.4" z="6.3" />
+        <TRANSLATION x="10" y="3.2" z="6.5" />
         <SCALE sx="0.4" sy="0.4" sz="0.4" />
+
+        <ANIMATIONREFS>
+           <ANIMATIONREF id="comboSphere"/>
+         </ANIMATIONREFS>
+
 
         <DESCENDANTS>
           <LEAF type="sphere" args="1 50 50" />
@@ -581,10 +628,6 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <!-- <ANIMATIONREFS>
-          <ANIMATIONREF id="testCirc"/>
-        </ANIMATIONREFS>
-         -->
         <DESCENDANTS>
       		<NODEREF id="companionCube1" />
             <NODEREF id="companionCube2" />
@@ -598,6 +641,11 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="26" y="-2.6" z="13" />
+
+        <ANIMATIONREFS>
+           <ANIMATIONREF id="cc4"/>
+           <ANIMATIONREF id="cc5"/>
+         </ANIMATIONREFS>
 
         <DESCENDANTS>
        		<NODEREF id="companionCube" />
@@ -707,7 +755,7 @@
 
 
 
-    <NODE id="cantos">
+    <NODE id="cantos" selectable = "true">
         <MATERIAL id="null" />
         <TEXTURE id="cornerCube" />
 
@@ -822,7 +870,7 @@
 
     </NODE>
 
-  <NODE id="escadas">
+  <NODE id="escadas" >
     	<MATERIAL id="null" />
         <TEXTURE id="staircase" />
 
@@ -1080,12 +1128,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-
-
-        <DESCENDANTS>
+       <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
         	  <NODEREF id="claptrapEye"/>
-       		  <NODEREF id="claptrapWheel"/>
+       		  <NODEREF id="claptrapWheel"/>f
             <NODEREF id="antenna"/>
             <NODEREF id="claptrapUpperMembers"/>
         </DESCENDANTS>
@@ -1099,10 +1145,6 @@
 
   	    <TRANSLATION x="18" y="0.55" z="3" />
 
-
-                <ANIMATIONREFS>
-                  <ANIMATIONREF id="testCombo"/>
-                </ANIMATIONREFS>
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
         	  <NODEREF id="claptrapEye"/>
@@ -1118,10 +1160,6 @@
         <TEXTURE id="null" />
 
   	    <TRANSLATION x="20" y="0.55" z="1" />
-
-        <ANIMATIONREFS>
-          <ANIMATIONREF id="gentleman1"/>
-        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>
@@ -1484,13 +1522,13 @@
 
         <TRANSLATION x="20" y="12" z="1"/>
 
-        <!-- <ANIMATIONREFS>
+        <ANIMATIONREFS>
+          <ANIMATIONREF id="dummyAnimationPod"/>
           <ANIMATIONREF id="p1"/>
           <ANIMATIONREF id="p2"/>
           <ANIMATIONREF id="p3"/>
           <ANIMATIONREF id="p4"/>
-          <ANIMATIONREF id="p5"/>
-        </ANIMATIONREFS> -->
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="podHead"/>
