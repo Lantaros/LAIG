@@ -23,24 +23,24 @@ class ComboAnimation{
     return this.totalTime;
   }
 
-  getTransformMatrix(time, combIte, section) {
-    if(this.animationRefs[combIte] == 'testCirc')
+  getTransformMatrix(node, time, section) {
+    if(this.animationRefs[node.combIte] == 'testCirc')
       console.log(" ");
     let combSecTime = time;
 
-    for(let i = 0; i < section; i++)
+    for(let i = 0; i < node.currentSection; i++)
       combSecTime -= this.secTimes[i];
 
-    if (combIte < this.animationRefs.length){
+    if (node.combIte < this.animationRefs.length){
       mat4.identity(this.animationMatrix);
-      this.animationMatrix =  this.scene.animations[this.animationRefs[combIte]].getTransformMatrix(time, combIte, section);
-      if(time >= this.scene.animations[this.animationRefs[combIte]].getTotalTime()){
-          section = 0;
-          combIte++;
+      this.animationMatrix =  this.scene.animations[this.animationRefs[node.combIte]].getTransformMatrix(node, time, node.currentSection);
+      if(combSecTime >= this.scene.animations[this.animationRefs[node.combIte]].getTotalTime()){
+          node.currentSection = 0;
+          node.combIte++;
       }
-      else if (time >= this.scene.animations[this.animationRefs[combIte]].secTimes[section])
-          section++;
-    }
+    //   else if (time >= this.scene.animations[this.animationRefs[node.combIte]].secTimes[node.currentSection])
+    //       node.currentSection++;
+   }
     return this.animationMatrix;
   }
 

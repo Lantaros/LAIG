@@ -14,7 +14,7 @@ class CircularAnimation extends Animation{
     this.secTimes.push(this.totalTime);
 }
 
-   getTransformMatrix(time, combIte, section) {
+   getTransformMatrix(node, time, section) {
     if(time * this.angVelocity >=  this.rotAng)
        this.animationEnd = true;
     else {

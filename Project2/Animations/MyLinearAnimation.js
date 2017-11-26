@@ -34,7 +34,7 @@ class LinearAnimation extends Animation{
     this.transformMatrix = mat4.create();
   }
 
-   getTransformMatrix(time, combIte, section) {
+   getTransformMatrix(node, time, section) {
     let secTime = time;
     for(let i = 0; i < section; i++)
       secTime -= this.secTimes[i];
