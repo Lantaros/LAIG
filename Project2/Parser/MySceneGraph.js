@@ -1655,7 +1655,7 @@ MySceneGraph.prototype.displayScene = function() {
     }
 
     if (this.scene.currentSelectable == node.nodeID) {
-        this.scene.setActiveShader(this.scene.shader);
+        this.scene.setActiveShader(this.scene.shaders[this.scene.currentShader]);
     }
 
     for (var i = 0; i < node.children.length; i++) {

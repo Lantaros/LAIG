@@ -11,8 +11,10 @@ function XMLscene(interface) {
 
     this.lightValues = {};
     this.currentSelectable = "None";
+    this.currentShader = "Red Pulse";
     this.lastTime = 0;
-
+    this.shaders = new Array();
+    this.shadersRefs = new Array();
     let currentDate = new Date();
     this.initialTime = currentDate.getTime();
 }
@@ -26,8 +28,9 @@ XMLscene.prototype.constructor = XMLscene;
 XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
 
-    this.shader = new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag");
-    this.shader.setUniformsValues({selectedRed: 1.0, selectedGreen: 0.0, selectedBlue: 0.0});
+    this.shaders["Red Pulse"] = new CGFshader(this.gl, "shaders/shader.vert", "shaders/shader.frag");
+    this.shadersRefs.push("Red Pulse");
+    this.shaders["Red Pulse"].setUniformsValues({selectedRed: 1.0, selectedGreen: 0.0, selectedBlue: 0.0});
     this.updateScalingFactor();
 
     this.initCameras();
@@ -111,6 +114,7 @@ XMLscene.prototype.onGraphLoaded = function()
 
 
     this.interface.addNodesDropdown(this.graph.selectableNodes);
+    this.interface.addShadersDropdown(this.shadersRefs);
 }
 
 /**
@@ -190,5 +194,5 @@ XMLscene.prototype.update = function(currTime){
 
 XMLscene.prototype.updateScalingFactor = function(date)
 {
-    this.shader.setUniformsValues({timeFactor: date});
+    this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
 };

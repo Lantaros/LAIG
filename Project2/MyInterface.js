@@ -50,7 +50,11 @@ MyInterface.prototype.addLightsGroup = function (lights) {
 };
 
 MyInterface.prototype.addNodesDropdown = function(nodes) {
-  var shadersGroup = this.gui.addFolder("Shader Options");
-  shadersGroup.open();
-  shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
+  this.shadersGroup = this.gui.addFolder("Shader Options");
+  this.shadersGroup.open();
+  this.shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
+};
+
+MyInterface.prototype.addShadersDropdown = function(shaders) {
+  this.shadersGroup.add(this.scene, "currentShader", shaders).name("Special Shader");
 };
