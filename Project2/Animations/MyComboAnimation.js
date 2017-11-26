@@ -24,7 +24,7 @@ class ComboAnimation{
   }
 
   getTransformMatrix(node, time, section) {
-    if(this.animationRefs[node.combIte] == 'testCirc')
+    if(this.animationRefs[node.combIte] == 'gentlemanClaptrap1')
       console.log(" ");
     let combSecTime = time;
 

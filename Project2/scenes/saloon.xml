@@ -192,48 +192,84 @@
 </MATERIALS>
 
 <ANIMATIONS>
-    <ANIMATION id="testLin" speed="3" type="linear">
-        <controlpoint xx="0" yy="0" zz="0" />
-        <controlpoint xx="3" yy="0" zz="3" />
-        <controlpoint xx="3" yy="6" zz="3" />
-        <controlpoint xx="6" yy="6" zz="6" />
-        <controlpoint xx="6" yy="10" zz="6" />
+
+    <!-- Companion Cube  -->
+    <ANIMATION id="cc1" speed="3" type="linear">
+        <controlpoint xx="0" yy="0" zz="3" />
+        <controlpoint xx="0" yy="8" zz="3" />
     </ANIMATION>
 
+    <ANIMATION id="cc2" speed="0.05" type="circular"
+               centerx = "0" centery = "8" centerz = "3"
+               radius="0.01" startang ="0" rotang ="360" />
 
-    <ANIMATION id="testLinPod" speed="3" type="linear">
-          <controlpoint xx="0" yy="0" zz="0" />
-          <controlpoint xx="5" yy="0" zz="0" />
-          <controlpoint xx="0" yy="5" zz="0" />
-          <controlpoint xx="0" yy="0" zz="5" />
-
-      </ANIMATION>
-
-    <ANIMATION id="testCircPod" speed="3" type="circular"
-                 centerx = "0" centery = "0" centerz = "6"
-                 radius="2" startang ="0" rotang ="90" />
-
-     <ANIMATION id="testBezPod" speed="5" type="bezier">
-         <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="6" yy="0" zz="0" />
-         <controlpoint xx="6" yy="0" zz="3" />
-         <controlpoint xx="0" yy="0" zz="6" />
+     <ANIMATION id="cc3" speed="3" type="linear">
+         <controlpoint xx="0" yy="8" zz="3" />
+         <controlpoint xx="0" yy="0" zz="3" />
      </ANIMATION>
 
-     <ANIMATION id="testCirc" speed="3" type="circular"
-                  centerx = "0" centery = "0" centerz = "6"
-                  radius="2" startang ="-90" rotang ="90" />
+     <ANIMATION id="cpArms" speed="1" type="bezier">
+         <controlpoint xx="0" yy="0" zz="0" />
+         <controlpoint xx="3" yy="0" zz="0" />
+         <controlpoint xx="3" yy="0" zz="3" />
+         <controlpoint xx="0" yy="0" zz="3" />
+     </ANIMATION>
 
-      <ANIMATION id="testBez" speed="5" type="bezier">
-          <controlpoint xx="0" yy="0" zz="0" />
-          <controlpoint xx="6" yy="0" zz="0" />
-          <controlpoint xx="6" yy="0" zz="3" />
-          <controlpoint xx="0" yy="0" zz="6" />
+
+     <!-- Pod -->
+
+     <ANIMATION id="p1" speed="5" type="bezier">
+         <controlpoint xx="0" yy="0" zz="0" />
+         <controlpoint xx="0" yy="-2" zz="3" />
+         <controlpoint xx="0" yy="-4" zz="5" />
+         <controlpoint xx="0" yy="-9" zz="7" />
+     </ANIMATION>
+
+     <ANIMATION id="p2" speed="1" type="circular"
+                  centerx = "0" centery = "-9" centerz = "6.3"
+                  radius="0.1" startang ="-90" rotang ="90" />
+
+
+      <ANIMATION id="p3" speed="2" type="linear">
+          <controlpoint xx="0" yy="-9" zz="6.3" />
+          <controlpoint xx="0" yy="-9" zz="13" />
+          <controlpoint xx="0" yy="-9" zz="6.3" />
       </ANIMATION>
 
+     <ANIMATION id="p4" speed="5" type="bezier">
+         <controlpoint xx="0" yy="-9" zz="7" />
+         <controlpoint xx="0" yy="-4" zz="6" />
+         <controlpoint xx="0" yy="-1" zz="6" />
+         <controlpoint xx="0" yy="1" zz="2" />
+     </ANIMATION>
+     <ANIMATION id="p5" speed="20" type="circular"
+                  centerx = "0" centery = "1" centerz = "2"
+                  radius="0.1" startang ="0" rotang ="-180" />
+
+
+    <ANIMATION id="testCirc" speed="1" type="circular"
+                 centerx = "0" centery = "0" centerz = "0"
+                 radius="2" startang ="-90" rotang ="90" />
+
+    <ANIMATION id="gentleman1" speed="0.5" type="circular"
+                 centerx = "0" centery = "0" centerz = "2.5"
+                 radius="0.3" startang ="-90" rotang ="90" />
+
+     <ANIMATION id="testLin" speed="1.5" type="linear">
+         <controlpoint xx="0" yy="0" zz="0" />
+         <controlpoint xx="3" yy="0" zz="3" />
+         <controlpoint xx="3" yy="6" zz="3" />
+     </ANIMATION>
+
+     <ANIMATION id="testBez" speed="3" type="bezier">
+         <controlpoint xx="0" yy="0" zz="0" />
+         <controlpoint xx="3" yy="0" zz="0" />
+         <controlpoint xx="3" yy="0" zz="3" />
+         <controlpoint xx="0" yy="0" zz="3" />
+     </ANIMATION>
 
     <ANIMATION id="testCombo"  type="combo">
-        <SPANREF id="testCirc"/>
+      	<SPANREF id="testCirc"/>
         <SPANREF id="testBez"/>
      </ANIMATION>
 
@@ -528,11 +564,6 @@
         <TEXTURE id="pokeball" />
 
 
-         <ANIMATIONREFS>
-            <ANIMATIONREF id="testBez"/>
-          </ANIMATIONREFS>
-
-
         <TRANSLATION x="30.3" y="3.4" z="6.3" />
         <SCALE sx="0.4" sy="0.4" sz="0.4" />
 
@@ -548,6 +579,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
+        <!-- <ANIMATIONREFS>
+          <ANIMATIONREF id="testCirc"/>
+        </ANIMATIONREFS>
+         -->
         <DESCENDANTS>
       		<NODEREF id="companionCube1" />
             <NODEREF id="companionCube2" />
@@ -573,7 +608,13 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="8" y="-2.6" z="10" />
+        <TRANSLATION x="8" y="-2.6" z="14" />
+
+        <ANIMATIONREFS>
+           <ANIMATIONREF id="cc1"/>
+           <ANIMATIONREF id="cc2"/>
+           <ANIMATIONREF id="cc3"/>
+         </ANIMATIONREFS>
 
         <DESCENDANTS>
        		<NODEREF id="companionCube" />
@@ -1037,10 +1078,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <!-- <ANIMATIONREFS>
-            <ANIMATIONREF id="testCirc"/>
-            <ANIMATIONREF id="testLin"/>
-          </ANIMATIONREFS> -->
+
 
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
@@ -1059,10 +1097,10 @@
 
   	    <TRANSLATION x="18" y="0.55" z="3" />
 
-        <!-- <ANIMATIONREFS>
-           <ANIMATIONREF id="testLin"/>
-         </ANIMATIONREFS> -->
 
+                <ANIMATIONREFS>
+                  <ANIMATIONREF id="testCombo"/>
+                </ANIMATIONREFS>
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
         	  <NODEREF id="claptrapEye"/>
@@ -1079,9 +1117,9 @@
 
   	    <TRANSLATION x="20" y="0.55" z="1" />
 
-        <!-- <ANIMATIONREFS>
-          <ANIMATIONREF id="testCombo"/>
-        </ANIMATIONREFS> -->
+        <ANIMATIONREFS>
+          <ANIMATIONREF id="gentleman1"/>
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>
@@ -1445,9 +1483,11 @@
         <TRANSLATION x="20" y="12" z="1"/>
 
         <ANIMATIONREFS>
-          <!-- <ANIMATIONREF id="testCircPod"/>
-          <ANIMATIONREF id="testBezPod"/> -->
-          <ANIMATIONREF id="testLinPod"/>
+          <ANIMATIONREF id="p1"/>
+          <ANIMATIONREF id="p2"/>
+          <ANIMATIONREF id="p3"/>
+          <ANIMATIONREF id="p4"/>
+          <ANIMATIONREF id="p5"/>
         </ANIMATIONREFS>
 
         <DESCENDANTS>
