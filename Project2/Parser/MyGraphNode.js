@@ -53,8 +53,10 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
   if(this.nodeID == 'claptrapGentleman' && this.combIte == 1)
         console.log("");
+
   this.time += dt/1000; // to seconds
   if (this.currAnimation < this.animationRefs.length){
+     console.log("s: " + this.currentSection);
     this.animationMatrix =  this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTransformMatrix(this, this.time, this.currentSection);
     if(this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].getTotalTime()){
       this.time = 0;
@@ -62,7 +64,9 @@ MyGraphNode.prototype.updateAnimationMatrix = function(dt){
       this.combIte = 0;
       this.currAnimation++;
       }
-     else if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection]);
+     if (this.time >= this.graph.scene.animations[this.animationRefs[this.currAnimation]].secTimes[this.currentSection]){
         this.currentSection++;
+        console.log("new currentsection " + this.currentSection);
+        }
     }
 }

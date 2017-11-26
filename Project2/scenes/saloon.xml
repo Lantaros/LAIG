@@ -192,26 +192,49 @@
 </MATERIALS>
 
 <ANIMATIONS>
-    <ANIMATION id="testLin" speed="1.5" type="linear">
+    <ANIMATION id="testLin" speed="3" type="linear">
         <controlpoint xx="0" yy="0" zz="0" />
         <controlpoint xx="3" yy="0" zz="3" />
         <controlpoint xx="3" yy="6" zz="3" />
+        <controlpoint xx="6" yy="6" zz="6" />
+        <controlpoint xx="6" yy="10" zz="6" />
     </ANIMATION>
 
-    <ANIMATION id="testCirc" speed="3" type="circular"
-                 centerx = "0" centery = "0" centerz = "0"
-                 radius="2" startang ="-90" rotang ="90" />
 
-     <ANIMATION id="testBez" speed="5" type="bezier">
+    <ANIMATION id="testLinPod" speed="3" type="linear">
+          <controlpoint xx="0" yy="0" zz="0" />
+          <controlpoint xx="5" yy="0" zz="0" />
+          <controlpoint xx="0" yy="5" zz="0" />
+          <controlpoint xx="0" yy="0" zz="5" />
+
+      </ANIMATION>
+
+    <ANIMATION id="testCircPod" speed="3" type="circular"
+                 centerx = "0" centery = "0" centerz = "6"
+                 radius="2" startang ="0" rotang ="90" />
+
+     <ANIMATION id="testBezPod" speed="5" type="bezier">
          <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="0" />
-         <controlpoint xx="3" yy="0" zz="3" />
-         <controlpoint xx="0" yy="0" zz="3" />
+         <controlpoint xx="6" yy="0" zz="0" />
+         <controlpoint xx="6" yy="0" zz="3" />
+         <controlpoint xx="0" yy="0" zz="6" />
      </ANIMATION>
 
+     <ANIMATION id="testCirc" speed="3" type="circular"
+                  centerx = "0" centery = "0" centerz = "6"
+                  radius="2" startang ="-90" rotang ="90" />
+
+      <ANIMATION id="testBez" speed="5" type="bezier">
+          <controlpoint xx="0" yy="0" zz="0" />
+          <controlpoint xx="6" yy="0" zz="0" />
+          <controlpoint xx="6" yy="0" zz="3" />
+          <controlpoint xx="0" yy="0" zz="6" />
+      </ANIMATION>
+
+
     <ANIMATION id="testCombo"  type="combo">
-        <SPANREF id="testLin"/>
-      	<SPANREF id="testCirc"/>
+        <SPANREF id="testCirc"/>
+        <SPANREF id="testBez"/>
      </ANIMATION>
 
 </ANIMATIONS>
@@ -1014,9 +1037,10 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <ANIMATIONREFS>
+         <!-- <ANIMATIONREFS>
             <ANIMATIONREF id="testCirc"/>
-          </ANIMATIONREFS>
+            <ANIMATIONREF id="testLin"/>
+          </ANIMATIONREFS> -->
 
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
@@ -1035,6 +1059,10 @@
 
   	    <TRANSLATION x="18" y="0.55" z="3" />
 
+        <!-- <ANIMATIONREFS>
+           <ANIMATIONREF id="testLin"/>
+         </ANIMATIONREFS> -->
+
         <DESCENDANTS>
             <NODEREF id="claptrapBody"/>
         	  <NODEREF id="claptrapEye"/>
@@ -1051,9 +1079,9 @@
 
   	    <TRANSLATION x="20" y="0.55" z="1" />
 
-        <ANIMATIONREFS>
+        <!-- <ANIMATIONREFS>
           <ANIMATIONREF id="testCombo"/>
-        </ANIMATIONREFS>
+        </ANIMATIONREFS> -->
 
         <DESCENDANTS>
             <NODEREF id="claptrapBodyG"/>
@@ -1417,7 +1445,9 @@
         <TRANSLATION x="20" y="12" z="1"/>
 
         <ANIMATIONREFS>
-          <ANIMATIONREF id="testLin"/>
+          <!-- <ANIMATIONREF id="testCircPod"/>
+          <ANIMATIONREF id="testBezPod"/> -->
+          <ANIMATIONREF id="testLinPod"/>
         </ANIMATIONREFS>
 
         <DESCENDANTS>

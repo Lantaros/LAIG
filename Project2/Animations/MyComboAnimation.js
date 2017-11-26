@@ -38,8 +38,8 @@ class ComboAnimation{
           node.currentSection = 0;
           node.combIte++;
       }
-    //   else if (time >= this.scene.animations[this.animationRefs[node.combIte]].secTimes[node.currentSection])
-    //       node.currentSection++;
+       else if (time >= this.scene.animations[this.animationRefs[node.combIte]].secTimes[node.currentSection])
+           node.currentSection++;
    }
     return this.animationMatrix;
   }
