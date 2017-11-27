@@ -42,4 +42,9 @@ MyPatch.prototype.getKnotsVector = function(degree) {
 	return v;
 };
 
+/**
+ * Just for code compatability, does nothing
+ * @param   sFactor
+ * @param   tFactor
+ */
 MyPatch.prototype.updateTexCoords = function(scaleS, scaleT) {};

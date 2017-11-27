@@ -1,8 +1,7 @@
 /**
  * MyRectangle
- * @param gl {WebGLRenderingContext}
  * @constructor
- * @ param args coordinates for left-top and right-bottom vertices.
+ * @param args coordinates for left-top and right-bottom vertices.
  */
 
 
@@ -60,7 +59,11 @@ MyRectangle.prototype.initBuffers = function () {
 	this.initGLBuffers();
 };
 
-
+/**
+ * Updates the textures scaling factors
+ * @param   sFactor [description]
+ * @param   tFactor [description]
+ */
 MyRectangle.prototype.updateTexCoords = function (sFactor, tFactor) {
 
 	for(let i = 0; i < this.baseTexCoords.length; i++){

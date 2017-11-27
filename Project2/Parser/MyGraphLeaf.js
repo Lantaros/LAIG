@@ -1,8 +1,11 @@
 /**
  * MyGraphLeaf class, representing a leaf in the scene graph.
+ * @param       graph  graph's reference
+ * @param       leafID leaf's unique ID
+ * @param       type   leaf  primitive type
+ * @param       args   primitive's arguments array
  * @constructor
-**/
-
+ */
 function MyGraphLeaf(graph, leafID, type, args) {
 
 	this.graph = graph;
