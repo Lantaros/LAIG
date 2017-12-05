@@ -1489,7 +1489,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle', 'patch','halfsphere','boardcell']);
 
 						if (type != null)
 							this.log("   Leaf: "+ type);
@@ -1498,64 +1498,64 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
 						//parse leaf
 						//MyGraphLeaf(graph, leafID, type, args)
-                        if(descendants[j].attributes.length != 3){
-                            var leafType = null;
-                            var leafType = descendants[j].attributes.item(0).value;
-                            var argsSplit = descendants[j].attributes.item(1).nodeValue.split(' ');
-                        }
-                        else{
-                            var leafID = descendants[j].attributes.item(0).value;
-                            var leafType = descendants[j].attributes.item(1).value;
-                            var argsSplit = descendants[j].attributes.item(2).nodeValue.split(' ');
-                        }
-                        for (let i = 0; i < argsSplit.length; i++) {
-                          argsSplit[i] = parseFloat(argsSplit[i]);
-                        }
+            if(descendants[j].attributes.length != 3){
+                var leafType = null;
+                var leafType = descendants[j].attributes.item(0).value;
+                var argsSplit = descendants[j].attributes.item(1).nodeValue.split(' ');
+            }
+            else{
+                var leafID = descendants[j].attributes.item(0).value;
+                var leafType = descendants[j].attributes.item(1).value;
+                var argsSplit = descendants[j].attributes.item(2).nodeValue.split(' ');
+            }
+            for (let i = 0; i < argsSplit.length; i++) {
+              argsSplit[i] = parseFloat(argsSplit[i]);
+            }
 
-                        if(type!="patch")
-                          this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
+            if(type!="patch")
+              this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
 
-                        else {
-                           var clines = nodeSpecs[descendantsIndex].children[0].children;
-                           var cpoints = [];
+            else {
+               var clines = nodeSpecs[descendantsIndex].children[0].children;
+               var cpoints = [];
 
-                           for (var k = 0; k < clines.length; k++) {
-                                var cLineCpoints = nodeSpecs[descendantsIndex].children[0].children[k].children;
-                                var lineCpoints = [];
+               for (var k = 0; k < clines.length; k++) {
+                    var cLineCpoints = nodeSpecs[descendantsIndex].children[0].children[k].children;
+                    var lineCpoints = [];
 
-                                for(var l = 0; l < cLineCpoints.length; l++) {
-                                    var points = [];
+                    for(var l = 0; l < cLineCpoints.length; l++) {
+                        var points = [];
 
-                                    var x = this.reader.getFloat(cLineCpoints[l], 'xx');
-                                    if (x == null)
-                                        return "failed to retrieve cpoint arguments";
+                        var x = this.reader.getFloat(cLineCpoints[l], 'xx');
+                        if (x == null)
+                            return "failed to retrieve cpoint arguments";
 
-                                    var y = this.reader.getFloat(cLineCpoints[l], 'yy');
-                                    if (y == null)
-                                        return "failed to retrieve cpoint arguments";
+                        var y = this.reader.getFloat(cLineCpoints[l], 'yy');
+                        if (y == null)
+                            return "failed to retrieve cpoint arguments";
 
-                                    var z = this.reader.getFloat(cLineCpoints[l], 'zz');
-                                    if (z == null)
-                                        return "failed to retrieve cpoint arguments";
+                        var z = this.reader.getFloat(cLineCpoints[l], 'zz');
+                        if (z == null)
+                            return "failed to retrieve cpoint arguments";
 
-                                    var w = this.reader.getFloat(cLineCpoints[l], 'ww');
-                                    if (w == null)
-                                        return "failed to retrieve cpoint arguments";
+                        var w = this.reader.getFloat(cLineCpoints[l], 'ww');
+                        if (w == null)
+                            return "failed to retrieve cpoint arguments";
 
-                                    points.push(x,y,z,w);
+                        points.push(x,y,z,w);
 
-                                    lineCpoints.push(points);
-                                }
+                        lineCpoints.push(points);
+                    }
 
-                                cpoints.push(lineCpoints);
-                                var vDegree = cLineCpoints.length-1;
-                           }
-                            var uDegree = clines.length-1;
+                    cpoints.push(lineCpoints);
+                    var vDegree = cLineCpoints.length-1;
+               }
+                var uDegree = clines.length-1;
 
-                            argsSplit.push(uDegree, vDegree, cpoints);
-                            this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
-                        }
-                        sizeChildren++;
+                argsSplit.push(uDegree, vDegree, cpoints);
+                this.nodes[nodeID].addLeaf(new MyGraphLeaf(this, leafID, leafType, argsSplit));
+            }
+            sizeChildren++;
 					}
 					else
 						this.onXMLMinorError("unknown tag <" + descendants[j].nodeName + ">");
@@ -1678,7 +1678,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     if (textura != null) {
         textura.bind();
     }
-    
+
     for (var j = 0; j < node.leaves.length; j++) {
       node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
       node.leaves[j].display();

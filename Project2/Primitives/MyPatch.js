@@ -13,8 +13,6 @@
 	var knots1 = this.getKnotsVector(uDegree);
 	var knots2 = this.getKnotsVector(vDegree);
 
-	console.log(cPoints);
-
  	this.nurbsSurface = new CGFnurbsSurface(uDegree, vDegree, knots1, knots2, cPoints);
 
 	CGFnurbsObject.call(this, this.scene, this.getSurfacePoint, uDivs, vDivs);

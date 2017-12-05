@@ -35,6 +35,14 @@ function MyGraphLeaf(graph, leafID, type, args) {
             case 'patch':
              this.obj = new MyPatch(this.graph.scene, this.args);
             break;
+
+						case 'halfsphere':
+             this.obj = new MyHalfSphere(this.graph.scene, this.args);
+            break;
+
+						case 'boardcell':
+             this.obj = new MyBoardCell(this.graph.scene, this.args);
+            break;
         }
 };
 /**

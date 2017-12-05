@@ -1,0 +1,182 @@
+<!-- T1G10 -->
+
+<SCENE>
+
+<INITIALS>
+    <frustum near="0.1" far="500"/>
+    <translation x="-1" y="1" z="0" />
+    <rotation axis="x" angle="0" />
+    <rotation axis="y" angle="0" />
+    <rotation axis="z" angle="0" />
+    <scale sx="0.25" sy="0.25" sz="0.25" />
+    <reference length="5" />
+</INITIALS>
+
+
+<ILLUMINATION>
+    <ambient r="0.2" g="0.2" b="0.2" a="1" />
+    <background r="0" g="0" b="0" a="1" />
+</ILLUMINATION>
+
+
+<LIGHTS>
+	<LIGHT id="light0">
+        <enable value ="1" />
+        <position  x="0" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="light1">
+        <enable value ="1" />
+        <position x="30" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+	<LIGHT id="light2">
+        <enable value ="1" />
+        <position x="0" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light3">
+        <enable value ="1" />
+        <position x="30" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+    </LIGHT>
+
+</LIGHTS>
+
+<TEXTURES>
+
+    <TEXTURE id="white">
+        <file path="images/cornerCube.png" />
+        <amplif_factor s="4" t="4" />
+    </TEXTURE>
+
+    <TEXTURE id="black">
+        <file path="images/black.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+</TEXTURES>
+
+
+<MATERIALS>
+    <MATERIAL id="silver">
+        <shininess value="89.6" />
+        <specular r="0.773911" g="0.773911" b="0.773911" a="1" />
+        <diffuse r="0.2775" g="0.2775" b="0.2775" a="1" />
+        <ambient r="0.23125" g="0.23125" b="0.23125" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="defaultMaterial">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+    <MATERIAL id="shinyThing">
+        <shininess value="1" />
+        <specular r="0.773911" g="0.773911" b="0.773911" a="1" />
+        <diffuse r="0.9" g="0.9" b="0.9" a="1" />
+        <ambient r="0.9" g="0.9" b="0.9" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+</MATERIALS>
+
+<ANIMATIONS>
+
+
+
+</ANIMATIONS>
+
+
+<NODES>
+
+    <ROOT id="root" />
+
+    <NODE id="root">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="piece" />
+        </DESCENDANTS>
+
+    </NODE>
+
+  <NODE id="whiteCell">
+    <MATERIAL id="null" />
+    <TEXTURE id="white" />
+
+    <DESCENDANTS>
+      <LEAF type="boardcell" args="0 0.5 0.5 0" />
+    </DESCENDANTS>
+  </NODE>
+
+  <NODE id="blackCell">
+    <MATERIAL id="null" />
+    <TEXTURE id="black" />
+
+    <DESCENDANTS>
+      <LEAF type="boardcell" args="0 0.5 0.5 0" />
+    </DESCENDANTS>
+  </NODE>
+
+    <!-- Generic Lear Piece -->
+    <NODE id="piece">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="3" z ="0"/>
+        <SCALE sx="0.5" sy="0.2" sz ="0.5"/>
+
+        <DESCENDANTS>
+          <NODEREF id ="topPiece"/>
+          <NODEREF id ="botPiece"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+      <NODE id = "topPiece" >
+        <MATERIAL id ="null" />
+        <TEXTURE id="white" />
+
+         <DESCENDANTS>
+           <LEAF type="halfsphere" args="0.5 50 50" />
+        </DESCENDANTS>
+
+    </NODE>
+
+      <NODE id = "botPiece">
+        <MATERIAL id ="shinyThing" />
+        <TEXTURE id="black" />
+
+        <ROTATION axis="x" angle="180"/>
+
+         <DESCENDANTS>
+           <LEAF type="halfsphere" args="0.5 50 50" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+
+
+</NODES>
+
+
+
+</SCENE>

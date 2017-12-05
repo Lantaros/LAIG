@@ -1,5 +1,7 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-
+var BOARD_WIDTH = 4;
+var BOARD_Y_OFFSET = 0;
+var CELL_WIDTH = 1;
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -172,6 +174,7 @@ XMLscene.prototype.display = function() {
        this.updateScalingFactor(dT);
         // Displays the scene.
         this.graph.displayScene();
+        this.displayBoard();
 
     }
 	else
@@ -186,6 +189,55 @@ XMLscene.prototype.display = function() {
     // ---- END Background, camera and axis setup
 
 }
+
+XMLscene.prototype.displayBoard = function()
+{
+  let whiteCell = this.graph.nodes["whiteCell"];
+  let texWhite = this.graph.textures[whiteCell.textureID];
+  whiteCell.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+  let matWhite = this.graph.materials[whiteCell.materialID];
+
+  let blackCell = this.graph.nodes["blackCell"];
+  let texBlack = this.graph.textures[blackCell.textureID];
+  blackCell.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+  let matBlack = this.graph.materials[blackCell.materialID];
+
+  if (matWhite != null)
+    matWhite.apply();
+  else
+    this.graph.materials['defaultMaterial'].apply();
+
+  if (texWhite[0] != null)
+      texWhite[0].bind();
+
+    for (let i = 0; i < BOARD_WIDTH; i+=0.5){
+      for (let j = i%2; j < BOARD_WIDTH; j+= CELL_WIDTH){
+        this.pushMatrix();
+          this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
+          whiteCell.leaves[0].display();
+        this.popMatrix();
+      }
+    }
+
+    // if (matBlack != null)
+    //   matBlack.apply();
+    // else
+    //   this.graph.materials['defaultMaterial'].apply();
+    // if (texBlack[0] != null)
+    //     texBlack[0].bind();
+    //
+    //
+    // for (let i = 0; i <= BOARD_WIDTH; i++){
+    //   for (let j = 1; j <= BOARD_WIDTH; j+= CELL_WIDTH){
+    //     this.pushMatrix();
+    //       this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
+    //       blackCell.leaves[0].display();
+    //     this.popMatrix();
+    //   }
+    // }
+
+
+};
 
 XMLscene.prototype.update = function(currTime){
  for(var node in this.graph.nodes) {
