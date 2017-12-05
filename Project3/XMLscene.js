@@ -211,7 +211,7 @@ XMLscene.prototype.displayBoard = function()
       texWhite[0].bind();
 
     for (let i = 0; i < BOARD_WIDTH; i+=0.5){
-      for (let j = i%2; j < BOARD_WIDTH; j+= CELL_WIDTH){
+      for (let j = i*0.5; j < BOARD_WIDTH; j+= CELL_WIDTH){
         this.pushMatrix();
           this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
           whiteCell.leaves[0].display();
