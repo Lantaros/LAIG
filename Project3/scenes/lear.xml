@@ -62,7 +62,7 @@
     </TEXTURE>
 
     <TEXTURE id="black">
-        <file path="images/black.jpg" />
+        <file path="images/podRed.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
@@ -117,7 +117,7 @@
 
     </NODE>
 
-  <NODE id="whiteCell">
+  <NODE id="whiteCell" >
     <MATERIAL id="null" />
     <TEXTURE id="white" />
 
@@ -126,7 +126,7 @@
     </DESCENDANTS>
   </NODE>
 
-  <NODE id="blackCell">
+  <NODE id="blackCell" >
     <MATERIAL id="null" />
     <TEXTURE id="black" />
 
@@ -136,7 +136,7 @@
   </NODE>
 
     <!-- Generic Lear Piece -->
-    <NODE id="piece">
+    <NODE id="piece" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 

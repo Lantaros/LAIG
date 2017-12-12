@@ -1,5 +1,5 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-var BOARD_WIDTH = 4;
+var BOARD_WIDTH = 8;
 var BOARD_Y_OFFSET = 0;
 var CELL_WIDTH = 1;
 /**
@@ -197,46 +197,97 @@ XMLscene.prototype.displayBoard = function()
   whiteCell.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
   let matWhite = this.graph.materials[whiteCell.materialID];
 
+  if (matWhite != null)
+    whiteCell['materialObj'] =  matWhite;
+  else
+    whiteCell['materialObj'] = this.graph.materials['defaultMaterial'];
+
+    whiteCell['textureObj'] = texWhite[0];
+
   let blackCell = this.graph.nodes["blackCell"];
   let texBlack = this.graph.textures[blackCell.textureID];
   blackCell.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
   let matBlack = this.graph.materials[blackCell.materialID];
 
-  if (matWhite != null)
-    matWhite.apply();
+  if (matBlack != null)
+    blackCell['materialObj'] = matBlack;
   else
-    this.graph.materials['defaultMaterial'].apply();
+    blackCell['materialObj'] = this.graph.materials['defaultMaterial'];
 
-  if (texWhite[0] != null)
-      texWhite[0].bind();
+  blackCell['textureObj'] = texBlack[0];
 
-    for (let i = 0; i < BOARD_WIDTH; i+=0.5){
+
+
+  let whiteLineStart = new Array();
+  let blackLineStart = new Array();
+
+  for(let i = 0; i < BOARD_WIDTH; i++){
+    if(i % 2 == 0)
+      whiteLineStart.push(whiteCell);
+    else
+      whiteLineStart.push(blackCell);
+  }
+
+  for(let i = 0; i < BOARD_WIDTH; i++){
+    if(i % 2 == 0)
+      blackLineStart.push(blackCell);
+    else
+      blackLineStart.push(whiteCell);
+  }
+
+  let line;
+  for(let j = 0; j < BOARD_WIDTH; j++){
+    if(j % 2 == 0)
+      line = whiteLineStart;
+    else
+      line = blackLineStart;
+
+    this.pushMatrix();
+
+    for (let i = 0; i < line.length; i++) {
+      line[i]['materialObj'].apply();
+
+      if (line[i]['textureObj'] != null)
+        line[i]['textureObj'].bind();
+
+      line[i].leaves[0].display();
+
+      this.translate((CELL_WIDTH/2), 0, 0);
+    }
+    this.popMatrix();
+    this.translate(0, 0, (CELL_WIDTH/2));
+  }
+
+
+    /*for (let i = 0; i < BOARD_WIDTH; i+=0.5)
+      this.pushMatrix();
       for (let j = i*0.5; j < BOARD_WIDTH; j+= CELL_WIDTH){
-        this.pushMatrix();
+        if(){
+          if (matWhite != null)
+            matWhite.apply();
+          else
+            this.graph.materials['defaultMaterial'].apply();
+
+          if (texWhite[0] != null)
+              texWhite[0].bind();
+
           this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
           whiteCell.leaves[0].display();
-        this.popMatrix();
+        }
+        else{
+          if (matBlack != null)
+              matBlack.apply();
+          else
+            this.graph.materials['defaultMaterial'].apply();
+          if (texBlack[0] != null)
+              texBlack[0].bind();
+
+          this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
+        }
+
       }
-    }
-
-    // if (matBlack != null)
-    //   matBlack.apply();
-    // else
-    //   this.graph.materials['defaultMaterial'].apply();
-    // if (texBlack[0] != null)
-    //     texBlack[0].bind();
-    //
-    //
-    // for (let i = 0; i <= BOARD_WIDTH; i++){
-    //   for (let j = 1; j <= BOARD_WIDTH; j+= CELL_WIDTH){
-    //     this.pushMatrix();
-    //       this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
-    //       blackCell.leaves[0].display();
-    //     this.popMatrix();
-    //   }
-    // }
-
-
+      this.popMatrix();
+    }*/
 };
 
 XMLscene.prototype.update = function(currTime){
