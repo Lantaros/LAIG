@@ -55,6 +55,8 @@ XMLscene.prototype.init = function(application) {
     this.primitives = [];
     this.animations = [];
     this.setUpdatePeriod(16);
+
+    this.setPickEnabled(true);
 }
 
 /**
@@ -98,6 +100,25 @@ XMLscene.prototype.initCameras = function() {
     this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 }
 
+
+XMLscene.prototype.logPicking = function ()
+{
+	if (this.pickMode == false) {
+		if (this.pickResults != null && this.pickResults.length > 0) {
+			for (var i=0; i< this.pickResults.length; i++) {
+				var obj = this.pickResults[i][0];
+				if (obj)
+				{
+					var customId = this.pickResults[i][1];
+					console.log("Picked object: " + obj + ", with pick id " + customId);
+				}
+			}
+			this.pickResults.splice(0,this.pickResults.length);
+		}
+	}
+}
+
+
 /* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
@@ -126,6 +147,11 @@ XMLscene.prototype.onGraphLoaded = function()
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
+
+
+  	this.logPicking();
+  	this.clearPickRegistration();
+
     // ---- BEGIN Background, camera and axis setup
 
     // Clear image and depth buffer everytime we update the scene
@@ -144,7 +170,7 @@ XMLscene.prototype.display = function() {
     if (this.graph.loadedOk)
     {
         // Applies initial transformations.
-        this.multMatrix(this.graph.initialTransforms);
+    this.multMatrix(this.graph.initialTransforms);
 
 		// Draw axis
 		this.axis.display();
@@ -226,6 +252,7 @@ XMLscene.prototype.displayBoard = function()
       whiteLineStart.push(whiteCell);
     else
       whiteLineStart.push(blackCell);
+
   }
 
   for(let i = 0; i < BOARD_WIDTH; i++){
@@ -236,6 +263,7 @@ XMLscene.prototype.displayBoard = function()
   }
 
   let line;
+  let cellId = 0;
   for(let j = 0; j < BOARD_WIDTH; j++){
     if(j % 2 == 0)
       line = whiteLineStart;
@@ -245,10 +273,13 @@ XMLscene.prototype.displayBoard = function()
     this.pushMatrix();
 
     for (let i = 0; i < line.length; i++) {
+      cellId++;
       line[i]['materialObj'].apply();
 
       if (line[i]['textureObj'] != null)
         line[i]['textureObj'].bind();
+
+      this.registerForPick(cellId, line[i].leaves[0]);
 
       line[i].leaves[0].display();
 
@@ -257,37 +288,6 @@ XMLscene.prototype.displayBoard = function()
     this.popMatrix();
     this.translate(0, 0, (CELL_WIDTH/2));
   }
-
-
-    /*for (let i = 0; i < BOARD_WIDTH; i+=0.5)
-      this.pushMatrix();
-      for (let j = i*0.5; j < BOARD_WIDTH; j+= CELL_WIDTH){
-        if(){
-          if (matWhite != null)
-            matWhite.apply();
-          else
-            this.graph.materials['defaultMaterial'].apply();
-
-          if (texWhite[0] != null)
-              texWhite[0].bind();
-
-          this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
-          whiteCell.leaves[0].display();
-        }
-        else{
-          if (matBlack != null)
-              matBlack.apply();
-          else
-            this.graph.materials['defaultMaterial'].apply();
-          if (texBlack[0] != null)
-              texBlack[0].bind();
-
-          this.translate(j * CELL_WIDTH, BOARD_Y_OFFSET, i * CELL_WIDTH);
-        }
-
-      }
-      this.popMatrix();
-    }*/
 };
 
 XMLscene.prototype.update = function(currTime){

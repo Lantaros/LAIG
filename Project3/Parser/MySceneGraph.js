@@ -1681,6 +1681,9 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 
     for (var j = 0; j < node.leaves.length; j++) {
       node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
+
+  		//this.scene.registerForPick(i+1, node.leaves[i]);
+
       node.leaves[j].display();
     }
     this.scene.popMatrix();
