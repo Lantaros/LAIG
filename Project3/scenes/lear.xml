@@ -112,7 +112,10 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <NODEREF id="piece" />
+            <NODEREF id="whitePiece" />
+            <NODEREF id="blackPiece" />
+            <NODEREF id="whiteBox"/>
+            <NODEREF id="blackBox"/>
         </DESCENDANTS>
 
     </NODE>
@@ -135,18 +138,41 @@
     </DESCENDANTS>
   </NODE>
 
+  <NODE id="whitePiece" >
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="3" y="3" z ="0"/>
+
+    <DESCENDANTS>
+      <NODEREF id ="piece"/>
+    </DESCENDANTS>
+  </NODE>
+
+  <NODE id="blackPiece" >
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+    <TRANSLATION x="0" y="3" z ="0"/>
+
+
+    <ROTATION axis="x" angle="180"/>
+
+    <DESCENDANTS>
+      <NODEREF id ="piece"/>
+    </DESCENDANTS>
+  </NODE>
+
     <!-- Generic Lear Piece -->
     <NODE id="piece" selectable="true">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
 
-        <TRANSLATION x="0" y="3" z ="0"/>
-        <SCALE sx="0.5" sy="0.2" sz ="0.5"/>
+      <SCALE sx="0.5" sy="0.2" sz ="0.5"/>
 
-        <DESCENDANTS>
-          <NODEREF id ="topPiece"/>
-          <NODEREF id ="botPiece"/>
-        </DESCENDANTS>
+      <DESCENDANTS>
+        <NODEREF id ="topPiece"/>
+        <NODEREF id ="botPiece"/>
+      </DESCENDANTS>
 
     </NODE>
 
@@ -171,6 +197,179 @@
         </DESCENDANTS>
 
     </NODE>
+
+    <NODE id = "whiteBox">
+      <MATERIAL id ="shinyThing" />
+      <TEXTURE id="white" />
+
+      <TRANSLATION x="7" y="0" z ="-1"/>
+
+       <DESCENDANTS>
+         <NODEREF id="box"/>
+      </DESCENDANTS>
+
+  </NODE>
+
+      <NODE id = "blackBox">
+        <MATERIAL id ="shinyThing" />
+        <TEXTURE id="black" />
+
+        <TRANSLATION x="-3" y="0" z ="-1"/>
+
+         <DESCENDANTS>
+           <NODEREF id="box"/>
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "box">
+      <MATERIAL id ="shinyThing" />
+      <TEXTURE id="black" />
+
+       <DESCENDANTS>
+         <NODEREF id="boxFace1"/>
+         <NODEREF id="boxFace1in"/>
+         <NODEREF id="boxFace2"/>
+         <NODEREF id="boxFace2in"/>
+         <NODEREF id="boxFace3"/>
+         <NODEREF id="boxFace3in"/>
+         <NODEREF id="boxFace4"/>
+         <NODEREF id="boxFace4in"/>
+         <NODEREF id="boxFace5"/>
+         <NODEREF id="boxFace5in"/>
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace1">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-1" y="0" z="6" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 2 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace1in">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="1" y="0" z="0" />
+      <ROTATION axis="y" angle="-90" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 6 0" />
+      </DESCENDANTS>
+
+
+  </NODE>
+
+   <NODE id="boxFace2">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-1" y="0" z="0" />
+      <ROTATION axis="y" angle="-90" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 6 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace2in">
+     <MATERIAL id="null" />
+     <TEXTURE id="null" />
+
+     <TRANSLATION x="-1" y="0" z="6" />
+     <ROTATION axis="y" angle="90" />
+
+     <DESCENDANTS>
+       <LEAF  type="rectangle" args="0 1 6 0" />
+     </DESCENDANTS>
+
+ </NODE>
+
+  <NODE id="boxFace3">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="1" y="0" z="6" />
+      <ROTATION axis="y" angle="90" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 6 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace3in">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="1" y="0" z="6" />
+      <ROTATION axis="y" angle="180" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 2 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace4">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="1" y="0" z="0" />
+      <ROTATION axis="y" angle="180" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 2 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace4in">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-1" y="0" z="0" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 2 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace5">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <ROTATION axis="x" angle="-90" />
+      <TRANSLATION x="-1" y="-6" z="0" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 6 2 0" />
+     </DESCENDANTS>
+
+  </NODE>
+
+  <NODE id="boxFace5in">
+      <MATERIAL id="null" />
+      <TEXTURE id="null" />
+
+      <TRANSLATION x="-1" y="0" z="0" />
+      <ROTATION axis="x" angle="90" />
+
+      <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 6 2 0" />
+      </DESCENDANTS>
+
+  </NODE>
+
 
 
 

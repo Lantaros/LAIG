@@ -66,3 +66,35 @@ MyInterface.prototype.addNodesDropdown = function(nodes) {
 MyInterface.prototype.addShadersDropdown = function(shaders) {
   this.shadersGroup.add(this.scene, "currentShader", shaders).name("Special Shader");
 };
+
+/**
+ * Adds group with game options
+ */
+MyInterface.prototype.addGameFunctionalities = function() {
+  this.gameFunctionalities = this.gui.addFolder("Game Options");
+  this.gameFunctionalities.open();
+};
+
+/**
+ * Adds dropdown box for selecting one of the game environments
+ * @param gameEnvironments array containing all the environments' names
+ */
+MyInterface.prototype.addGameEnvironmentsDropdown = function(gameEnvironments) {
+  this.gameFunctionalities.add(this.scene, "currentEnvironment", gameEnvironments).name("Environment");
+};
+
+/**
+ * Adds dropdown box for selecting the game difficulty
+ * @param gameDifficulties array containing all the difficulties
+ */
+MyInterface.prototype.addDifficulty = function(gameDifficulties) {
+  this.gameFunctionalities.add(this.scene, "currentDifficulty", gameDifficulties).name("Game Difficulties");
+};
+
+/**
+ * Adds dropdown box for selecting the game difficulty
+ * @param gameDifficulties array containing all the difficulties
+ */
+MyInterface.prototype.addGameType = function(gameTypes) {
+  this.gameFunctionalities.add(this.scene, "currentGameType", gameTypes).name("Game Type");
+};

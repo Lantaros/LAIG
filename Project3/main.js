@@ -41,6 +41,11 @@ main=function()
 
 	// create and load graph, and associate it to scene.
 	// Check console for loading errors
+
+  /**
+    check all xml or lsx extension files
+    create array that has a graph for each file.
+  **/
 	var myGraph = new MySceneGraph(filename, myScene);
 
 	// start

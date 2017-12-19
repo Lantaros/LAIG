@@ -2,6 +2,8 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var BOARD_WIDTH = 8;
 var BOARD_Y_OFFSET = 0;
 var CELL_WIDTH = 1;
+var PLAYER_PIECES = 32;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -12,13 +14,26 @@ function XMLscene(interfac) {
     this.interfac = interfac;
 
     this.lightValues = {};
+
+    this.lastTime = 0;
+
     this.currentSelectable = "None";
     this.currentShader = "Red Pulse";
-    this.lastTime = 0;
+
     this.shaders = new Array();
     this.shadersRefs = new Array();
+
     let currentDate = new Date();
     this.initialTime = currentDate.getTime();
+
+    this.gameEnvironments = new Array();
+    this.currentEnvironment = "Default";
+
+    this.gameDifficulties = ["Easy", "Hard"];
+    this.currentDifficulty = "Easy";
+
+    this.gameTypes = ["Human Vs Human", "Human Vs Machine","Machine vs Machine"];
+    this.currentGameType = "";
 }
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
@@ -107,10 +122,11 @@ XMLscene.prototype.logPicking = function ()
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
 				var obj = this.pickResults[i][0];
+
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+					console.log("Picked object: " + obj.type + ", with pick id " + customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -141,6 +157,13 @@ XMLscene.prototype.onGraphLoaded = function()
 
     this.interfac.addNodesDropdown(this.graph.selectableNodes);
     this.interfac.addShadersDropdown(this.shadersRefs);
+
+    this.interfac.addGameFunctionalities();
+    this.interfac.addGameEnvironmentsDropdown(this.gameEnvironments);
+
+    this.interfac.addDifficulty(this.gameDifficulties);
+
+    this.interfac.addGameType(this.gameTypes);
 }
 
 /**
@@ -202,6 +225,8 @@ XMLscene.prototype.display = function() {
         this.graph.displayScene();
         this.displayBoard();
 
+      //  this.displayPieces();
+
     }
 	else
 	{
@@ -216,8 +241,7 @@ XMLscene.prototype.display = function() {
 
 }
 
-XMLscene.prototype.displayBoard = function()
-{
+XMLscene.prototype.displayBoard = function() {
   let whiteCell = this.graph.nodes["whiteCell"];
   let texWhite = this.graph.textures[whiteCell.textureID];
   whiteCell.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
@@ -287,6 +311,59 @@ XMLscene.prototype.displayBoard = function()
     }
     this.popMatrix();
     this.translate(0, 0, (CELL_WIDTH/2));
+  }
+};
+
+XMLscene.prototype.displayPieces = function() {
+  let whitePiece = this.graph.nodes["whitePiece"];
+  let texWhite = this.graph.textures[whitePiece.textureID];
+  whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+  let matWhite = this.graph.materials[whitePiece.materialID];
+
+  if (matWhite != null)
+    whitePiece['materialObj'] =  matWhite;
+  else
+    whitePiece['materialObj'] = this.graph.materials['defaultMaterial'];
+
+    whitePiece['textureObj'] = texWhite[0];
+
+  let blackPiece = this.graph.nodes["blackCell"];
+  let texBlack = this.graph.textures[blackPiece.textureID];
+  blackPiece.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+  let matBlack = this.graph.materials[blackPiece.materialID];
+
+  if (matBlack != null)
+    blackPiece['materialObj'] = matBlack;
+  else
+    blackPiece['materialObj'] = this.graph.materials['defaultMaterial'];
+
+  blackPiece['textureObj'] = texBlack[0];
+
+  let whitePieces = new Array();
+  for(let i = 0; i < PLAYER_PIECES; i++)
+    whitePieces.push(whitePiece);
+
+  let blackPieces = new Array();
+  for(let i = 0; i < PLAYER_PIECES; i++)
+    blackPieces.push(blackPiece);
+
+  let pieceID = 64;
+
+  this.pushMatrix();
+  for(let j = 0; j < whitePieces.size(); j++){
+      pieceID++;
+      whitePieces[i]['materialObj'].apply();
+
+      if (whitePieces[i]['textureObj'] != null)
+        whitePieces[i]['textureObj'].bind();
+
+      this.registerForPick(pieceID, whitePieces[i].leaves[0]);
+
+      whitePieces[i].leaves[0].display();
+
+      this.translate(j, 0, 0);
+
+    this.popMatrix();
   }
 };
 
