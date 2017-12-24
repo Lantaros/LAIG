@@ -1,7 +1,6 @@
 /**
  * MyPatch
  * @constructor
- * @param args patch arguments
  */
  function MyPatch (scene, args) {
  	this.scene = scene;
@@ -13,6 +12,8 @@
 
 	var knots1 = this.getKnotsVector(uDegree);
 	var knots2 = this.getKnotsVector(vDegree);
+
+	console.log(cPoints);
 
  	this.nurbsSurface = new CGFnurbsSurface(uDegree, vDegree, knots1, knots2, cPoints);
 
