@@ -147,11 +147,6 @@
         <amplif_factor s="0.75" t="0.75" />
     </TEXTURE>
 
-    <TEXTURE id="pokeball">
-        <file path="images/pokeball.png" />
-        <amplif_factor s="0.4" t="0.4" />
-    </TEXTURE>
-
     <TEXTURE id="podBody">
         <file path="images/podBody.png" />
         <amplif_factor s="4" t="4" />

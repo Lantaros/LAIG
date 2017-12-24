@@ -2,7 +2,7 @@
 /**
  * MyTriangle
  * @constructor
- * @args coordinates of each vertex(x,y,z)
+ * @param args coordinates of each vertex(x,y,z)
  */
  function MyTriangle(scene, args) {
  	CGFobject.call(this,scene);

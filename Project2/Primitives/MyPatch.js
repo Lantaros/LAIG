@@ -1,6 +1,7 @@
 /**
  * MyPatch
  * @constructor
+ * @param args patch arguments
  */
  function MyPatch (scene, args) {
  	this.scene = scene;

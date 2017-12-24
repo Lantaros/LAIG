@@ -1,7 +1,7 @@
 /**
  * MySphere
  * @constructor
- * @args radius, sections along radius(stacks), parts per section(slices)
+ * @param args radius, sections along radius(stacks), parts per section(slices)
  */
  function MySphere(scene, args) {
  	CGFobject.call(this,scene);

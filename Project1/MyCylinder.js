@@ -1,7 +1,7 @@
 /**
  * MyCylinder
  * @constructor
- * @args height, bottom radius, top radius, sections along height(stacks) and parts per section(slices), botFlag and topFlag
+ * @param args height, bottom radius, top radius, sections along height(stacks) and parts per section(slices), botFlag and topFlag
  */
 function MyCylinder(scene, args) {
     CGFobject.call(this, scene);
