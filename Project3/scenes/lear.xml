@@ -3,7 +3,7 @@
 <SCENE>
 
 <INITIALS>
-    <frustum near="0.1" far="500"/>
+    <frustum near="0.9" far="100"/>
     <translation x="-1" y="1" z="0" />
     <rotation axis="x" angle="0" />
     <rotation axis="y" angle="0" />
@@ -98,11 +98,6 @@
 
 <ANIMATIONS>
 
-  <ANIMATION id="learTeste" speed="3" type="linear">
-      <controlpoint xx="0" yy="0" zz="3" />
-      <controlpoint xx="0" yy="9" zz="3" />
-  </ANIMATION>
-
 </ANIMATIONS>
 
 
@@ -115,8 +110,6 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <NODEREF id="whitePiece" />
-            <NODEREF id="blackPiece" />
             <NODEREF id="whiteBox"/>
             <NODEREF id="blackBox"/>
         </DESCENDANTS>
@@ -155,9 +148,8 @@
   <NODE id="blackPiece" >
     <MATERIAL id="null" />
     <TEXTURE id="null" />
+
     <TRANSLATION x="0" y="3" z ="0"/>
-
-
     <ROTATION axis="x" angle="180"/>
 
     <DESCENDANTS>
@@ -207,10 +199,6 @@
 
       <TRANSLATION x="7" y="0" z ="-1"/>
 
-      <ANIMATIONREFS>
-         <ANIMATIONREF id="learTeste"/>
-       </ANIMATIONREFS>
-
        <DESCENDANTS>
          <NODEREF id="box"/>
       </DESCENDANTS>
@@ -228,6 +216,8 @@
         </DESCENDANTS>
 
     </NODE>
+
+    <!-- Generic Box for pieces -->
 
     <NODE id = "box">
       <MATERIAL id ="shinyThing" />

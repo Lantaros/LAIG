@@ -75,13 +75,12 @@ XMLscene.prototype.initLights = function() {
     var i = 0;
     // Lights index.
     // Reads the lights from the scene graph.
-    for (var graph in this.gameGraphs)
-      for (var key in this.gameGraphs[graph].lights) {
+      for (var key in this.gameGraphs['lear.xml'].lights) {
           if (i >= 8)
               break;              // Only eight lights allowed by WebGL.
 
-          if (this.gameGraphs[graph].lights.hasOwnProperty(key)) {
-              let light = this.gameGraphs[graph].lights[key];
+          if (this.gameGraphs['lear.xml'].lights.hasOwnProperty(key)) {
+              let light = this.gameGraphs['lear.xml'].lights[key];
               this.lights[i].setPosition(light[1][0], light[1][1], light[1][2], light[1][3]);
               this.lights[i].setAmbient(light[2][0], light[2][1], light[2][2], light[2][3]);
               this.lights[i].setDiffuse(light[3][0], light[3][1], light[3][2], light[3][3]);
@@ -129,28 +128,27 @@ XMLscene.prototype.logPicking = function ()
 /* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
-XMLscene.prototype.onGraphLoaded = function(filename)
+XMLscene.prototype.onGraphLoaded = function()
 {
     this.camera.near = this.gameGraphs["lear.xml"].near;
     this.camera.far = this.gameGraphs["lear.xml"].far;
-    this.axis = new CGFaxis(this,this.gameGraphs[filename].referenceLength);
+    this.axis = new CGFaxis(this,this.gameGraphs["lear.xml"].referenceLength);
 
-    this.setGlobalAmbientLight(this.gameGraphs[filename].ambientIllumination[0], this.gameGraphs[filename].ambientIllumination[1],
-    this.gameGraphs[filename].ambientIllumination[2], this.gameGraphs[filename].ambientIllumination[3]);
+    this.setGlobalAmbientLight(this.gameGraphs["lear.xml"].ambientIllumination[0], this.gameGraphs["lear.xml"].ambientIllumination[1],
+    this.gameGraphs["lear.xml"].ambientIllumination[2], this.gameGraphs["lear.xml"].ambientIllumination[3]);
 
-    this.gl.clearColor(this.gameGraphs[filename].background[0], this.gameGraphs[filename].background[1], this.gameGraphs[filename].background[2], this.gameGraphs[filename].background[3]);
+    this.gl.clearColor(this.gameGraphs["lear.xml"].background[0], this.gameGraphs["lear.xml"].background[1], this.gameGraphs["lear.xml"].background[2], this.gameGraphs["lear.xml"].background[3]);
 
     this.initLights();
 
-    if (filename == "lear.xml"){
-      this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
+    this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
 
-      this.interfac.addNodesDropdown(this.gameGraphs["lear.xml"].selectableNodes);
+    this.interfac.addNodesDropdown(this.gameGraphs["lear.xml"].selectableNodes);
 
-      this.interfac.addShadersDropdown(this.shadersRefs);
+    this.interfac.addShadersDropdown(this.shadersRefs);
 
-      this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
-    }
+    this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
+
 }
 
 /**
@@ -212,6 +210,7 @@ XMLscene.prototype.display = function() {
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
         this.displayBoard();
+        // this.displayPieces();
 
     }
 	else
@@ -298,6 +297,48 @@ XMLscene.prototype.displayBoard = function(){
     this.popMatrix();
     this.translate(0, 0, (CELL_WIDTH/2));
   }
+};
+
+XMLscene.prototype.displayPieces = function(){
+  let whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
+  let texWhite = this.gameGraphs['lear.xml'].textures[whitePiece.textureID];
+  whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+  let matWhite =  this.gameGraphs['lear.xml'].materials[whitePiece.materialID];
+
+  if (matWhite != null)
+    whitePiece['materialObj'] =  matWhite;
+  else
+    whitePiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+    let blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
+    let texBlack = this.gameGraphs['lear.xml'].textures[blackPiece.textureID];
+    blackPiece.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+    let matBlack =  this.gameGraphs['lear.xml'].materials[blackPiece.materialID];
+
+    if (matBlack != null)
+      blackPiece['materialObj'] =  matBlack;
+    else
+      blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+
+  //   this.pushMatrix();
+  //
+  //   for (let i = 0; i < line.length; i++) {
+  //     cellId++;
+  //     line[i]['materialObj'].apply();
+  //
+  //     if (line[i]['textureObj'] != null)
+  //       line[i]['textureObj'].bind();
+  //
+  //     this.registerForPick(cellId, line[i].leaves[0]);
+  //
+  //     line[i].leaves[0].display();
+  //
+  //     this.translate((CELL_WIDTH/2), 0, 0);
+  //   }
+  //   this.popMatrix();
+  //   this.translate(0, 0, (CELL_WIDTH/2));
+  // }
 };
 
 XMLscene.prototype.update = function(currTime){

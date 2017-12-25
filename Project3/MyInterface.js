@@ -68,5 +68,5 @@ MyInterface.prototype.addShadersDropdown = function(shaders) {
 };
 
 MyInterface.prototype.addGameEnvironmentsDropdown = function(gameGraphs) {
-  this.shadersGroup.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
+  this.gui.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
 };
