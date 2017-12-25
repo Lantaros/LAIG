@@ -304,6 +304,9 @@ XMLscene.prototype.update = function(currTime){
  for(var node in this.gameGraphs['lear.xml'].nodes) {
     this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
   }
+  for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
+     this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
+    }
  this.lastTime = currTime;
 }
 

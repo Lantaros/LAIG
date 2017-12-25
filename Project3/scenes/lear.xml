@@ -98,7 +98,10 @@
 
 <ANIMATIONS>
 
-
+  <ANIMATION id="learTeste" speed="3" type="linear">
+      <controlpoint xx="0" yy="0" zz="3" />
+      <controlpoint xx="0" yy="9" zz="3" />
+  </ANIMATION>
 
 </ANIMATIONS>
 
@@ -203,6 +206,10 @@
       <TEXTURE id="white" />
 
       <TRANSLATION x="7" y="0" z ="-1"/>
+
+      <ANIMATIONREFS>
+         <ANIMATIONREF id="learTeste"/>
+       </ANIMATIONREFS>
 
        <DESCENDANTS>
          <NODEREF id="box"/>

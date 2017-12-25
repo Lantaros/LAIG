@@ -661,7 +661,7 @@
         <TRANSLATION x="8" y="-2.6" z="14" />
 
         <ANIMATIONREFS>
-           <ANIMATIONREF id="cc1"/>
+           <!-- <ANIMATIONREF id="cc1"/> -->
            <ANIMATIONREF id="cc2"/>
            <ANIMATIONREF id="cc3"/>
          </ANIMATIONREFS>
