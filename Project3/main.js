@@ -37,16 +37,30 @@ main=function()
 	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
    var filename=getUrlVars()['file'] || "lear.xml";
-   //  var filename=getUrlVars()['file'] || "clapTest.xml";
 
-	// create and load graph, and associate it to scene.
-	// Check console for loading errors
+   myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
+   myScene.gameGraphs.length++;
+
+   filename=getUrlVars()['file'] || "test.xml";
+   myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
+   myScene.gameGraphs.length++;
+
+   myScene.gameEnvironnments.push(filename);
+   myScene.currentEnvironment = filename;
+
+
+   filename=getUrlVars()['file'] || "saloon.xml";
+   myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
+   myScene.gameGraphs.length++;
+
+   myScene.gameEnvironnments.push(filename);
+
+
 
   /**
     check all xml or lsx extension files
     create array that has a graph for each file.
   **/
-	var myGraph = new MySceneGraph(filename, myScene);
 
 	// start
     app.run();

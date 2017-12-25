@@ -14,11 +14,13 @@ var NODES_INDEX = 6;
  * @constructor
  */
 function MySceneGraph(filename, scene) {
-    this.loadedOk = null ;
+    this.loadedOk = null;
+
+    this.filename = filename;
 
     // Establish bidirectional references between scene and graph.
     this.scene = scene;
-    scene.graph = this;
+    scene.gameGraphs[filename] = this;
 
     this.nodes = [];
 
@@ -62,7 +64,7 @@ MySceneGraph.prototype.onXMLReady = function()
     this.loadedOk = true;
 
     // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
-    this.scene.onGraphLoaded();
+    this.scene.onGraphLoaded(this.filename);
 }
 
 /**
