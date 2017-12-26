@@ -330,8 +330,6 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-
-              <NODEREF id="piece" />
             <NODEREF id="paredes" />
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>
@@ -344,39 +342,6 @@
         </DESCENDANTS>
 
     </NODE>
-
-    <NODE id="piece">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-          <NODEREF id ="topPiece"/>
-          <NODEREF id ="botPiece"/>
-        </DESCENDANTS>
-
-    </NODE>
-
-      <NODE id = "topPiece" >
-        <MATERIAL id ="null" />
-        <TEXTURE id="white" />
-
-         <DESCENDANTS>
-           <LEAF type="halfSphere" args="1 50 50" />
-        </DESCENDANTS>
-
-    </NODE>
-
-      <NODE id = "botPiece">
-        <MATERIAL id ="null" />
-        <TEXTURE id="black" />
-
-         <DESCENDANTS>
-           <LEAF type="halfSphere" args="1 50 50" />
-        </DESCENDANTS>
-
-    </NODE>
-
-
 
     <NODE id="paredes">
         <MATERIAL id="null" />
@@ -696,7 +661,7 @@
         <TRANSLATION x="8" y="-2.6" z="14" />
 
         <ANIMATIONREFS>
-           <ANIMATIONREF id="cc1"/>
+           <!-- <ANIMATIONREF id="cc1"/> -->
            <ANIMATIONREF id="cc2"/>
            <ANIMATIONREF id="cc3"/>
          </ANIMATIONREFS>
