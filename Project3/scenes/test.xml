@@ -121,7 +121,7 @@
       <MATERIAL id ="shinyThing" />
       <TEXTURE id="black" />
 
-      <TRANSLATION x="-1" y="5" z="6" />
+      <TRANSLATION x="10" y="-5" z="-4" />
 
        <DESCENDANTS>
          <NODEREF id="boxFace1"/>

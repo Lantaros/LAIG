@@ -116,7 +116,28 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-					console.log("Picked object: " + obj + ", with pick id " + customId);
+          let control_points = new Array();
+          control_points.push(new Array(0,0,0));
+          control_points.push(new Array(0,5,0));
+          let animation = new LinearAnimation(this, customId, 1, control_points);
+          this.animations[customId]= animation;
+          this.animations.length++;
+          //change so it gets the node for a piece. That means we must create a node for each piece and save it.
+          let node = this.gameGraphs['lear.xml'].nodes["whitePiece"];
+          // /node.animationRefs.push(customId);
+
+          let column = customId % BOARD_WIDTH;
+          if (column == 0)
+            column = BOARD_WIDTH;
+
+          let line = Math.floor(customId / BOARD_WIDTH) + 1;
+          if ( (customId / BOARD_WIDTH) % 1 == 0)
+            line -=1;
+
+          console.log("l: " + line);
+          console.log("c: " + column);
+
+					// console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
