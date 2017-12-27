@@ -57,12 +57,12 @@
 <TEXTURES>
 
     <TEXTURE id="white">
-        <file path="images/cornerCube.png" />
+        <file path="images/claptrapBodyG.png" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
 
     <TEXTURE id="black">
-        <file path="images/podRed.png" />
+        <file path="images/claptrapTop.png" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 

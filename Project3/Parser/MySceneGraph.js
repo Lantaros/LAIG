@@ -72,6 +72,8 @@ MySceneGraph.prototype.onXMLReady = function()
  * Parses the LSX file, processing each block.
  */
 MySceneGraph.prototype.parseLSXFile = function(rootElement) {
+
+    console.log("Beginning parse of " + this.filename);
     if (rootElement.nodeName != "SCENE")
         return "root tag <SCENE> missing";
 

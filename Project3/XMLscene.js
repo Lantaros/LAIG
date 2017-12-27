@@ -30,10 +30,32 @@ function XMLscene(interfac) {
 
     //Lear variables
     this.boardPieces = new Array();
+<<<<<<< HEAD
     this.gameEnded = false;
     this.freeTiles = 64;    
 }
 
+=======
+
+    this.gameModes = ["PVP", "PVB", "BVB"];
+
+    this.currentGameMode = "";
+
+    this.botDifficulties = ["Random", "Normal"];
+
+    this.currentDifficulty = "Random";
+
+    this.rotation = true;
+
+    this.cameraAngles = ["Default", "Angle1", "Angle2"];
+
+    this.currentCameraAngle = "Default";
+
+}
+
+this.undo = function() { console.log("UNDO"); };
+
+>>>>>>> 16d7d0e5889d466b7d353413577b50628a09e24b
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
@@ -172,10 +194,13 @@ XMLscene.prototype.onGraphLoaded = function()
 
     this.interfac.addShadersDropdown(this.shadersRefs);
 
-	this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
-    
-    //Only lear.xml calls this method
-	this.learTemplateObjects();
+    //GAME OPTIONS
+    this.interfac.addGameOptions(this.gameModes, this.botDifficulties);
+
+    //EXTRA OPTIONS
+    this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
+
+	  this.learTemplateObjects();
 
 }
 /**
@@ -209,10 +234,10 @@ XMLscene.prototype.learTemplateObjects = function(){
 
     //Pieces
 	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
-	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];    
+	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
 
     this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];        
+    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
 
 	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
 	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
@@ -231,7 +256,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 		this.blackPiece['materialObj'] =  matBlack;
 	else
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
-        
+
     makeRequest("startGameRequest(pvp)");
 }
 
@@ -331,6 +356,10 @@ XMLscene.prototype.displayBoard = function(){
 
   let line;
   let cellId = 0;
+
+  let texWhite = this.gameGraphs[this.currentEnvironment].textures["white"];
+  let texBlack = this.gameGraphs[this.currentEnvironment].textures["black"];
+
   for(let j = 0; j < BOARD_WIDTH; j++){
     if(j % 2 == 0)
       line = whiteLineStart;
@@ -341,10 +370,21 @@ XMLscene.prototype.displayBoard = function(){
 
     for (let i = 0; i < line.length; i++) {
       cellId++;
+
+      if (line[i].nodeID == "whiteCell"){
+        line[i].leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+        line[i]['textureObj'] = texWhite[0];
+        }
+      else if (line[i].nodeID == "blackCell"){
+        line[i].leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+        line[i]['textureObj'] = texBlack[0];
+      }
+
       line[i]['materialObj'].apply();
 
-      if (line[i]['textureObj'] != null)
+      if (line[i]['textureObj'] != null){
         line[i]['textureObj'].bind();
+      }
 
       this.registerForPick(cellId, line[i].leaves[0]);
 
@@ -392,7 +432,7 @@ function getPrologRequest(requestString, onSuccess, onError, port){
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 }
-		
+
 function makeRequest(requestString){
     // Make Request
     getPrologRequest(requestString, handleReply);

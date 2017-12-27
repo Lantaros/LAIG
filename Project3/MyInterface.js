@@ -25,8 +25,6 @@ MyInterface.prototype.init = function(application) {
     this.gui = new dat.GUI();
 
     // add a group of controls (and open/expand by defult)
-
-
     return true;
 };
 
@@ -67,6 +65,21 @@ MyInterface.prototype.addShadersDropdown = function(shaders) {
   this.shadersGroup.add(this.scene, "currentShader", shaders).name("Special Shader");
 };
 
-MyInterface.prototype.addGameEnvironmentsDropdown = function(gameGraphs) {
-  this.gui.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
+MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
+  this.gameOptions = this.gui.addFolder("Game Options");
+  this.gameOptions.open();
+  this.gameOptions.add(this.scene, "currentGameMode", gameModes).name("Mode");
+  this.gameOptions.add(this.scene, "currentDifficulty", botDifficulties).name("AI");
+  let start = { startGame:function(){ console.log("START GAME") }};
+  this.gameOptions.add(start,'startGame');
+};
+
+MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
+  this.extraOptions = this.gui.addFolder("Other Options");
+  this.extraOptions.add(this.scene, 'rotation').name('Board Rotation');
+  let obj = { undo:function(){ console.log("UNDO STUFF") }};
+  this.extraOptions.add(obj,'undo').name("Undo");
+  // this.gui.add(this.scene, 'undo');
+  this.extraOptions.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
+  this.extraOptions.add(this.scene, 'currentCameraAngle', cameraAngles).name('Camera Angles');
 };
