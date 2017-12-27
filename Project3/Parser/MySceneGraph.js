@@ -1685,9 +1685,9 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     }
 
     for (var j = 0; j < node.leaves.length; j++) {
-		if(this.scene.currTexture != null)
-			node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
-		node.leaves[j].display();
+  		if(this.scene.currTexture != null)
+  			node.leaves[j].updateTexCoords(this.scene.currTexture[1],this.scene.currTexture[2]);
+  		node.leaves[j].display();
     }
     this.scene.popMatrix();
     if (this.scene.currentSelectable == node.nodeID)

@@ -232,8 +232,8 @@ XMLscene.prototype.learTemplateObjects = function(){
 	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
 	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
 
-    this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
+  this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
+  this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
 
 	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
 	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
@@ -251,7 +251,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 	if (matBlack != null)
 		this.blackPiece['materialObj'] =  matBlack;
 	else
-        this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+    this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
     makeRequest("startGameRequest(pvp)");
 }
@@ -314,8 +314,8 @@ XMLscene.prototype.display = function() {
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
         this.displayBoard();
-        // this.displayPieces();
-
+        this.processPiece(this.whitePiece, this.gameGraphs['lear.xml'].textures["white"][0], this.gameGraphs['lear.xml'].materials["white"]);
+        // this.displayPieces(this.blackPiece, this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID][0], this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID]);
     }
 	else
 	{
@@ -393,28 +393,73 @@ XMLscene.prototype.displayBoard = function(){
   }
 };
 
+XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
+
+  	var textura = parTex;
+  	var material = parAsp;
+
+    this.pushMatrix();
+    this.multMatrix(node.transformMatrix);
+
+    if (node.textureID !='null') {
+      if (node.textureID == 'clear')
+        textura = null;
+      else{
+        this.currTexture = this.gameGraphs['lear.xml'][node.textureID];
+        textura =  this.gameGraphs['lear.xml'].textures[node.textureID][0];
+      }
+    }
+
+    if (node.materialID != "null") {
+      material = this.gameGraphs['lear.xml'].materials[node.materialID];
+    }
+    console.log(node.nodeID);
+    for (var i = 0; i < node.children.length; i++) {
+      this.processPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+    }
+
+    if (material != null) {
+        material.apply();
+    }
+
+    if (textura != null) {
+        textura.bind();
+    }
+
+    for (let j = 0; j < node.leaves.length; j++)
+      node.leaves[j].display();
+
+    this.popMatrix();
+};
+
 XMLscene.prototype.displayPieces = function(){
+  //  this.pushMatrix();
 
+    // for (var i = 0; i < node.children.length; i++) {
+    //   this.processNode(this.nodes[node.children[i]], textura, material);
+    // }
 
+    // let pieceNode = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
+    // for (let j = 0; j < pieceNode.children.length; j++) {
+    //     pieceNode.leaves[j].display();
+    // }
 
-  //   this.pushMatrix();
-  //
-  //   for (let i = 0; i < line.length; i++) {
-  //     cellId++;
-  //     line[i]['materialObj'].apply();
-  //
-  //     if (line[i]['textureObj'] != null)
-  //       line[i]['textureObj'].bind();
-  //
-  //     this.registerForPick(cellId, line[i].leaves[0]);
-  //
-  //     line[i].leaves[0].display();
-  //
-  //     this.translate((CELL_WIDTH/2), 0, 0);
-  //   }
-  //   this.popMatrix();
-  //   this.translate(0, 0, (CELL_WIDTH/2));
-  // }
+    // for (let i = 0; i < line.length; i++) {
+    //   cellId++;
+    //   line[i]['materialObj'].apply();
+    //
+    //   if (line[i]['textureObj'] != null)
+    //     line[i]['textureObj'].bind();
+    //
+    //   this.registerForPick(cellId, line[i].leaves[0]);
+    //
+    //   line[i].leaves[0].display();
+    //
+    //   this.translate((CELL_WIDTH/2), 0, 0);
+    // }
+    // this.popMatrix();
+    // this.translate(0, 0, (CELL_WIDTH/2));
+  //}
 };
 
 function getPrologRequest(requestString, onSuccess, onError, port){
@@ -451,13 +496,8 @@ function handleReply(data){
     this.currentBoard = parseBoard(matched[1]);
 }
 
-function escapeRegExp(str) {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
-
 function parseBoard(string){
 	let board = new Array();
-//	let regex = "/\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*)\](?:])?(?:,|])/y";
 	let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
 
 	for(let i = 0; i < BOARD_WIDTH; i++){
