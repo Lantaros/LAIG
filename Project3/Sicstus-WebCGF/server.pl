@@ -107,7 +107,7 @@ parse_input(startGameRequest(pvp), Board) :- startPvPGame(Board).
 parse_input(startGameRequest(pve), Res) :- startGame.
 parse_input(startGameRequest(eve), Res) :- startGame.
 
-parse_input(moveRequest(Board, NLine, NCol, Player, Counter), [FinalBoard, NewCounter, Ended]) :- 
+parse_input(moveRequest(Board, NLine, NCol, Player, Counter), FinalBoard-NewCounter-Ended) :- 
 	move(Board, NLine, NCol, Player, Counter, NewCounter, FinalBoard, Ended).
 
 parse_input(handshake, handshake).

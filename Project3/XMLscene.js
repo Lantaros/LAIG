@@ -28,9 +28,12 @@ function XMLscene(interfac) {
 
     this.gameEnvironnments = new Array();
 
+    //Lear variables
     this.boardPieces = new Array();
-
+    this.gameEnded = false;
+    this.freeTiles = 64;    
 }
+
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
@@ -112,11 +115,11 @@ XMLscene.prototype.initCameras = function() {
 XMLscene.prototype.logPicking = function (){
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
-			for (var i=0; i< this.pickResults.length; i++) {
-				var obj = this.pickResults[i][0];
+			for (let i=0; i< this.pickResults.length; i++) {
+				let obj = this.pickResults[i][0];
 				if (obj)
 				{
-					var customId = this.pickResults[i][1];
+					let customId = this.pickResults[i][1];
 					let control_points = new Array();
 					control_points.push(new Array(0,0,0));
 					control_points.push(new Array(0,5,0));
@@ -395,23 +398,49 @@ function makeRequest(requestString){
     getPrologRequest(requestString, handleReply);
 }
 			
-//Handle the Reply
+/**
+ * Handles the server's response, updating currentBoard, 
+ * freeTiles and gameEnded attriutes
+ * @param data JSON server response 
+ */
 function handleReply(data){
     console.log("Reply!!\n" + data);
+    let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
+    let matched = regex.exec(data.target.responseText);
+    if(matched[2] != undefined && matched[3] != undefined){
+        this.lastBoards.push(this.currentBoard);    
+        this.freeTiles = matched[2];
+        this.gameEnded = matched[3];        
+    }
+    this.currentBoard = parseBoard(matched[1]);
 }
+
+function parseBoard(string){
+	let board = new Array();
+//	let regex = "/\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*)\](?:])?(?:,|])/y";
+	let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
+
+	for(let i = 0; i < BOARD_WIDTH; i++){
+		board[i] = new Array();
+		let matched = regex.exec(string);
+		for (let j = 1; j < matched.length; j++) {
+			board[i].push(matched[j]);			
+		}
+	}
+	return board;
+}	
 
 XMLscene.prototype.update = function(currTime){
- for(var node in this.gameGraphs['lear.xml'].nodes) {
-    this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
-  }
+ 	for(var node in this.gameGraphs['lear.xml'].nodes) {
+		this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
+	}
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
-    }
- this.lastTime = currTime;
+	}
+	this.lastTime = currTime;
 }
 
 
-XMLscene.prototype.updateScalingFactor = function(date)
-{
+XMLscene.prototype.updateScalingFactor = function(date){
     this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
 };
