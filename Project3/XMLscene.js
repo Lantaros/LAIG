@@ -28,6 +28,8 @@ function XMLscene(interfac) {
 
     this.gameEnvironnments = new Array();
 
+    this.boardPieces = new Array();
+
 }
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
@@ -107,8 +109,7 @@ XMLscene.prototype.initCameras = function() {
 }
 
 
-XMLscene.prototype.logPicking = function ()
-{
+XMLscene.prototype.logPicking = function (){
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (var i=0; i< this.pickResults.length; i++) {
@@ -116,26 +117,26 @@ XMLscene.prototype.logPicking = function ()
 				if (obj)
 				{
 					var customId = this.pickResults[i][1];
-          let control_points = new Array();
-          control_points.push(new Array(0,0,0));
-          control_points.push(new Array(0,5,0));
-          let animation = new LinearAnimation(this, customId, 1, control_points);
-          this.animations[customId]= animation;
-          this.animations.length++;
-          //change so it gets the node for a piece. That means we must create a node for each piece and save it.
-          let node = this.gameGraphs['lear.xml'].nodes["whitePiece"];
-          // /node.animationRefs.push(customId);
+					let control_points = new Array();
+					control_points.push(new Array(0,0,0));
+					control_points.push(new Array(0,5,0));
+					let animation = new LinearAnimation(this, customId, 1, control_points);
+					this.animations[customId]= animation;
+					this.animations.length++;
+					//change so it gets the node for a piece. That means we must create a node for each piece and save it.
+					let node = this.gameGraphs['lear.xml'].nodes["whitePiece"];
+					// /node.animationRefs.push(customId);
 
-          let column = customId % BOARD_WIDTH;
-          if (column == 0)
-            column = BOARD_WIDTH;
+					let column = customId % BOARD_WIDTH;
+					if (column == 0)
+						column = BOARD_WIDTH;
 
-          let line = Math.floor(customId / BOARD_WIDTH) + 1;
-          if ( (customId / BOARD_WIDTH) % 1 == 0)
-            line -=1;
+					let line = Math.floor(customId / BOARD_WIDTH) + 1;
+					if ( (customId / BOARD_WIDTH) % 1 == 0)
+						line -=1;
 
-          console.log("l: " + line);
-          console.log("c: " + column);
+					console.log("l: " + line);
+					console.log("c: " + column);
 
 					// console.log("Picked object: " + obj + ", with pick id " + customId);
 				}
@@ -168,8 +169,67 @@ XMLscene.prototype.onGraphLoaded = function()
 
     this.interfac.addShadersDropdown(this.shadersRefs);
 
-    this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
+	this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
+    
+    //Only lear.xml calls this method
+	this.learTemplateObjects();
 
+}
+/**
+ * Creates board tiles and pieaces generic objects
+ */
+XMLscene.prototype.learTemplateObjects = function(){
+	//BoadCells
+	this.whiteCell = this.gameGraphs['lear.xml'].nodes["whiteCell"];
+	let texWhite =  this.gameGraphs['lear.xml'].textures[this.whiteCell.textureID];
+	this.whiteCell.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+	let matWhite =  this.gameGraphs['lear.xml'].materials[this.whiteCell.materialID];
+
+	if (matWhite != null)
+		this.whiteCell['materialObj'] =  matWhite;
+	else
+		this.whiteCell['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+	this.whiteCell['textureObj'] = texWhite[0];
+
+	this.blackCell =  this.gameGraphs['lear.xml'].nodes["blackCell"];
+	let texBlack = this.gameGraphs['lear.xml'].textures[this.blackCell.textureID];
+	this.blackCell.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+	let matBlack = this.gameGraphs['lear.xml'].materials[this.blackCell.materialID];
+
+	if (matBlack != null)
+		this.blackCell['materialObj'] = matBlack;
+	else
+		this.blackCell['materialObj'] = this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+	this.blackCell['textureObj'] = texBlack[0];
+
+    //Pieces
+	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
+	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];    
+
+    this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
+    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];        
+
+	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
+	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+	matWhite =  this.gameGraphs['lear.xml'].materials[this.whitePiece.materialID];
+
+	if (matWhite != null)
+		this.whitePiece['materialObj'] =  matWhite;
+	else
+		this.whitePiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+	texBlack = this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID];
+	//this.blackPiece.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+	matBlack =  this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID];
+
+	if (matBlack != null)
+		this.blackPiece['materialObj'] =  matBlack;
+	else
+        this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+        
+    makeRequest("startGameRequest(pvp)");
 }
 
 /**
@@ -196,8 +256,7 @@ XMLscene.prototype.display = function() {
 
     this.pushMatrix();
 
-    if (this.gameGraphs[this.currentEnvironment].loadedOk)
-    {
+    if (this.gameGraphs[this.currentEnvironment].loadedOk){
         // Applies initial transformations.
     this.multMatrix(this.gameGraphs[this.currentEnvironment].initialTransforms);
 
@@ -248,48 +307,23 @@ XMLscene.prototype.display = function() {
 }
 
 XMLscene.prototype.displayBoard = function(){
-  let whiteCell = this.gameGraphs['lear.xml'].nodes["whiteCell"];
-  let texWhite =  this.gameGraphs['lear.xml'].textures[whiteCell.textureID];
-  whiteCell.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
-  let matWhite =  this.gameGraphs['lear.xml'].materials[whiteCell.materialID];
-
-  if (matWhite != null)
-    whiteCell['materialObj'] =  matWhite;
-  else
-    whiteCell['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
-
-    whiteCell['textureObj'] = texWhite[0];
-
-  let blackCell =  this.gameGraphs['lear.xml'].nodes["blackCell"];
-  let texBlack = this.gameGraphs['lear.xml'].textures[blackCell.textureID];
-  blackCell.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
-  let matBlack = this.gameGraphs['lear.xml'].materials[blackCell.materialID];
-
-  if (matBlack != null)
-    blackCell['materialObj'] = matBlack;
-  else
-    blackCell['materialObj'] = this.gameGraphs['lear.xml'].materials['defaultMaterial'];
-
-  blackCell['textureObj'] = texBlack[0];
-
-
 
   let whiteLineStart = new Array();
   let blackLineStart = new Array();
 
   for(let i = 0; i < BOARD_WIDTH; i++){
     if(i % 2 == 0)
-      whiteLineStart.push(whiteCell);
+      whiteLineStart.push(this.whiteCell);
     else
-      whiteLineStart.push(blackCell);
+      whiteLineStart.push(this.blackCell);
 
   }
 
   for(let i = 0; i < BOARD_WIDTH; i++){
     if(i % 2 == 0)
-      blackLineStart.push(blackCell);
+      blackLineStart.push(this.blackCell);
     else
-      blackLineStart.push(whiteCell);
+      blackLineStart.push(this.whiteCell);
   }
 
   let line;
@@ -321,25 +355,7 @@ XMLscene.prototype.displayBoard = function(){
 };
 
 XMLscene.prototype.displayPieces = function(){
-  let whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
-  let texWhite = this.gameGraphs['lear.xml'].textures[whitePiece.textureID];
-  whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
-  let matWhite =  this.gameGraphs['lear.xml'].materials[whitePiece.materialID];
 
-  if (matWhite != null)
-    whitePiece['materialObj'] =  matWhite;
-  else
-    whitePiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
-
-    let blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
-    let texBlack = this.gameGraphs['lear.xml'].textures[blackPiece.textureID];
-    blackPiece.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
-    let matBlack =  this.gameGraphs['lear.xml'].materials[blackPiece.materialID];
-
-    if (matBlack != null)
-      blackPiece['materialObj'] =  matBlack;
-    else
-      blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
   //   this.pushMatrix();
@@ -361,6 +377,28 @@ XMLscene.prototype.displayPieces = function(){
   //   this.translate(0, 0, (CELL_WIDTH/2));
   // }
 };
+
+function getPrologRequest(requestString, onSuccess, onError, port){
+    let requestPort = port || 8081;
+    let request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
+
+    request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
+    request.onerror = onError || function(){console.log("Error waiting for response");};
+
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.send();
+}
+		
+function makeRequest(requestString){
+    // Make Request
+    getPrologRequest(requestString, handleReply);
+}
+			
+//Handle the Reply
+function handleReply(data){
+    console.log("Reply!!\n" + data);
+}
 
 XMLscene.prototype.update = function(currTime){
  for(var node in this.gameGraphs['lear.xml'].nodes) {

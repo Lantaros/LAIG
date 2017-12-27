@@ -89,27 +89,3 @@ chooseAILevelMenu(Dif):-
 		pressEnterToContinue, nl,
 		gameModeMenu
 	).
-
-	
-%------------STARTS PLAYER VS PLAYER------------
-
-startPvPGame:-
-	startGame.
-
-
-%------------STARTS PLAYER VS AI---------------
-
-startPvBGame:-
-	chooseAILevelMenu(Dif),
-	initialBoard(Board),
-	assert(state(Board, 64, 'X ')),
-	playPvBGame(Dif).
-
-
-%------------STARTS AI VS AI---------------
-
-startBvBGame:-
-	chooseAILevelMenu(Dif),
-	initialBoard(Board),
-	assert(state(Board, 64, 'X ')),
-	playBvBGame(Dif).

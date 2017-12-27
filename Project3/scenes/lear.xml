@@ -112,8 +112,8 @@
         <DESCENDANTS>
             <NODEREF id="whiteBox"/>
             <NODEREF id="blackBox"/>
-            <NODEREF id="whitePiece"/>
-            <NODEREF id="blackPiece"/>
+            <!--<NODEREF id="whitePiece"/>
+            <<NODEREF id="blackPiece"/>-->
         </DESCENDANTS>
 
     </NODE>

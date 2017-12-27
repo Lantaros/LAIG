@@ -15,12 +15,11 @@ play :-
 
 %------------HANDLES THE PLAY-------------
 
-move(Board, Player, FinalBoard):-
-		repeat,
-			getCoordsFromUser(NLine, NCol),
-			check(Board, NLine, NCol, NextBoard, Player, false),
-			verifyRule(NextBoard, NLine, NCol, Player, FinalBoard).
-
+move(Board, NLine, NCol, Player, Counter, NewCounter, FinalBoard, Ended):-
+	check(Board, NLine, NCol, NextBoard, Player, false),
+	verifyRule(NextBoard, NLine, NCol, Player, FinalBoard),
+	NewCounter is Counter -1,
+	endGame(NewCounter, FinalBoard, Ended).
 
 %------------HANDLES THE COMPUTER PLAY-------------
 
@@ -72,10 +71,12 @@ changePlayer('X ', 'O ').
 
 %------------CHECKS FOR END GAME-------------
 
-endGame(Count) :-
+endGame(Count, FinalBoard, Ended) :-
 	Count == 0,
-	retract(state(FBoard, Count, Player)),
-	checkWinner(FBoard).
+	Ended = true,
+	checkWinner(FinalBoard).
+
+endGame(_, _ , false).
 
 
 %------------CHECKS THE WINNER-------------

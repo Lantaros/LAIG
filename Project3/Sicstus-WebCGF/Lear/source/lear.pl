@@ -3,7 +3,6 @@
 :- include('stateMachine.pl').
 :- include('utilities.pl').
 :- include('ia.pl').
-:- include('menu.pl').
 :- use_module(library(clpfd)).
 :- use_module(library(lists)).
 :- use_module(library(between)).
@@ -41,16 +40,29 @@ initialBoard([
 
 %-----------STARTS THE GAME-----------
 
-startGame:-
-	 initialBoard(Board),
-	 assert(state(Board, 64, 'X ')),
-	 play.
-
-%------PREDICATE THAT STARTS THE PROGRAM--------
-
-%lear:- initialBoardForTesting(Board), printBoard(Board), countScore(Board, 'O ', Num), write(Num), nl, getCoordsFromUser(NLine, NCol).
-
-%lear:- initialBoard(Board), startGame(Board).
-
+startGame(Board):-
+	initialBoardForTesting(Board).
 
 lear:- mainMenuLear.
+
+	
+%------------STARTS PLAYER VS PLAYER------------
+
+startPvPGame(Board):-
+	startGame(Board).
+
+
+%------------STARTS PLAYER VS AI---------------
+
+startPvBGame:-
+	initialBoard(Board),
+	assert(state(Board, 64, 'X ')),
+	playPvBGame(Dif).
+
+
+%------------STARTS AI VS AI---------------
+
+startBvBGame:-
+	initialBoard(Board),
+	assert(state(Board, 64, 'X ')),
+	playBvBGame(Dif).
