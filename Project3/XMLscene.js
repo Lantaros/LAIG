@@ -30,7 +30,7 @@ function XMLscene(interfac) {
 
     this.boardPieces = new Array();
 
-    this.gameModes = ["PVP", "PVE", "EVE"];
+    this.gameModes = ["PVP", "PVB", "BVB"];
 
     this.currentGameMode = "";
 
@@ -40,9 +40,9 @@ function XMLscene(interfac) {
 
     this.rotation = true;
 
-    this.cameraAngles = ["Normal", "1", "2"];
+    this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
-    this.currentCameraAngle = "Normal";
+    this.currentCameraAngle = "Default";
 
 }
 
@@ -348,6 +348,10 @@ XMLscene.prototype.displayBoard = function(){
 
   let line;
   let cellId = 0;
+
+  let texWhite = this.gameGraphs[this.currentEnvironment].textures["white"];
+  let texBlack = this.gameGraphs[this.currentEnvironment].textures["black"];
+
   for(let j = 0; j < BOARD_WIDTH; j++){
     if(j % 2 == 0)
       line = whiteLineStart;
@@ -358,10 +362,21 @@ XMLscene.prototype.displayBoard = function(){
 
     for (let i = 0; i < line.length; i++) {
       cellId++;
+
+      if (line[i].nodeID == "whiteCell"){
+        line[i].leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+        line[i]['textureObj'] = texWhite[0];
+        }
+      else if (line[i].nodeID == "blackCell"){
+        line[i].leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+        line[i]['textureObj'] = texBlack[0];
+      }
+
       line[i]['materialObj'].apply();
 
-      if (line[i]['textureObj'] != null)
+      if (line[i]['textureObj'] != null){
         line[i]['textureObj'].bind();
+      }
 
       this.registerForPick(cellId, line[i].leaves[0]);
 
