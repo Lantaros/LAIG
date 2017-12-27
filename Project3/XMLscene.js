@@ -30,12 +30,9 @@ function XMLscene(interfac) {
 
     //Lear variables
     this.boardPieces = new Array();
-<<<<<<< HEAD
-    this.gameEnded = false;
-    this.freeTiles = 64;    
-}
 
-=======
+    this.gameEnded = false;
+    this.freeTiles = 64;
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -55,7 +52,6 @@ function XMLscene(interfac) {
 
 this.undo = function() { console.log("UNDO"); };
 
->>>>>>> 16d7d0e5889d466b7d353413577b50628a09e24b
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
@@ -437,22 +433,26 @@ function makeRequest(requestString){
     // Make Request
     getPrologRequest(requestString, handleReply);
 }
-			
+
 /**
- * Handles the server's response, updating currentBoard, 
+ * Handles the server's response, updating currentBoard,
  * freeTiles and gameEnded attriutes
- * @param data JSON server response 
+ * @param data JSON server response
  */
 function handleReply(data){
     console.log("Reply!!\n" + data);
     let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
     let matched = regex.exec(data.target.responseText);
     if(matched[2] != undefined && matched[3] != undefined){
-        this.lastBoards.push(this.currentBoard);    
+        this.lastBoards.push(this.currentBoard);
         this.freeTiles = matched[2];
-        this.gameEnded = matched[3];        
+        this.gameEnded = matched[3];
     }
     this.currentBoard = parseBoard(matched[1]);
+}
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
 function parseBoard(string){
@@ -464,11 +464,11 @@ function parseBoard(string){
 		board[i] = new Array();
 		let matched = regex.exec(string);
 		for (let j = 1; j < matched.length; j++) {
-			board[i].push(matched[j]);			
+			board[i].push(matched[j]);
 		}
 	}
 	return board;
-}	
+}
 
 XMLscene.prototype.update = function(currTime){
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
