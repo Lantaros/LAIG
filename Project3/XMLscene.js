@@ -30,7 +30,24 @@ function XMLscene(interfac) {
 
     this.boardPieces = new Array();
 
+    this.gameModes = ["PVP", "PVE", "EVE"];
+
+    this.currentGameMode = "";
+
+    this.botDifficulties = ["Random", "Normal"];
+
+    this.currentDifficulty = "Random";
+
+    this.rotation = true;
+
+    this.cameraAngles = ["Normal", "1", "2"];
+
+    this.currentCameraAngle = "Normal";
+
 }
+
+this.undo = function() { console.log("UNDO"); };
+
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
@@ -169,10 +186,13 @@ XMLscene.prototype.onGraphLoaded = function()
 
     this.interfac.addShadersDropdown(this.shadersRefs);
 
-	this.interfac.addGameEnvironmentsDropdown(this.gameEnvironnments);
-    
-    //Only lear.xml calls this method
-	this.learTemplateObjects();
+    //GAME OPTIONS
+    this.interfac.addGameOptions(this.gameModes, this.botDifficulties);
+
+    //EXTRA OPTIONS
+    this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
+
+	  this.learTemplateObjects();
 
 }
 /**
@@ -206,10 +226,10 @@ XMLscene.prototype.learTemplateObjects = function(){
 
     //Pieces
 	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
-	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];    
+	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
 
     this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];        
+    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
 
 	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
 	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
@@ -228,7 +248,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 		this.blackPiece['materialObj'] =  matBlack;
 	else
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
-        
+
     makeRequest("startGameRequest(pvp)");
 }
 
@@ -389,12 +409,12 @@ function getPrologRequest(requestString, onSuccess, onError, port){
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 }
-		
+
 function makeRequest(requestString){
     // Make Request
     getPrologRequest(requestString, handleReply);
 }
-			
+
 //Handle the Reply
 function handleReply(data){
     console.log("Reply!!\n" + data);
