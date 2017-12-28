@@ -30,14 +30,8 @@ function XMLscene(interfac) {
 
     //Lear variables
     this.boardPieces = new Array();
-<<<<<<< HEAD
     this.gameEnded = false;
     this.freeTiles = 64;    
-=======
-
-    this.gameEnded = false;
-    this.freeTiles = 64;
->>>>>>> aedaa2e011238c33e0916f542b9b997c85e97736
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -139,8 +133,7 @@ XMLscene.prototype.logPicking = function (){
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (let i=0; i< this.pickResults.length; i++) {
 				let obj = this.pickResults[i][0];
-				if (obj)
-				{
+				if (obj){
 					let customId = this.pickResults[i][1];
 					let control_points = new Array();
 					control_points.push(new Array(0,0,0));
