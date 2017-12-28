@@ -30,12 +30,8 @@ function XMLscene(interfac) {
 
     //Lear variables
     this.boardPieces = new Array();
-<<<<<<< HEAD
     this.gameEnded = false;
     this.freeTiles = 64;    
-}
-
-=======
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -50,12 +46,10 @@ function XMLscene(interfac) {
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
     this.currentCameraAngle = "Default";
-
 }
 
 this.undo = function() { console.log("UNDO"); };
 
->>>>>>> 16d7d0e5889d466b7d353413577b50628a09e24b
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
 
