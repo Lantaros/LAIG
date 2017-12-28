@@ -2,6 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var BOARD_WIDTH = 8;
 var BOARD_Y_OFFSET = 0;
 var CELL_WIDTH = 1;
+let scene;
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -31,7 +32,7 @@ function XMLscene(interfac) {
     //Lear variables
     this.boardPieces = new Array();
     this.gameEnded = false;
-    this.freeTiles = 64;    
+    this.freeTiles = 64;
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -46,8 +47,15 @@ function XMLscene(interfac) {
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
     this.currentCameraAngle = "Default";
+    
+    this.currentBoard =  new Array(BOARD_WIDTH);
+    for (let i = 0; i <  this.currentBoard.length; i++) {
+        this.currentBoard[i] = new Array(BOARD_WIDTH).fill(0);
+    }
+    scene = this;
 
     this.lastBoards  = new Array();
+    
 }
 
 this.undo = function() { console.log("UNDO"); };
@@ -254,9 +262,7 @@ XMLscene.prototype.learTemplateObjects = function(){
  * Displays the scene.
  */
 XMLscene.prototype.display = function() {
-
-
-  	this.logPicking();
+    this.logPicking();
   	this.clearPickRegistration();
 
     // ---- BEGIN Background, camera and axis setup
@@ -307,10 +313,14 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
+
+        //Board Display
+        this.displayBoardTiles();
         this.displayBoard();
-        this.processPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
-        // this.displayPieces(this.blackPiece, this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID][0], this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID]);
-    }
+
+        //this.displayWhitePieces();
+    
+      }
 	else
 	{
 		// Draw axis
@@ -324,8 +334,7 @@ XMLscene.prototype.display = function() {
 
 }
 
-XMLscene.prototype.displayBoard = function(){
-
+XMLscene.prototype.displayBoardTiles = function(){
   let whiteLineStart = new Array();
   let blackLineStart = new Array();
 
@@ -387,7 +396,42 @@ XMLscene.prototype.displayBoard = function(){
   }
 };
 
-XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
+XMLscene.prototype.displayBoard = function(){
+    scene.pushMatrix();
+    for (let i = 0; i < BOARD_WIDTH; i++) {
+        scene.pushMatrix(); 
+        for (let j = 0; j < BOARD_WIDTH; j++) {
+            if (scene.currentBoard[i][j] == 'X ')
+                scene.displayPiece(scene.blackPiece, scene.blackPiece["textureObj"], scene.blackPiece["materialObj"]);
+            else if(scene.currentBoard[i][j] == 'O ')
+                scene.displayPiece(scene.whitePiece, scene.whitePiece["textureObj"], scene.whitePiece["materialObj"]);
+
+            //scene.translate((CELL_WIDTH/2), 0, 0);
+        }
+        scene.popMatrix();
+        //scene.translate(0, 0, (CELL_WIDTH/2));
+    }
+    scene.popMatrix();
+};
+
+
+XMLscene.prototype.displayWhitePieces = function(){
+
+  for (let j = 0; j < 4; j++){
+
+    this.pushMatrix();
+
+    for (let i = 0; i < 8; i++){
+      this.displayPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
+      this.translate( 0, 0, -0.6);
+    }
+    this.popMatrix();
+    this.translate(0.6, 0, 0);
+    }
+
+}
+
+XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
 
   	var textura = parTex;
   	var material = parAsp;
@@ -409,7 +453,7 @@ XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
     }
 
     for (var i = 0; i < node.children.length; i++) {
-      this.processPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+      this.displayPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
     }
 
     material.apply();
@@ -424,39 +468,11 @@ XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
     this.popMatrix();
 };
 
-XMLscene.prototype.displayPieces = function(){
-  //  this.pushMatrix();
-
-    // for (var i = 0; i < node.children.length; i++) {
-    //   this.processNode(this.nodes[node.children[i]], textura, material);
-    // }
-
-    // let pieceNode = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    // for (let j = 0; j < pieceNode.children.length; j++) {
-    //     pieceNode.leaves[j].display();
-    // }
-
-    // for (let i = 0; i < line.length; i++) {
-    //   cellId++;
-    //   line[i]['materialObj'].apply();
-    //
-    //   if (line[i]['textureObj'] != null)
-    //     line[i]['textureObj'].bind();
-    //
-    //   this.registerForPick(cellId, line[i].leaves[0]);
-    //
-    //   line[i].leaves[0].display();
-    //
-    //   this.translate((CELL_WIDTH/2), 0, 0);
-    // }
-    // this.popMatrix();
-    // this.translate(0, 0, (CELL_WIDTH/2));
-  //}
-};
 
 function getPrologRequest(requestString, onSuccess, onError, port){
     let requestPort = port || 8081;
     let request = new XMLHttpRequest();
+    request.scene = this;
     request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 
     request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
@@ -485,9 +501,9 @@ function handleReply(data){
         this.freeTiles = matched[2];
         this.gameEnded = matched[3];
     }
-  
-    this.currentBoard = parseBoard(matched[1]);
-    console.log(this.currentBoard);
+    
+    scene.currentBoard = parseBoard(matched[1]);
+    console.log(scene.currentBoard);
 }
 
 function parseBoard(string){
