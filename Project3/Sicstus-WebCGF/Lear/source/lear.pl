@@ -38,7 +38,7 @@ initialBoard([
 	[emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell]]).
 
 
-%-----------STARTS THE GAME-----------
+%-----------STARTS THE GAME----------
 
 startGame(Board):-
 	initialBoardForTesting(Board).

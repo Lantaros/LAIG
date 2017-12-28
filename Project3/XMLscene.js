@@ -229,11 +229,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
 	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
 
-  this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-  this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
-
 	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
-	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
 	matWhite =  this.gameGraphs['lear.xml'].materials[this.whitePiece.materialID];
 
 	if (matWhite != null)
@@ -242,7 +238,6 @@ XMLscene.prototype.learTemplateObjects = function(){
 		this.whitePiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 	texBlack = this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID];
-	//this.blackPiece.leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
 	matBlack =  this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID];
 
 	if (matBlack != null)
@@ -311,7 +306,7 @@ XMLscene.prototype.display = function() {
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
         this.displayBoard();
-        this.processPiece(this.whitePiece, this.gameGraphs['lear.xml'].textures["white"][0], this.gameGraphs['lear.xml'].materials["white"]);
+        this.processPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
         // this.displayPieces(this.blackPiece, this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID][0], this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID]);
     }
 	else
