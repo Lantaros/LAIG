@@ -46,6 +46,8 @@ function XMLscene(interfac) {
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
     this.currentCameraAngle = "Default";
+
+    this.lastBoards  = new Array();
 }
 
 this.undo = function() { console.log("UNDO"); };
@@ -193,7 +195,7 @@ XMLscene.prototype.onGraphLoaded = function()
     //EXTRA OPTIONS
     this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
 
-	  this.learTemplateObjects();
+    this.learTemplateObjects();
 
 }
 /**
@@ -405,14 +407,12 @@ XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
     if (node.materialID != "null") {
       material = this.gameGraphs['lear.xml'].materials[node.materialID];
     }
-    console.log(node.nodeID);
+
     for (var i = 0; i < node.children.length; i++) {
       this.processPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
     }
 
-    if (material != null) {
-        material.apply();
-    }
+    material.apply();
 
     if (textura != null) {
         textura.bind();
@@ -485,7 +485,9 @@ function handleReply(data){
         this.freeTiles = matched[2];
         this.gameEnded = matched[3];
     }
+  
     this.currentBoard = parseBoard(matched[1]);
+    console.log(this.currentBoard);
 }
 
 function parseBoard(string){
