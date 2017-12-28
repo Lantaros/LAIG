@@ -112,8 +112,6 @@
         <DESCENDANTS>
             <NODEREF id="whiteBox"/>
             <NODEREF id="blackBox"/>
-            <!--<NODEREF id="whitePiece"/>
-            <<NODEREF id="blackPiece"/>-->
         </DESCENDANTS>
 
     </NODE>
@@ -140,7 +138,7 @@
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
-    <TRANSLATION x="6.5" y="0" z ="0"/>
+    <TRANSLATION x="6.5" y="0.2" z ="0.7"/>
 
     <DESCENDANTS>
       <NODEREF id ="piece"/>

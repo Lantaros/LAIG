@@ -31,7 +31,7 @@ function XMLscene(interfac) {
     //Lear variables
     this.boardPieces = new Array();
     this.gameEnded = false;
-    this.freeTiles = 64;    
+    this.freeTiles = 64;
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -306,9 +306,12 @@ XMLscene.prototype.display = function() {
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
         this.displayBoard();
-        this.processPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
-        // this.displayPieces(this.blackPiece, this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID][0], this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID]);
-    }
+        // this.displayPieces(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
+
+        this.displayWhitePieces();
+        // this.displayBlackPieces();
+        // this.displayPieces(this.blackPiece, this.blackPiece['textureObj'], this.blackPiece['materialObj']);
+      }
 	else
 	{
 		// Draw axis
@@ -385,7 +388,23 @@ XMLscene.prototype.displayBoard = function(){
   }
 };
 
-XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
+XMLscene.prototype.displayWhitePieces = function(){
+
+  for (let j = 0; j < 4; j++){
+
+    this.pushMatrix();
+
+    for (let i = 0; i < 8; i++){
+      this.displayPieces(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
+      this.translate( 0, 0, -0.6);
+    }
+    this.popMatrix();
+    this.translate(0.6, 0, 0);
+    }
+
+}
+
+XMLscene.prototype.displayPieces = function(node, parTex, parAsp) {
 
   	var textura = parTex;
   	var material = parAsp;
@@ -405,9 +424,8 @@ XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
     if (node.materialID != "null") {
       material = this.gameGraphs['lear.xml'].materials[node.materialID];
     }
-    console.log(node.nodeID);
     for (var i = 0; i < node.children.length; i++) {
-      this.processPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+      this.displayPieces(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
     }
 
     if (material != null) {
@@ -424,35 +442,6 @@ XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
     this.popMatrix();
 };
 
-XMLscene.prototype.displayPieces = function(){
-  //  this.pushMatrix();
-
-    // for (var i = 0; i < node.children.length; i++) {
-    //   this.processNode(this.nodes[node.children[i]], textura, material);
-    // }
-
-    // let pieceNode = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    // for (let j = 0; j < pieceNode.children.length; j++) {
-    //     pieceNode.leaves[j].display();
-    // }
-
-    // for (let i = 0; i < line.length; i++) {
-    //   cellId++;
-    //   line[i]['materialObj'].apply();
-    //
-    //   if (line[i]['textureObj'] != null)
-    //     line[i]['textureObj'].bind();
-    //
-    //   this.registerForPick(cellId, line[i].leaves[0]);
-    //
-    //   line[i].leaves[0].display();
-    //
-    //   this.translate((CELL_WIDTH/2), 0, 0);
-    // }
-    // this.popMatrix();
-    // this.translate(0, 0, (CELL_WIDTH/2));
-  //}
-};
 
 function getPrologRequest(requestString, onSuccess, onError, port){
     let requestPort = port || 8081;
