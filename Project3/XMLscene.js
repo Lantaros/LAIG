@@ -47,7 +47,7 @@ function XMLscene(interfac) {
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
     this.currentCameraAngle = "Default";
-    
+
     this.currentBoard =  new Array(BOARD_WIDTH);
     for (let i = 0; i <  this.currentBoard.length; i++) {
         this.currentBoard[i] = new Array(BOARD_WIDTH).fill(0);
@@ -55,7 +55,7 @@ function XMLscene(interfac) {
     scene = this;
 
     this.lastBoards  = new Array();
-    
+
 }
 
 this.undo = function() { console.log("UNDO"); };
@@ -313,20 +313,18 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
+        this.pushMatrix();
+          this.displayWhitePieces();
+          this.displayBoardTiles();
+        this.popMatrix();
+        //this.displayBoard();
 
-        //Board Display
-        this.displayBoardTiles();
-        this.displayBoard();
-
-        //this.displayWhitePieces();
-    
       }
 	else
 	{
 		// Draw axis
 		this.axis.display();
 	}
-
 
     this.popMatrix();
 
@@ -399,17 +397,17 @@ XMLscene.prototype.displayBoardTiles = function(){
 XMLscene.prototype.displayBoard = function(){
     scene.pushMatrix();
     for (let i = 0; i < BOARD_WIDTH; i++) {
-        scene.pushMatrix(); 
+        scene.pushMatrix();
         for (let j = 0; j < BOARD_WIDTH; j++) {
             if (scene.currentBoard[i][j] == 'X ')
                 scene.displayPiece(scene.blackPiece, scene.blackPiece["textureObj"], scene.blackPiece["materialObj"]);
             else if(scene.currentBoard[i][j] == 'O ')
                 scene.displayPiece(scene.whitePiece, scene.whitePiece["textureObj"], scene.whitePiece["materialObj"]);
 
-            //scene.translate((CELL_WIDTH/2), 0, 0);
+            scene.translate((CELL_WIDTH/2), 0, 0);
         }
         scene.popMatrix();
-        //scene.translate(0, 0, (CELL_WIDTH/2));
+        scene.translate(0, 0, (CELL_WIDTH/2));
     }
     scene.popMatrix();
 };
@@ -429,7 +427,7 @@ XMLscene.prototype.displayWhitePieces = function(){
     this.translate(0.6, 0, 0);
     }
 
-}
+};
 
 XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
 
@@ -501,7 +499,7 @@ function handleReply(data){
         this.freeTiles = matched[2];
         this.gameEnded = matched[3];
     }
-    
+
     scene.currentBoard = parseBoard(matched[1]);
     console.log(scene.currentBoard);
 }
