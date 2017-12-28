@@ -30,8 +30,14 @@ function XMLscene(interfac) {
 
     //Lear variables
     this.boardPieces = new Array();
+<<<<<<< HEAD
     this.gameEnded = false;
     this.freeTiles = 64;    
+=======
+
+    this.gameEnded = false;
+    this.freeTiles = 64;
+>>>>>>> aedaa2e011238c33e0916f542b9b997c85e97736
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -230,8 +236,8 @@ XMLscene.prototype.learTemplateObjects = function(){
 	this.whitePiece = this.gameGraphs['lear.xml'].nodes["whitePiece"];
 	this.blackPiece = this.gameGraphs['lear.xml'].nodes["blackPiece"];
 
-    this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
-    this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
+  this.whitePiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
+  this.blackPiece.leaves[0] = this.gameGraphs['lear.xml'].nodes[this.blackPiece.children[0]];
 
 	texWhite = this.gameGraphs['lear.xml'].textures[this.whitePiece.textureID];
 	//this.whitePiece.leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
@@ -249,7 +255,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 	if (matBlack != null)
 		this.blackPiece['materialObj'] =  matBlack;
 	else
-        this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+    this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
     makeRequest("startGameRequest(pvp)");
 }
@@ -312,8 +318,8 @@ XMLscene.prototype.display = function() {
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
         this.displayBoard();
-        // this.displayPieces();
-
+        this.processPiece(this.whitePiece, this.gameGraphs['lear.xml'].textures["white"][0], this.gameGraphs['lear.xml'].materials["white"]);
+        // this.displayPieces(this.blackPiece, this.gameGraphs['lear.xml'].textures[this.blackPiece.textureID][0], this.gameGraphs['lear.xml'].materials[this.blackPiece.materialID]);
     }
 	else
 	{
@@ -391,28 +397,73 @@ XMLscene.prototype.displayBoard = function(){
   }
 };
 
+XMLscene.prototype.processPiece = function(node, parTex, parAsp) {
+
+  	var textura = parTex;
+  	var material = parAsp;
+
+    this.pushMatrix();
+    this.multMatrix(node.transformMatrix);
+
+    if (node.textureID !='null') {
+      if (node.textureID == 'clear')
+        textura = null;
+      else{
+        this.currTexture = this.gameGraphs['lear.xml'][node.textureID];
+        textura =  this.gameGraphs['lear.xml'].textures[node.textureID][0];
+      }
+    }
+
+    if (node.materialID != "null") {
+      material = this.gameGraphs['lear.xml'].materials[node.materialID];
+    }
+    console.log(node.nodeID);
+    for (var i = 0; i < node.children.length; i++) {
+      this.processPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+    }
+
+    if (material != null) {
+        material.apply();
+    }
+
+    if (textura != null) {
+        textura.bind();
+    }
+
+    for (let j = 0; j < node.leaves.length; j++)
+      node.leaves[j].display();
+
+    this.popMatrix();
+};
+
 XMLscene.prototype.displayPieces = function(){
+  //  this.pushMatrix();
 
+    // for (var i = 0; i < node.children.length; i++) {
+    //   this.processNode(this.nodes[node.children[i]], textura, material);
+    // }
 
+    // let pieceNode = this.gameGraphs['lear.xml'].nodes[this.whitePiece.children[0]];
+    // for (let j = 0; j < pieceNode.children.length; j++) {
+    //     pieceNode.leaves[j].display();
+    // }
 
-  //   this.pushMatrix();
-  //
-  //   for (let i = 0; i < line.length; i++) {
-  //     cellId++;
-  //     line[i]['materialObj'].apply();
-  //
-  //     if (line[i]['textureObj'] != null)
-  //       line[i]['textureObj'].bind();
-  //
-  //     this.registerForPick(cellId, line[i].leaves[0]);
-  //
-  //     line[i].leaves[0].display();
-  //
-  //     this.translate((CELL_WIDTH/2), 0, 0);
-  //   }
-  //   this.popMatrix();
-  //   this.translate(0, 0, (CELL_WIDTH/2));
-  // }
+    // for (let i = 0; i < line.length; i++) {
+    //   cellId++;
+    //   line[i]['materialObj'].apply();
+    //
+    //   if (line[i]['textureObj'] != null)
+    //     line[i]['textureObj'].bind();
+    //
+    //   this.registerForPick(cellId, line[i].leaves[0]);
+    //
+    //   line[i].leaves[0].display();
+    //
+    //   this.translate((CELL_WIDTH/2), 0, 0);
+    // }
+    // this.popMatrix();
+    // this.translate(0, 0, (CELL_WIDTH/2));
+  //}
 };
 
 function getPrologRequest(requestString, onSuccess, onError, port){
@@ -431,38 +482,37 @@ function makeRequest(requestString){
     // Make Request
     getPrologRequest(requestString, handleReply);
 }
-			
+
 /**
- * Handles the server's response, updating currentBoard, 
+ * Handles the server's response, updating currentBoard,
  * freeTiles and gameEnded attriutes
- * @param data JSON server response 
+ * @param data JSON server response
  */
 function handleReply(data){
     console.log("Reply!!\n" + data);
     let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
     let matched = regex.exec(data.target.responseText);
     if(matched[2] != undefined && matched[3] != undefined){
-        this.lastBoards.push(this.currentBoard);    
+        this.lastBoards.push(this.currentBoard);
         this.freeTiles = matched[2];
-        this.gameEnded = matched[3];        
+        this.gameEnded = matched[3];
     }
     this.currentBoard = parseBoard(matched[1]);
 }
 
 function parseBoard(string){
 	let board = new Array();
-//	let regex = "/\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*)\](?:])?(?:,|])/y";
 	let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
 
 	for(let i = 0; i < BOARD_WIDTH; i++){
 		board[i] = new Array();
 		let matched = regex.exec(string);
 		for (let j = 1; j < matched.length; j++) {
-			board[i].push(matched[j]);			
+			board[i].push(matched[j]);
 		}
 	}
 	return board;
-}	
+}
 
 XMLscene.prototype.update = function(currTime){
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
