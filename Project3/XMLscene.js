@@ -2,6 +2,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 var BOARD_WIDTH = 8;
 var BOARD_Y_OFFSET = 0;
 var CELL_WIDTH = 1;
+let PIECE_WIDTH = 0.25;
 let scene;
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -253,7 +254,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 	if (matBlack != null)
 		this.blackPiece['materialObj'] =  matBlack;
 	else
-    this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+        this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
     makeRequest("startGameRequest(pvp)");
 }
@@ -359,6 +360,7 @@ XMLscene.prototype.displayBoardTiles = function(){
   let texWhite = this.gameGraphs[this.currentEnvironment].textures["white"];
   let texBlack = this.gameGraphs[this.currentEnvironment].textures["black"];
 
+  this.pushMatrix();
   for(let j = 0; j < BOARD_WIDTH; j++){
     if(j % 2 == 0)
       line = whiteLineStart;
@@ -394,24 +396,27 @@ XMLscene.prototype.displayBoardTiles = function(){
     this.popMatrix();
     this.translate(0, 0, (CELL_WIDTH/2));
   }
+  this.popMatrix();
 };
 
 XMLscene.prototype.displayBoard = function(){
-    scene.pushMatrix();
+    this.pushMatrix();
+    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
+    
     for (let i = 0; i < BOARD_WIDTH; i++) {
-        scene.pushMatrix(); 
+        this.pushMatrix(); 
         for (let j = 0; j < BOARD_WIDTH; j++) {
-            if (scene.currentBoard[i][j] == 'X ')
-                scene.displayPiece(scene.blackPiece, scene.blackPiece["textureObj"], scene.blackPiece["materialObj"]);
-            else if(scene.currentBoard[i][j] == 'O ')
-                scene.displayPiece(scene.whitePiece, scene.whitePiece["textureObj"], scene.whitePiece["materialObj"]);
+            if (this.currentBoard[i][j] == 'X ')
+                this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"]);
+            else if(this.currentBoard[i][j] == 'O ')
+                this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"]);
 
-            //scene.translate((CELL_WIDTH/2), 0, 0);
+            this.translate((CELL_WIDTH/2), 0, 0);
         }
-        scene.popMatrix();
-        //scene.translate(0, 0, (CELL_WIDTH/2));
+        this.popMatrix();
+        this.translate(0, 0, (CELL_WIDTH/2));
     }
-    scene.popMatrix();
+    this.popMatrix();
 };
 
 
