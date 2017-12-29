@@ -47,10 +47,7 @@ MyInterface.prototype.addLightsGroup = function (lights) {
   }
 };
 
-/**
- * Adds dropdown box for  selecting the node witch the shader will be applied
- * @param  nodes array containing all selectable nodes ID's
- */
+
 /**
  * Adds dropdown box for  selecting  one of the special shaders
  * @param  shaders array containing all special shader's ID's
