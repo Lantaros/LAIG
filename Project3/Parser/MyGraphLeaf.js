@@ -12,7 +12,7 @@ function MyGraphLeaf(graph, leafID, type, args) {
 	this.id = leafID;
 	this.type = type;
 	this.args = args;
-
+	this.selected = false;
 	this.obj = null;
 
 	switch(this.type) {

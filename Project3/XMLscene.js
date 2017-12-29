@@ -57,9 +57,12 @@ function XMLscene(interfac) {
 
     this.lastBoards  = new Array();
 
-}
+    this.selectedCell;
 
-this.undo = function() { console.log("UNDO"); };
+    this.whitePiecesArray = new Array();
+    this.blackPiecesArray = new Array();
+
+}
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
 XMLscene.prototype.constructor = XMLscene;
@@ -144,30 +147,47 @@ XMLscene.prototype.logPicking = function (){
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (let i=0; i< this.pickResults.length; i++) {
 				let obj = this.pickResults[i][0];
-				if (obj){
-					let customId = this.pickResults[i][1];
-					let control_points = new Array();
-					control_points.push(new Array(0,0,0));
-					control_points.push(new Array(0,5,0));
-					let animation = new LinearAnimation(this, customId, 1, control_points);
-					this.animations[customId]= animation;
-					this.animations.length++;
-					//change so it gets the node for a piece. That means we must create a node for each piece and save it.
-					let node = this.gameGraphs['lear.xml'].nodes["whitePiece"];
-					// /node.animationRefs.push(customId);
+				let customId = this.pickResults[i][1];
+				if (obj && customId > 0){
 
-					let column = customId % BOARD_WIDTH;
-					if (column == 0)
-						column = BOARD_WIDTH;
+          let column = customId % BOARD_WIDTH;
+          if (column == 0)
+            column = BOARD_WIDTH;
 
-					let line = Math.floor(customId / BOARD_WIDTH) + 1;
-					if ( (customId / BOARD_WIDTH) % 1 == 0)
-						line -=1;
+          let line = Math.floor(customId / BOARD_WIDTH) + 1;
+          if ( (customId / BOARD_WIDTH) % 1 == 0)
+            line -=1;
 
-					console.log("l: " + line);
-					console.log("c: " + column);
+          console.log(this.selectedCell);
+          //  if it's a cell
+          if (obj.type ==  "boardcell"){
+            if (this.selectedCell != null)
+                this.selectedCell.selected = false;
+            obj.selected = true;
+            this.selectedCell = obj;
+          }
 
-					// console.log("Picked object: " + obj + ", with pick id " + customId);
+          if (obj.type == "halfsphere"){
+            if (this.selectedCell != null){ //a cell has already been selected
+                let control_points = new Array();
+                control_points.push(new Array(0,0,0));
+                control_points.push(new Array(0,5,0));
+                let animation = new LinearAnimation(this, customId, 1, control_points);
+                this.animations[customId]= animation;
+                this.animations.length++;
+                console.log("animate");
+      					this.whitePiecesArray[customId].animationRefs.push(customId);
+            }
+          }
+
+          // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
+          //   this.setActiveShader(this.shaders["Red Pulse"]);
+          //
+          // this.setActiveShader(this.defaultShader);
+
+
+          console.log(customId);
+
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -179,8 +199,7 @@ XMLscene.prototype.logPicking = function (){
 /* Handler called when the graph is finally loaded.
  * As loading is asynchronous, this may be called already after the application has started the run loop
  */
-XMLscene.prototype.onGraphLoaded = function()
-{
+XMLscene.prototype.onGraphLoaded = function(){
     this.camera.near = this.gameGraphs["lear.xml"].near;
     this.camera.far = this.gameGraphs["lear.xml"].far;
     this.axis = new CGFaxis(this,this.gameGraphs["lear.xml"].referenceLength);
@@ -255,6 +274,14 @@ XMLscene.prototype.learTemplateObjects = function(){
 		this.blackPiece['materialObj'] =  matBlack;
 	else
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+
+  for (let i = 65; i <= 96; i++)
+      this.whitePiecesArray[i] = this.whitePiece;
+
+  for (let i = 65; i <= 96; i++)
+      this.blackPiecesArray[i] = this.blackPiece;
+
 
     makeRequest("startGameRequest(pvp)");
 }
@@ -378,6 +405,7 @@ XMLscene.prototype.displayBoardTiles = function(){
       else if (line[i].nodeID == "blackCell"){
         line[i].leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
         line[i]['textureObj'] = texBlack[0];
+        line[i]['textureObj'] = texBlack[0];
       }
 
       line[i]['materialObj'].apply();
@@ -385,10 +413,17 @@ XMLscene.prototype.displayBoardTiles = function(){
       if (line[i]['textureObj'] != null){
         line[i]['textureObj'].bind();
       }
+      if (this.currentBoard[j][i] == "emptyCell")
+        this.registerForPick(cellId, line[i].leaves[0]);
+      else
+        this.registerForPick(0, line[i].leaves[0]);
 
-      this.registerForPick(cellId, line[i].leaves[0]);
+        // if (line[i].leaves[0].selected)
+        //   this.setActiveShader(this.shaders['Red Pulse']);
 
       line[i].leaves[0].display();
+
+    //  this.setActiveShader(this.defaultShader);
 
       this.translate((CELL_WIDTH/2), 0, 0);
     }
@@ -398,7 +433,6 @@ XMLscene.prototype.displayBoardTiles = function(){
   this.popMatrix();
 };
 
-
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
     this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
@@ -406,9 +440,9 @@ XMLscene.prototype.displayBoard = function(){
         this.pushMatrix();
         for (let j = 0; j < BOARD_WIDTH; j++) {
             if (this.currentBoard[i][j] == 'X')
-                this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"]);
+                this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
             else if(this.currentBoard[i][j] == 'O')
-                this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"]);
+                this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
             this.translate(2*PIECE_WIDTH, 0, 0);
         }
@@ -418,44 +452,44 @@ XMLscene.prototype.displayBoard = function(){
     this.popMatrix();
 };
 
-
 XMLscene.prototype.displayWhitePieces = function(){
-
+  let whitePieceId = 64;
 	this.pushMatrix();
     this.translate(6.6,0,0.4);
-  for (let j = 0; j < 4; j++){
 
-    this.pushMatrix();
+    for (let j = 0; j < 4; j++){
+      this.pushMatrix();
 
-    for (let i = 0; i < 8; i++){
-      this.displayPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
-      this.translate( 0, 0, 0.6);
-    }
-    this.popMatrix();
-    this.translate(0.6, 0, 0);
-	}
+      for (let i = 0; i < 8; i++){
+        whitePieceId++;
+        this.displayPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj'], whitePieceId);
+        this.translate( 0, 0, 0.6);
+      }
+      this.popMatrix();
+      this.translate(0.6, 0, 0);
+  	}
 	this.popMatrix();
 };
 
 XMLscene.prototype.displayBlackPieces = function(){
-
+  let blackPieceId = 96;
 	this.pushMatrix();
     this.translate(-4.4,0,0.4);
-  for (let j = 0; j < 4; j++){
+    for (let j = 0; j < 4; j++){
+      this.pushMatrix();
 
-    this.pushMatrix();
-
-    for (let i = 0; i < 8; i++){
-      this.displayPiece(this.blackPiece, this.blackPiece['textureObj'], this.blackPiece['materialObj']);
-      this.translate( 0, 0, 0.6);
-    }
-    this.popMatrix();
-    this.translate(0.6, 0, 0);
-	}
+      for (let i = 0; i < 8; i++){
+        blackPieceId++;
+        this.displayPiece(this.blackPiece, this.blackPiece['textureObj'], this.blackPiece['materialObj'], blackPieceId);
+        this.translate( 0, 0, 0.6);
+      }
+      this.popMatrix();
+      this.translate(0.6, 0, 0);
+  	}
 	this.popMatrix();
 };
 
-XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
+XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
 
   	var textura = parTex;
   	var material = parAsp;
@@ -477,7 +511,7 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
     }
 
     for (var i = 0; i < node.children.length; i++) {
-      this.displayPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+      this.displayPiece(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material, pick);
     }
 
     material.apply();
@@ -486,9 +520,16 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
         textura.bind();
     }
 
-    for (let j = 0; j < node.leaves.length; j++)
+    for (let j = 0; j < node.leaves.length; j++){
+      // if (pick ){
+      //   // if (node.leaves[j].selected)
+      //   //   this.setActiveShader(this.shaders['Red Pulse']);
+      //   pick = 65;
+      // // }
+      // if (pick ==)
+      this.registerForPick(pick, node.leaves[j]);
       node.leaves[j].display();
-
+    }
     this.popMatrix();
 };
 
@@ -568,6 +609,12 @@ XMLscene.prototype.update = function(currTime){
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
+  if (this.gameGraphs['lear.xml'].loadedOk)
+      for(let i = 65; i < 96; i++) {
+         this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+         this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+    	}
+
 	this.lastTime = currTime;
 }
 
