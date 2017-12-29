@@ -48,7 +48,7 @@ function XMLscene(interfac) {
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
     this.currentCameraAngle = "Default";
-    
+
     this.currentBoard =  new Array(BOARD_WIDTH);
     for (let i = 0; i <  this.currentBoard.length; i++) {
         this.currentBoard[i] = new Array(BOARD_WIDTH).fill(0);
@@ -56,7 +56,7 @@ function XMLscene(interfac) {
     scene = this;
 
     this.lastBoards  = new Array();
-    
+
 }
 
 this.undo = function() { console.log("UNDO"); };
@@ -314,20 +314,18 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
+				
+				this.displayWhitePieces();
+				this.displayBoardTiles();
 
-        //Board Display
-        this.displayBoardTiles();
-        this.displayBoard();
+				this.displayBoard();
 
-        //this.displayWhitePieces();
-    
       }
 	else
 	{
 		// Draw axis
 		this.axis.display();
 	}
-
 
     this.popMatrix();
 
@@ -401,8 +399,7 @@ XMLscene.prototype.displayBoardTiles = function(){
 
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
-    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
-    
+    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);    
     for (let i = 0; i < BOARD_WIDTH; i++) {
         this.pushMatrix(); 
         for (let j = 0; j < BOARD_WIDTH; j++) {
@@ -411,10 +408,10 @@ XMLscene.prototype.displayBoard = function(){
             else if(this.currentBoard[i][j] == 'O ')
                 this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"]);
 
-            this.translate((CELL_WIDTH/2), 0, 0);
+            this.translate(PIECE_WIDTH, 0, 0);
         }
         this.popMatrix();
-        this.translate(0, 0, (CELL_WIDTH/2));
+        this.translate(0, 0, PIECE_WIDTH);
     }
     this.popMatrix();
 };
@@ -422,6 +419,7 @@ XMLscene.prototype.displayBoard = function(){
 
 XMLscene.prototype.displayWhitePieces = function(){
 
+	this.pushMatrix();
   for (let j = 0; j < 4; j++){
 
     this.pushMatrix();
@@ -432,9 +430,9 @@ XMLscene.prototype.displayWhitePieces = function(){
     }
     this.popMatrix();
     this.translate(0.6, 0, 0);
-    }
-
-}
+	}
+	this.popMatrix();
+};
 
 XMLscene.prototype.displayPiece = function(node, parTex, parAsp) {
 
@@ -506,7 +504,7 @@ function handleReply(data){
         this.freeTiles = matched[2];
         this.gameEnded = matched[3];
     }
-    
+
     scene.currentBoard = parseBoard(matched[1]);
     console.log(scene.currentBoard);
 }
