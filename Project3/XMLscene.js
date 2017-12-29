@@ -314,8 +314,9 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.gameGraphs['lear.xml'].displayScene();
         this.gameGraphs[this.currentEnvironment].displayScene();
-				
+
 				this.displayWhitePieces();
+        this.displayBlackPieces();
 				this.displayBoardTiles();
 
 				this.displayBoard();
@@ -399,9 +400,9 @@ XMLscene.prototype.displayBoardTiles = function(){
 
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
-    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);    
+    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
     for (let i = 0; i < BOARD_WIDTH; i++) {
-        this.pushMatrix(); 
+        this.pushMatrix();
         for (let j = 0; j < BOARD_WIDTH; j++) {
             if (this.currentBoard[i][j] == 'X ')
                 this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"]);
@@ -420,13 +421,32 @@ XMLscene.prototype.displayBoard = function(){
 XMLscene.prototype.displayWhitePieces = function(){
 
 	this.pushMatrix();
+    this.translate(6.6,0,0.4);
   for (let j = 0; j < 4; j++){
 
     this.pushMatrix();
 
     for (let i = 0; i < 8; i++){
       this.displayPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj']);
-      this.translate( 0, 0, -0.6);
+      this.translate( 0, 0, 0.6);
+    }
+    this.popMatrix();
+    this.translate(0.6, 0, 0);
+	}
+	this.popMatrix();
+};
+
+XMLscene.prototype.displayBlackPieces = function(){
+
+	this.pushMatrix();
+    this.translate(-4.4,0,0.4);
+  for (let j = 0; j < 4; j++){
+
+    this.pushMatrix();
+
+    for (let i = 0; i < 8; i++){
+      this.displayPiece(this.blackPiece, this.blackPiece['textureObj'], this.blackPiece['materialObj']);
+      this.translate( 0, 0, 0.6);
     }
     this.popMatrix();
     this.translate(0.6, 0, 0);
