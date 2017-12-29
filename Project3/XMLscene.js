@@ -37,7 +37,7 @@ function XMLscene(interfac) {
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
-    this.currentGameMode = "";
+    this.currentGameMode = "PVP";
 
     this.botDifficulties = ["Random", "Normal"];
 
