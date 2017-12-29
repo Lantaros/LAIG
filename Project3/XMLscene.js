@@ -439,9 +439,9 @@ XMLscene.prototype.displayBoard = function(){
     for (let i = 0; i < BOARD_WIDTH; i++) {
         this.pushMatrix();
         for (let j = 0; j < BOARD_WIDTH; j++) {
-            if (this.currentBoard[i][j] == 'X ')
+            if (this.currentBoard[i][j] == 'X')
                 this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
-            else if(this.currentBoard[i][j] == 'O ')
+            else if(this.currentBoard[i][j] == 'O')
                 this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
             this.translate(2*PIECE_WIDTH, 0, 0);
@@ -583,6 +583,23 @@ function parseBoard(string){
 		}
 	}
 	return board;
+}
+
+function boardToString(board){
+	let boardString = "[";
+	for (let i = 0; i < scene.currentBoard.length; i++) {
+		boardString +="[";
+		for (let j = 0; j < scene.currentBoard[i].length; j++) {
+				boardString += "'" + scene.currentBoard[i][j] + "'";
+				if(j != scene.currentBoard[i].length -1)
+					boardString += ",";
+		}
+		boardString += "]";
+		if(i != scene.currentBoard.length - 1)
+			boardString += ",";
+	}
+	boardString += "]";
+	return boardString;
 }
 
 XMLscene.prototype.update = function(currTime){

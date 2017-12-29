@@ -50,6 +50,6 @@ printCurrentInfo(Board, Player):-
 printCurrentPlayer(Player):-
 	write('It is your turn, '),
 	(
-		Player == 'X ' -> write('Black!'), nl;
-		Player == 'O ' -> write('White!'), nl
+		Player == 'X' -> write('Black!'), nl;
+		Player == 'O' -> write('White!'), nl
 	).

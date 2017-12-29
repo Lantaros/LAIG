@@ -9,64 +9,64 @@
 
 arcX(_,emptyCell, 1).
 
-arcX(1,'O ',2).
-arcX(2,'X ',1).
-arcX(2,'O ',3).
-arcX(3,'O ',3).
-arcX(3,'X ',4).
-arcX(4,'O ',1).
-arcX(4,'X ',5).
-arcX(5,'O ',2).
-arcX(5,'X ',6).
+arcX(1,'O',2).
+arcX(2,'X',1).
+arcX(2,'O',3).
+arcX(3,'O',3).
+arcX(3,'X',4).
+arcX(4,'O',1).
+arcX(4,'X',5).
+arcX(5,'O',2).
+arcX(5,'X',6).
 
-arcX(1,'X ',6).
-arcX(6,'X ',7).
-arcX(7,'X ',7).
-arcX(7,'O ',8).
-arcX(8,'O ',9).
-arcX(8,'X ',6).
-arcX(9,'O ',9).
-arcX(9,'X ',6).
+arcX(1,'X',6).
+arcX(6,'X',7).
+arcX(7,'X',7).
+arcX(7,'O',8).
+arcX(8,'O',9).
+arcX(8,'X',6).
+arcX(9,'O',9).
+arcX(9,'X',6).
 
-arcX(6,'O ',10).
-arcX(10,'X ', 1).
-arcX(10,'O ',11).
-arcX(11,'O ',11).
-arcX(11,'X ',12).
-arcX(12,'X ', 6).
-arcX(12,'O ', 2).
+arcX(6,'O',10).
+arcX(10,'X', 1).
+arcX(10,'O',11).
+arcX(11,'O',11).
+arcX(11,'X',12).
+arcX(12,'X', 6).
+arcX(12,'O', 2).
 
 
 %-----------TRANSITION ARCS FOR WHITE TEAM--------------------
 
 arcO(_,emptyCell, 1).
 
-arcO(1,'X ',2).
-arcO(2,'O ',1).
-arcO(2,'X ',3).
-arcO(3,'X ',3).
-arcO(3,'O ',4).
-arcO(4,'X ',1).
-arcO(4,'O ',5).
-arcO(5,'X ',2).
-arcO(5,'O ',6).
+arcO(1,'X',2).
+arcO(2,'O',1).
+arcO(2,'X',3).
+arcO(3,'X',3).
+arcO(3,'O',4).
+arcO(4,'X',1).
+arcO(4,'O',5).
+arcO(5,'X',2).
+arcO(5,'O',6).
 
-arcO(1,'O ',6).
-arcO(6,'O ',7).
-arcO(7,'O ',7).
-arcO(7,'X ',8).
-arcO(8,'X ',9).
-arcO(8,'O ',6).
-arcO(9,'X ',9).
-arcO(9,'O ',6).
+arcO(1,'O',6).
+arcO(6,'O',7).
+arcO(7,'O',7).
+arcO(7,'X',8).
+arcO(8,'X',9).
+arcO(8,'O',6).
+arcO(9,'X',9).
+arcO(9,'O',6).
 
-arcO(6,'X ',10).
-arcO(10,'O ', 1).
-arcO(10,'X ',11).
-arcO(11,'X ',11).
-arcO(11,'O ',12).
-arcO(12,'O ', 6).
-arcO(12,'X ', 2).
+arcO(6,'X',10).
+arcO(10,'O', 1).
+arcO(10,'X',11).
+arcO(11,'X',11).
+arcO(11,'O',12).
+arcO(12,'O', 6).
+arcO(12,'X', 2).
 
 
 %-----------FINAL NODES--------------------
@@ -87,7 +87,7 @@ testState(List, NewList, CurrPlayer):- assert(matrixList(List)), assert(analiseL
 finite_state(Start, [], Start, _, _).
 finite_state(done, _, done, _, _) :- !.
 finite_state(Start, [Input | Inputs], Finish, Index, Player) :-
-		 ite(Player == 'X ',  arcX(Start, Input, Next), arcO(Start, Input, Next)),
+		 ite(Player == 'X',  arcX(Start, Input, Next), arcO(Start, Input, Next)),
 		 (
 			 Input \= emptyCell,
 			 analiseList(AuxList),
@@ -118,17 +118,17 @@ addToEmptyList(AuxList, Input, Index):-
 %-----------------CHECKS CASE B OF FINAL NODES--------------------
 
 checkCaseB(State, Input,Player, Index):-
-	  ite(Player == 'X ',  checkCaseBX(State, Input, Index), checkCaseBO(State, Input, Index)).
+	  ite(Player == 'X',  checkCaseBX(State, Input, Index), checkCaseBO(State, Input, Index)).
 
 %-----------------CHECKS CASE B OF FINAL NODES FOR BLACK TEAM-------------------
 
 checkCaseBX(State, Input, Index):-
-	  State == 9, (Input \= 'O ' ; Index == 7).
+	  State == 9, (Input \= 'O' ; Index == 7).
 
 %-----------------CHECKS CASE B OF FINAL NODES FOR WHITE TEAM-------------------
 
 checkCaseBO(State, Input, Index):-
-	  State == 9, (Input \= 'X '; Index == 7).
+	  State == 9, (Input \= 'X'; Index == 7).
 
 
 %-----------------CHECKS CAPTURE OF CASE B-------------------

@@ -70,8 +70,12 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
   this.gameOptions.open();
   this.gameOptions.add(this.scene, "currentGameMode", gameModes).name("Mode");
   this.gameOptions.add(this.scene, "currentDifficulty", botDifficulties).name("AI");
-  let start = { startGame:function(){ console.log("START GAME") }};
-  this.gameOptions.add(start,'startGame');
+  let start = { startGame:function(){ 
+    console.log("START GAME");
+    makeRequest("moveRequest(" + boardToString(this.currentBoard) + ",1,1,'X',51)");
+ }};
+  let startBound = {startGame:start.startGame.bind(this.scene)};
+  this.gameOptions.add(startBound,'startGame');
 };
 
 MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
