@@ -51,17 +51,13 @@ MyInterface.prototype.addLightsGroup = function (lights) {
  * Adds dropdown box for  selecting the node witch the shader will be applied
  * @param  nodes array containing all selectable nodes ID's
  */
-MyInterface.prototype.addNodesDropdown = function(nodes) {
-  this.shadersGroup = this.gui.addFolder("Shader Options");
-  this.shadersGroup.open();
-  this.shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
-};
-
 /**
  * Adds dropdown box for  selecting  one of the special shaders
  * @param  shaders array containing all special shader's ID's
  */
 MyInterface.prototype.addShadersDropdown = function(shaders) {
+  this.shadersGroup = this.gui.addFolder("Shader Options");
+  this.shadersGroup.open();
   this.shadersGroup.add(this.scene, "currentShader", shaders).name("Special Shader");
 };
 
@@ -84,5 +80,5 @@ MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
   let obj = { undo:function(){ console.log("UNDO STUFF") }};
   this.extraOptions.add(obj,'undo').name("Undo");
   this.extraOptions.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
-  this.extraOptions.add(this.scene, 'changeCamera').name('Rotate 90º');
+  this.extraOptions.add(this.scene, 'changeCamera').name('Change angle');
 };

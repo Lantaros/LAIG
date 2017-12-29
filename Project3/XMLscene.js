@@ -39,16 +39,13 @@ function XMLscene(interfac) {
 
     this.currentGameMode = "PVP";
 
+    this.rotation = true;
+
     this.botDifficulties = ["Random", "Normal"];
 
     this.currentDifficulty = "Random";
 
-    this.rotation = true;
-
-    this.cameraAngles = ["Default", "Angle1", "Angle2"];
-
-
-    this.currentCameraAngle = "Default";
+    this.currentCameraAngle = 0;
 
     this.currentBoard =  new Array(BOARD_WIDTH);
     for (let i = 0; i <  this.currentBoard.length; i++) {
@@ -177,6 +174,7 @@ XMLscene.prototype.logPicking = function (){
                 this.animations.length++;
                 console.log("animate");
       					this.whitePiecesArray[customId].animationRefs.push(customId);
+      					this.blackPiecesArray[customId + 33].animationRefs.push(customId);
             }
           }
 
@@ -211,8 +209,6 @@ XMLscene.prototype.onGraphLoaded = function(){
     this.initLights();
 
     this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
-
-    this.interfac.addNodesDropdown(this.gameGraphs["lear.xml"].selectableNodes);
 
     this.interfac.addShadersDropdown(this.shadersRefs);
 
@@ -350,14 +346,19 @@ XMLscene.prototype.display = function() {
 
 				this.displayBoard();
 
+
         let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
         if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
            if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
                increment = this.cameraRotation-this.cameraAcc;
-           console.log( increment * DEGREE_TO_RAD);
-           this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
+           if (this.currentCameraAngle == 0)
+              this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
+           if (this.currentCameraAngle == 1)
+              this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
+          if (this.currentCameraAngle == 2)
+             this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
            this.cameraAcc += increment;
-           }
+        }
 	else
 	{
 		// Draw axis
@@ -654,8 +655,21 @@ XMLscene.prototype.rotateCamera = function(rotation){
 };
 
 XMLscene.prototype.changeCamera = function(){
-    this.cameraRotation = 90;
     this.cameraAcc = 0;
+
+    if (this.currentCameraAngle == 0){ // index start at 1
+        this.cameraRotation = 90;
+        this.currentCameraAngle++; // if 1, White Player Viewpoint
+      }
+    else if (this.currentCameraAngle == 1){
+      this.cameraRotation = 45;
+      this.currentCameraAngle++; // if 2, Black Player Viewpoint
+    }
+    else if (this.currentCameraAngle == 2){
+      this.cameraRotation = 22;
+      this.currentCameraAngle = 0; // if 2, Top View
+    }
+
 };
 
 XMLscene.prototype.updateScalingFactor = function(date){
