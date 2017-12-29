@@ -398,6 +398,7 @@ XMLscene.prototype.displayBoardTiles = function(){
   this.popMatrix();
 };
 
+
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
     this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
@@ -409,10 +410,10 @@ XMLscene.prototype.displayBoard = function(){
             else if(this.currentBoard[i][j] == 'O ')
                 this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"]);
 
-            this.translate(PIECE_WIDTH, 0, 0);
+            this.translate(2*PIECE_WIDTH, 0, 0);
         }
         this.popMatrix();
-        this.translate(0, 0, PIECE_WIDTH);
+        this.translate(0, 0, 2*PIECE_WIDTH);
     }
     this.popMatrix();
 };
