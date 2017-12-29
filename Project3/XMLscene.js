@@ -159,7 +159,6 @@ XMLscene.prototype.logPicking = function (){
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             line -=1;
 
-          console.log(this.selectedCell);
           //  if it's a cell
           if (obj.type ==  "boardcell"){
             if (this.selectedCell != null)
@@ -174,7 +173,7 @@ XMLscene.prototype.logPicking = function (){
                 control_points.push(new Array(0,0,0));
                 control_points.push(new Array(0,5,0));
                 let animation = new LinearAnimation(this, customId, 1, control_points);
-                this.animations[customId]= animation;
+                this.animations[customId] = animation;
                 this.animations.length++;
                 console.log("animate");
       					this.whitePiecesArray[customId].animationRefs.push(customId);
@@ -197,8 +196,7 @@ XMLscene.prototype.logPicking = function (){
 }
 
 
-/* Handler called when the graph is finally loaded.
- * As loading is asynchronous, this may be called already after the application has started the run loop
+/* Handler called when the "lear.xml" graph is finally loaded.
  */
 XMLscene.prototype.onGraphLoaded = function(){
     this.camera.near = this.gameGraphs["lear.xml"].near;
@@ -274,12 +272,12 @@ XMLscene.prototype.learTemplateObjects = function(){
 	if (matBlack != null)
 		this.blackPiece['materialObj'] =  matBlack;
 	else
-        this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+    this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
-  for (let i = 65; i <= 96; i++)
+  for (let i = 65; i <= 97; i++)
       this.whitePiecesArray[i] = jQuery.extend(true, {}, this.whitePiece);
-  for (let i = 96; i <= 128; i++)
+  for (let i = 98; i <= 130; i++)
       this.blackPiecesArray[i] = jQuery.extend(true, {}, this.blackPiece );
 
 
@@ -492,7 +490,7 @@ XMLscene.prototype.displayBlackPieces = function(){
 
       for (let i = 0; i < 8; i++){
         blackPieceId++;
-        this.displayPiece(this.blackPiece, this.blackPiece['textureObj'], this.blackPiece['materialObj'], blackPieceId);
+        this.displayPiece(this.blackPiecesArray[98 + j*i], this.blackPiece['textureObj'], this.blackPiece['materialObj'], blackPieceId);
         this.translate( 0, 0, 0.6);
       }
       this.popMatrix();
@@ -641,12 +639,12 @@ XMLscene.prototype.update = function(currTime){
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
-
-      for(let i = 65; i < 96; i++)
-         this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-  //     for(let i = 97; i < 128; i++)
-  //        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-  
+  if (this.gameGraphs['lear.xml'].loadedOk){
+    for(let i = 65; i < 97; i++)
+      this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+    for(let i = 98; i <= 130; i++)
+       this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+  }
 
 	this.lastTime = currTime;
 }
