@@ -47,6 +47,7 @@ function XMLscene(interfac) {
 
     this.cameraAngles = ["Default", "Angle1", "Angle2"];
 
+
     this.currentCameraAngle = "Default";
 
     this.currentBoard =  new Array(BOARD_WIDTH);
@@ -276,11 +277,12 @@ XMLscene.prototype.learTemplateObjects = function(){
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
-  for (let i = 65; i <= 96; i++)
-      this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
+  let newObject = jQuery.extend(true, {}, this.whitePiece);
 
+  for (let i = 65; i <= 96; i++)
+      this.whitePiecesArray[i] = jQuery.extend(true, {}, this.whitePiece);
   for (let i = 96; i <= 128; i++)
-      this.blackPiecesArray[i] = this.blackPiece;
+      this.blackPiecesArray[i] = jQuery.extend(true, {}, this.blackPiece );
 
 
     makeRequest("startGameRequest(pvp)");
@@ -336,7 +338,11 @@ XMLscene.prototype.display = function() {
        if(this.initialTime == null) {
            this.initialTime = currTime;
        }
+
        dT = (currTime - this.initialTime)/1000;
+
+       this.deltaTime = this.deltaTime || 0;
+       this.deltaTime = currTime - this.lastTime;
        this.updateScalingFactor(dT);
         // Displays the scene.
         this.gameGraphs['lear.xml'].displayScene();
@@ -348,7 +354,14 @@ XMLscene.prototype.display = function() {
 
 				this.displayBoard();
 
-      }
+        let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
+        if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
+           if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
+               increment = this.cameraRotation-this.cameraAcc;
+           console.log( increment * DEGREE_TO_RAD);
+           this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
+           this.cameraAcc += increment;
+           }
 	else
 	{
 		// Draw axis
@@ -359,6 +372,7 @@ XMLscene.prototype.display = function() {
 
     // ---- END Background, camera and axis setup
 
+  }
 }
 
 XMLscene.prototype.displayBoardTiles = function(){
@@ -603,7 +617,24 @@ function boardToString(board){
 	return boardString;
 }
 
+function cloneNode(obj) {
+ if (obj === null || typeof(obj) !== 'object' || 'isActiveClone' in obj)
+   return obj;
 
+ let temp;
+ if (obj instanceof MyGraphNode)
+   temp = new MyGraphNode(obj.graph, obj.nodeID, obj.selectable); //or new Date(obj);
+
+ for (let key in obj) {
+   if (Object.prototype.hasOwnProperty.call(obj, key)) {
+     obj['isActiveClone'] = null;
+     temp[key] = cloneNode(obj[key]);
+     delete obj['isActiveClone'];
+   }
+ }
+
+ return temp;
+}
 
 XMLscene.prototype.update = function(currTime){
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
@@ -612,16 +643,24 @@ XMLscene.prototype.update = function(currTime){
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
-  if (this.gameGraphs['lear.xml'].loadedOk){
+
       for(let i = 65; i < 96; i++)
          this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   //     for(let i = 97; i < 128; i++)
   //        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-   }
+  
 
 	this.lastTime = currTime;
 }
+XMLscene.prototype.rotateCamera = function(rotation){
+    this.cameraRotation = rotation;
+    this.cameraAcc = 0;
+};
 
+XMLscene.prototype.changeCamera = function(){
+    this.cameraRotation = 90;
+    this.cameraAcc = 0;
+};
 
 XMLscene.prototype.updateScalingFactor = function(date){
     this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
