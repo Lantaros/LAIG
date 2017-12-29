@@ -57,7 +57,10 @@ function XMLscene(interfac) {
 
     this.lastBoards  = new Array();
 
-    this.selectedPiece;
+    this.selectedCell;
+
+    this.whitePiecesArray = new Array();
+    this.blackPiecesArray = new Array();
 
 }
 
@@ -155,32 +158,33 @@ XMLscene.prototype.logPicking = function (){
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             line -=1;
 
-          console.log(obj.type);
-          // if it's a cell
-          if (obj.type ==  "halfsphere"){
-            if (this.selectedPiece != null)
-                this.selectedPiece.selected = false;
+          console.log(this.selectedCell);
+          //  if it's a cell
+          if (obj.type ==  "boardcell"){
+            if (this.selectedCell != null)
+                this.selectedCell.selected = false;
             obj.selected = true;
-            this.selectedPiece = obj;
+            this.selectedCell = obj;
           }
-          //  if it's a piece
+
+          if (obj.type == "halfsphere"){
+            if (this.selectedCell != null){ //a cell has already been selected
+                let control_points = new Array();
+                control_points.push(new Array(0,0,0));
+                control_points.push(new Array(0,5,0));
+                let animation = new LinearAnimation(this, customId, 1, control_points);
+                this.animations[customId]= animation;
+                this.animations.length++;
+                console.log("animate");
+      					this.whitePiecesArray[customId].animationRefs.push(customId);
+            }
+          }
 
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
           //   this.setActiveShader(this.shaders["Red Pulse"]);
           //
           // this.setActiveShader(this.defaultShader);
 
-
-					let control_points = new Array();
-					control_points.push(new Array(0,0,0));
-					control_points.push(new Array(0,5,0));
-					let animation = new LinearAnimation(this, customId, 1, control_points);
-					this.animations[customId]= animation;
-					this.animations.length++;
-
-					//change so it gets the node for a piece. That means we must create a node for each piece and save it.
-					//let node = this.whitePiecesArray[]
-					// /node.animationRefs.push(customId);
 
           console.log(customId);
 
@@ -272,13 +276,12 @@ XMLscene.prototype.learTemplateObjects = function(){
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
-  this.whitePiecesArray = new Array();
-  for (let i = 0; i < 32; i++)
-      this.whitePiecesArray.push(this.whitePiece);
+  for (let i = 65; i <= 96; i++)
+      this.whitePiecesArray[i] = this.whitePiece;
 
-  this.blackPiecesArray = new Array();
-  for (let i = 0; i < 32; i++)
-      this.blackPiecesArray.push(this.blackPiece);
+  for (let i = 65; i <= 96; i++)
+      this.blackPiecesArray[i] = this.blackPiece;
+
 
     makeRequest("startGameRequest(pvp)");
 }
@@ -415,8 +418,8 @@ XMLscene.prototype.displayBoardTiles = function(){
       else
         this.registerForPick(0, line[i].leaves[0]);
 
-        if (line[i].leaves[0].selected)
-          this.setActiveShader(this.shaders['Red Pulse']);
+        // if (line[i].leaves[0].selected)
+        //   this.setActiveShader(this.shaders['Red Pulse']);
 
       line[i].leaves[0].display();
 
@@ -589,6 +592,12 @@ XMLscene.prototype.update = function(currTime){
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
+  if (this.gameGraphs['lear.xml'].loadedOk)
+      for(let i = 65; i < 96; i++) {
+         this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+         this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+    	}
+
 	this.lastTime = currTime;
 }
 
