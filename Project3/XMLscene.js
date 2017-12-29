@@ -277,8 +277,6 @@ XMLscene.prototype.learTemplateObjects = function(){
         this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
-  let newObject = jQuery.extend(true, {}, this.whitePiece);
-
   for (let i = 65; i <= 96; i++)
       this.whitePiecesArray[i] = jQuery.extend(true, {}, this.whitePiece);
   for (let i = 96; i <= 128; i++)
@@ -310,7 +308,7 @@ XMLscene.prototype.display = function() {
 
     this.pushMatrix();
 
-    if (this.gameGraphs[this.currentEnvironment].loadedOk){
+    if (this.gameGraphs['lear.xml'].loadedOk && this.gameGraphs[this.currentEnvironment].loadedOk){
         // Applies initial transformations.
     this.multMatrix(this.gameGraphs[this.currentEnvironment].initialTransforms);
 
@@ -476,7 +474,7 @@ XMLscene.prototype.displayWhitePieces = function(){
 
       for (let i = 0; i < 8; i++){
         whitePieceId++;
-        this.displayPiece(this.whitePiece, this.whitePiece['textureObj'], this.whitePiece['materialObj'], whitePieceId);
+        this.displayPiece(this.whitePiecesArray[65 + j*i], this.whitePiece['textureObj'], this.whitePiece['materialObj'], whitePieceId);
         this.translate( 0, 0, 0.6);
       }
       this.popMatrix();
