@@ -38,6 +38,39 @@ function MyGraphNode(graph, nodeID, selectable) {
 
 }
 
+function MyGraphNode(node){
+  if (node instanceof MyGraphNode){
+    this.graph = node.graph;
+
+    this.nodeID = node.nodeID;
+
+    // IDs of child nodes.
+    this.children = node.children.slice(0);
+
+    // IDs of child nodes.
+    this.leaves = node.leaves.slice(0);
+
+    // The material ID.
+    this.materialID = node.materialID;
+
+    // The texture ID.
+    this.textureID =  node.materialID;
+
+    this.selectable =  node.selectable;
+
+    mat4.copy(this.transformMatrix, node.transformMatrix);
+
+    this.animationRefs = node.animationRefs.slice(0);
+
+    mat4.copy(this.animationMatrix, node.animationMatrix);
+
+    this.time = node.time;
+    this.currAnimation = node.currAnimation;
+    this.combIte = node.combIte;
+    this.currentSection = node.currentSection;//Used in Linear and Combo Animations
+  }
+}
+
 /**
  * Adds the reference (ID) of another node to this node's children array.
  */

@@ -183,7 +183,7 @@ XMLscene.prototype.logPicking = function (){
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
           //   this.setActiveShader(this.shaders["Red Pulse"]);
           //
-          // this.setActiveShader(this.defaultShader);
+          // this.setActiveShader(asdasdthis.defaultShader);
 
 
           console.log(customId);
@@ -277,9 +277,9 @@ XMLscene.prototype.learTemplateObjects = function(){
 
 
   for (let i = 65; i <= 96; i++)
-      this.whitePiecesArray[i] = this.whitePiece;
+      this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
 
-  for (let i = 65; i <= 96; i++)
+  for (let i = 96; i <= 128; i++)
       this.blackPiecesArray[i] = this.blackPiece;
 
 
@@ -496,6 +496,7 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
 
     this.pushMatrix();
     this.multMatrix(node.transformMatrix);
+    this.multMatrix(node.animationMatrix);
 
     if (node.textureID !='null') {
       if (node.textureID == 'clear')
@@ -602,6 +603,8 @@ function boardToString(board){
 	return boardString;
 }
 
+
+
 XMLscene.prototype.update = function(currTime){
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
 		this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
@@ -609,11 +612,12 @@ XMLscene.prototype.update = function(currTime){
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
-  if (this.gameGraphs['lear.xml'].loadedOk)
-      for(let i = 65; i < 96; i++) {
+  if (this.gameGraphs['lear.xml'].loadedOk){
+      for(let i = 65; i < 96; i++)
          this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-         this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-    	}
+  //     for(let i = 97; i < 128; i++)
+  //        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+   }
 
 	this.lastTime = currTime;
 }
