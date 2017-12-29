@@ -65,8 +65,8 @@ verifyRule(Board, NLine, NCol, Player, FinalBoard):-
 
 %------------CHANGES CURRENT PLAYER-------------
 
-changePlayer('O ', 'X ').
-changePlayer('X ', 'O ').
+changePlayer('O', 'X').
+changePlayer('X', 'O').
 
 
 %------------CHECKS FOR END GAME-------------
@@ -82,8 +82,8 @@ endGame(_, _ , false).
 %------------CHECKS THE WINNER-------------
 
 checkWinner(FBoard):-
-		countScore(FBoard, 'X ', XCount),
-		countScore(FBoard, 'O ', OCount),
+		countScore(FBoard, 'X', XCount),
+		countScore(FBoard, 'O', OCount),
 		(
 				XCount > OCount -> write('Congratulations, Black Team! You win the game!'), nl;
 				OCount > XCount -> write('Congratulations, White Team! You win the game!'), nl;
@@ -97,7 +97,7 @@ playPvBGame(Dif):-
 		retract(state(Board, Count, Player)),
 			printCurrentInfo(Board, Player),
 			format('Count = ~p', [Count]), nl,
-			ite(Player == 'X ', once(move(Board, Player, FinalBoard)), (once(moveComputer(Board, Player, Dif, FinalBoard)), sleep(1))),
+			ite(Player == 'X', once(move(Board, Player, FinalBoard)), (once(moveComputer(Board, Player, Dif, FinalBoard)), sleep(1))),
 			changePlayer(Player, NextPlayer),
 			Counter is Count - 1,
 		assert(state(FinalBoard, Counter, NextPlayer)),
@@ -107,8 +107,8 @@ playPvBGame(Dif):-
 %------------PREPARES BOARD ADD 2 RANDOM PIECES---------------
 prepareBoardBvB:-
 	retract(state(Board, Count, Player)),
-	moveComputer(Board, 'X ', 0, Board2),
-	moveComputer(Board2, 'O ', 0, FinalBoard),
+	moveComputer(Board, 'X', 0, Board2),
+	moveComputer(Board2, 'O', 0, FinalBoard),
 	Counter is Count - 2,
 	assert(state(FinalBoard, Counter, Player)).
 

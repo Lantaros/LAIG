@@ -15,12 +15,12 @@
 
 
 initialBoardForTesting([
-	[emptyCell, emptyCell, emptyCell, emptyCell, 'X ', emptyCell, emptyCell, emptyCell],
-	[emptyCell, 'X ', 'O ', 'O ', 'X ', emptyCell, emptyCell, emptyCell],
-	[emptyCell, emptyCell, emptyCell, 'X ', 'X ', emptyCell, emptyCell, emptyCell],
-	[emptyCell, emptyCell, emptyCell, 'O ', 'O ', emptyCell, emptyCell, emptyCell],
-	[emptyCell, emptyCell, emptyCell, 'O ', 'O ', emptyCell, emptyCell, emptyCell],
-	[emptyCell, emptyCell, emptyCell, emptyCell, 'O ', emptyCell, emptyCell, emptyCell],
+	[emptyCell, emptyCell, emptyCell, emptyCell, 'X', emptyCell, emptyCell, emptyCell],
+	[emptyCell, 'X', 'O', 'O', 'X', emptyCell, emptyCell, emptyCell],
+	[emptyCell, emptyCell, emptyCell, 'X', 'X', emptyCell, emptyCell, emptyCell],
+	[emptyCell, emptyCell, emptyCell, 'O', 'O', emptyCell, emptyCell, emptyCell],
+	[emptyCell, emptyCell, emptyCell, 'O', 'O', emptyCell, emptyCell, emptyCell],
+	[emptyCell, emptyCell, emptyCell, emptyCell, 'O', emptyCell, emptyCell, emptyCell],
 	[emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell],
 	[emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell, emptyCell]]).
 
@@ -56,7 +56,7 @@ startPvPGame(Board):-
 
 startPvBGame:-
 	initialBoard(Board),
-	assert(state(Board, 64, 'X ')),
+	assert(state(Board, 64, 'X')),
 	playPvBGame(Dif).
 
 
@@ -64,5 +64,5 @@ startPvBGame:-
 
 startBvBGame:-
 	initialBoard(Board),
-	assert(state(Board, 64, 'X ')),
+	assert(state(Board, 64, 'X')),
 	playBvBGame(Dif).
