@@ -3,6 +3,7 @@ var BOARD_WIDTH = 8;
 var BOARD_Y_OFFSET = 0;
 var CELL_WIDTH = 1;
 let PIECE_WIDTH = 0.25;
+let PIECE_Y_OFFSET = 0.2;
 let scene;
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -149,14 +150,14 @@ XMLscene.prototype.logPicking = function (){
         console.log(customId);
 				if (obj && customId > 0){
 
-          let column = customId % BOARD_WIDTH;
-          if (column == 0)
-            column = BOARD_WIDTH;
+          let cellColumn = customId % BOARD_WIDTH;
+          if (cellColumn == 0)
+            cellColumn = BOARD_WIDTH;
 
-          let line = Math.floor(customId / BOARD_WIDTH) + 1;
+          let cellLine = Math.floor(customId / BOARD_WIDTH) + 1;
           if ( (customId / BOARD_WIDTH) % 1 == 0)
-            line -=1;
-            console.log("current selected piece: " + this.selectedPiece);
+            cellLine -=1;
+
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
             if (this.selectedPiece != 0)
@@ -167,14 +168,31 @@ XMLscene.prototype.logPicking = function (){
 
           else if (obj.type == "boardcell" && this.selectedPiece != 0){
                 let control_points = new Array();
-                control_points.push(new Array(0,0,0));
-                control_points.push(new Array(-1,2,0));
-                control_points.push(new Array(-1,1,0));
-                control_points.push(new Array(-2,0,0));
+                let y_offset = 0;
+
+                let pID = this.selectedPiece - 65;
+                let pieceColumn = pID % 8;
+
+                let pieceLine = Math.floor(pID / 8) ;
+
+                  console.log("L: " + pieceLine);
+                  console.log("C: " + pieceColumn);
+
+                let pi = [PIECE_WIDTH/2  + (PIECE_WIDTH + CELL_WIDTH)*pieceLine,
+                           PIECE_Y_OFFSET,
+                           PIECE_WIDTH/2 + (PIECE_WIDTH + CELL_WIDTH)*pieceColumn];
+
+                let pf = [0 + PIECE_WIDTH/2  + -(PIECE_WIDTH + CELL_WIDTH)*cellColumn,
+                           PIECE_Y_OFFSET,
+                           PIECE_WIDTH/2 + (PIECE_WIDTH + CELL_WIDTH)*cellLine];
+
+                control_points.push(pi);
+                control_points.push( new Array(1,1,1));
+                control_points.push( new Array(2,2,2));
+                control_points.push(pf);
                 let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
-                console.log("animate " + this.selectedPiece + " to " + this.pickResults[0][1]);
       					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
                 //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
@@ -490,8 +508,8 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
   	var material = parAsp;
 
     this.pushMatrix();
-    this.multMatrix(node.transformMatrix);
     this.multMatrix(node.animationMatrix);
+    this.multMatrix(node.transformMatrix);
 
     if (node.textureID !='null') {
       if (node.textureID == 'clear')
@@ -633,7 +651,6 @@ XMLscene.prototype.setLights = function(){
  *@param currTime current time
 */
 XMLscene.prototype.update = function(currTime){
-  let counter = 0;
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
 		this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
@@ -641,16 +658,11 @@ XMLscene.prototype.update = function(currTime){
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
   if (this.gameGraphs['lear.xml'].loadedOk && this.whitePiecesArray.length){
-    for(let i = 65; i < 97; i++){
-      if(this.whitePiecesArray[i].animationRefs.length)
-        counter++;
+    for(let i = 65; i < 97; i++)
       this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
-    }
     for(let i = 97; i < 129; i++)
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
-
-  // console.log("N peças refs " + counter);
 	this.lastTime = currTime;
 }
 
