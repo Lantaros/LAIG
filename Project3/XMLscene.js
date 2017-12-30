@@ -156,7 +156,7 @@ XMLscene.prototype.logPicking = function (){
           let line = Math.floor(customId / BOARD_WIDTH) + 1;
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             line -=1;
-
+            console.log("current selected piece: " + this.selectedPiece);
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
             if (this.selectedPiece != 0)
@@ -168,8 +168,10 @@ XMLscene.prototype.logPicking = function (){
           else if (obj.type == "boardcell" && this.selectedPiece != 0){
                 let control_points = new Array();
                 control_points.push(new Array(0,0,0));
-                control_points.push(new Array(0,5,0));
-                let animation = new LinearAnimation(this, this.selectedPiece, 1, control_points);
+                control_points.push(new Array(-1,2,0));
+                control_points.push(new Array(-1,1,0));
+                control_points.push(new Array(-2,0,0));
+                let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
                 console.log("animate " + this.selectedPiece + " to " + this.pickResults[0][1]);
