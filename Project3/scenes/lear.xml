@@ -386,16 +386,16 @@
      <SCALE sx="20" sy="25" sz="25" />
 
       <DESCENDANTS>
-          <NODEREF id="paredeBalcao" />
-          <NODEREF id="paredeEscadas" />
-          <NODEREF id="paredePorta" />
-          <NODEREF id="paredeVazia" />
+          <NODEREF id="paredeMontanha" />
+          <NODEREF id="paredeHorizonte" />
+          <NODEREF id="paredeFloresta" />
+          <NODEREF id="paredeFloresta2" />
           <NODEREF id="grandeChao" />
       </DESCENDANTS>
 
   </NODE>
 
-    <NODE id = "paredeBalcao" >
+    <NODE id = "paredeMontanha" >
       <MATERIAL id ="null" />
       <TEXTURE id="null" />
       <SCALE sx="1.5" sy="1" sz="1" />
@@ -404,7 +404,7 @@
       </DESCENDANTS>
      </NODE>
 
-    <NODE id = "paredeEscadas">
+    <NODE id = "paredeHorizonte">
       <MATERIAL id ="null" />
       <TEXTURE id="null" />
 
@@ -418,7 +418,7 @@
 
       </NODE>
 
-  <NODE id = "paredePorta">
+  <NODE id = "paredeFloresta">
       <MATERIAL id ="null" />
       <TEXTURE id="null" />
 
@@ -432,7 +432,7 @@
 
   </NODE>
 
-    <NODE id = "paredeVazia">
+    <NODE id = "paredeFloresta2">
       <MATERIAL id ="null" />
       <TEXTURE id="null" />
       <TRANSLATION x="6" y="0" z="0" />
