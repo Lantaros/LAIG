@@ -55,7 +55,7 @@ function XMLscene(interfac) {
 
     this.lastBoards  = new Array();
 
-    this.selectedCell;
+    this.selectedPiece = 0;
 
     this.whitePiecesArray = new Array();
     this.blackPiecesArray = new Array();
@@ -156,25 +156,25 @@ XMLscene.prototype.logPicking = function (){
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             line -=1;
 
-          //  if it's a cell
-          if (obj.type ==  "boardcell"){
-            if (this.selectedCell != null)
-                this.selectedCell.selected = false;
+          //  if it's a piece
+          if (obj.type ==  "halfsphere"){
+            if (this.selectedPiece != 0)
+                this.selectedPiece.selected = false;
             obj.selected = true;
-            this.selectedCell = obj;
+            this.selectedPiece = customId;
           }
 
-          if (obj.type == "halfsphere"){
-            if (this.selectedCell != null){ //a cell has already been selected
+          if (obj.type == "boardcell"){
+            if (this.selectedPiece != 0){ //a piece has already been selected
                 let control_points = new Array();
                 control_points.push(new Array(0,0,0));
                 control_points.push(new Array(0,5,0));
-                let animation = new LinearAnimation(this, customId, 1, control_points);
-                this.animations[customId] = animation;
+                let animation = new LinearAnimation(this, this.selectedPiece, 1, control_points);
+                this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
                 console.log("animate");
-      					this.whitePiecesArray[customId].animationRefs.push(customId);
-      					this.blackPiecesArray[customId + 33].animationRefs.push(customId);
+      					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+      					//this.blackPiecesArray[this.selectedPiece + 33].animationRefs.push(this.selectedPiece);
             }
           }
 
