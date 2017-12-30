@@ -1,9 +1,16 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-var BOARD_WIDTH = 8;
-var BOARD_Y_OFFSET = 0;
-var CELL_WIDTH = 1;
-let PIECE_WIDTH = 0.25;
+
+let CELL_WIDTH = 0.5;
+let BOARD_WIDTH = 8;
+let BOARD_Y_OFFSET = 0;
+let WHITEBOX_CORNER = 6;
+
+let PIECE_RADIUS = 0.25;
+let PIECE_HEIGHT = 0;
 let PIECE_Y_OFFSET = 0.2;
+let ARC_HEIGHT = 3;
+
+
 let scene;
 /**
  * XMLscene class, representing the scene that is to be rendered.
@@ -147,16 +154,16 @@ XMLscene.prototype.logPicking = function (){
 			for (let i=0; i< this.pickResults.length; i++) {
 				let obj = this.pickResults[i][0];
 				let customId = this.pickResults[i][1];
-        console.log(customId);
+        //console.log(customId);
 				if (obj && customId > 0){
 
-          let cellColumn = customId % BOARD_WIDTH;
-          if (cellColumn == 0)
-            cellColumn = BOARD_WIDTH;
-
-          let cellLine = Math.floor(customId / BOARD_WIDTH) + 1;
+          let cellColumn = (customId - 1) % BOARD_WIDTH;
+        
+          let cellLine = Math.floor(customId / BOARD_WIDTH);
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             cellLine -=1;
+
+         
 
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
@@ -175,21 +182,45 @@ XMLscene.prototype.logPicking = function (){
 
                 let pieceLine = Math.floor(pID / 8) ;
 
-                  console.log("L: " + pieceLine);
-                  console.log("C: " + pieceColumn);
+                  console.log("Piece L: " + pieceLine);
+                  console.log("Piece C: " + pieceColumn);
+                  console.log("Cell L: " + cellLine);
+                  console.log("Cell C: " + cellColumn);
 
-                let pi = [PIECE_WIDTH/2  + (PIECE_WIDTH + CELL_WIDTH)*pieceLine,
-                           PIECE_Y_OFFSET,
-                           PIECE_WIDTH/2 + (PIECE_WIDTH + CELL_WIDTH)*pieceColumn];
+                  /*P1 = (x1, y1, z1)
+                    P2 = (x1 + 1/3*(x4-x1), y23, z1 + 1/3*(z4-z1))
+                    P3 = (x1 + 2/3*(x4-x1), y23, z1 + 2/3*(z4-z1))
+                    P1 = (x4, y4, z4)
+                  */
+                let p1 = [0 ,0, 0];
 
-                let pf = [0 + PIECE_WIDTH/2  + -(PIECE_WIDTH + CELL_WIDTH)*cellColumn,
-                           PIECE_Y_OFFSET,
-                           PIECE_WIDTH/2 + (PIECE_WIDTH + CELL_WIDTH)*cellLine];
+                let pf = [CELL_WIDTH/2 + cellColumn * CELL_WIDTH,
+                          PIECE_Y_OFFSET + PIECE_HEIGHT,
+                          CELL_WIDTH/2 + cellLine * CELL_WIDTH];
 
-                control_points.push(pi);
-                control_points.push( new Array(1,1,1));
-                control_points.push( new Array(2,2,2));
-                control_points.push(pf);
+                let chosenPiece = [ WHITEBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
+                  PIECE_Y_OFFSET,
+                  PIECE_RADIUS + PIECE_RADIUS * pieceColumn];
+
+                  console.log("pf " + pf);
+                  console.log("chosenPiece " + chosenPiece);
+                  
+ 
+                
+                let p4 = [pf[0] - chosenPiece[0],
+                          pf[1] - chosenPiece[1],
+                          pf[2] - chosenPiece[2] ];
+
+                control_points.push(p1);
+                control_points.push([p1[0] + 1/3*(p4[0] - p1[0]),
+                                     ARC_HEIGHT,
+                                    p1[2] + 1/3*(p4[2] - p1[2])]);
+
+                control_points.push([p1[0] + 2/3*(p4[0] - p1[0]),
+                                    ARC_HEIGHT,
+                                   p1[2] + 2/3*(p4[2] - p1[2])]);
+
+                control_points.push(p4);
                 let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
@@ -423,10 +454,10 @@ XMLscene.prototype.displayBoardTiles = function(){
 
         //  this.setActiveShader(this.defaultShader);
 
-          this.translate((CELL_WIDTH/2), 0, 0);
+          this.translate(CELL_WIDTH, 0, 0);
         }
       this.popMatrix();
-    this.translate(0, 0, (CELL_WIDTH/2));
+    this.translate(0, 0, CELL_WIDTH);
   }
   this.popMatrix();
 };
@@ -436,7 +467,7 @@ XMLscene.prototype.displayBoardTiles = function(){
  */
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
-      this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
+      this.translate(PIECE_RADIUS, 0, PIECE_RADIUS);
       for (let i = 0; i < BOARD_WIDTH; i++) {
           this.pushMatrix();
             for (let j = 0; j < BOARD_WIDTH; j++) {
@@ -445,10 +476,10 @@ XMLscene.prototype.displayBoard = function(){
                 else if(this.currentBoard[i][j] == 'O')
                     this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
-                this.translate(2*PIECE_WIDTH, 0, 0);
+                this.translate(2*PIECE_RADIUS, 0, 0);
             }
           this.popMatrix();
-        this.translate(0, 0, 2*PIECE_WIDTH);
+        this.translate(0, 0, 2*PIECE_RADIUS);
       }
     this.popMatrix();
 };
@@ -508,8 +539,9 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
   	var material = parAsp;
 
     this.pushMatrix();
-    this.multMatrix(node.animationMatrix);
     this.multMatrix(node.transformMatrix);
+    this.multMatrix(node.animationMatrix);
+   
 
     if (node.textureID !='null') {
       if (node.textureID == 'clear')
