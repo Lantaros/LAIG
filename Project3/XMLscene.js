@@ -164,8 +164,7 @@ XMLscene.prototype.logPicking = function (){
             this.selectedPiece = customId;
           }
 
-          if (obj.type == "boardcell"){
-            if (this.selectedPiece != 0){ //a piece has already been selected
+          if (obj.type == "boardcell" && this.selectedPiece != 0){
                 let control_points = new Array();
                 control_points.push(new Array(0,0,0));
                 control_points.push(new Array(0,5,0));
@@ -174,27 +173,21 @@ XMLscene.prototype.logPicking = function (){
                 this.animations.length++;
                 console.log("animate");
       					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
-      					//this.blackPiecesArray[this.selectedPiece + 33].animationRefs.push(this.selectedPiece);
             }
           }
-
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
           //   this.setActiveShader(this.shaders["Red Pulse"]);
           //
           // this.setActiveShader(asdasdthis.defaultShader);
-
-
           console.log(customId);
-
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
-	}
-}
+	};
 
-
-/* Handler called when the "lear.xml" graph is finally loaded.
+/*
+  Handler called when the "lear.xml" graph is finally loaded.
  */
 XMLscene.prototype.onGraphLoaded = function(){
     this.camera.near = this.gameGraphs["lear.xml"].near;
@@ -207,15 +200,10 @@ XMLscene.prototype.onGraphLoaded = function(){
     this.gl.clearColor(this.gameGraphs["lear.xml"].background[0], this.gameGraphs["lear.xml"].background[1], this.gameGraphs["lear.xml"].background[2], this.gameGraphs["lear.xml"].background[3]);
 
     this.initLights();
-
+    //interface setup
     this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
-
     this.interfac.addShadersDropdown(this.shadersRefs);
-
-    //GAME OPTIONS
     this.interfac.addGameOptions(this.gameModes, this.botDifficulties);
-
-    //EXTRA OPTIONS
     this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
 
     this.learTemplateObjects();
@@ -286,7 +274,6 @@ XMLscene.prototype.learTemplateObjects = function(){
 XMLscene.prototype.display = function() {
     this.logPicking();
   	this.clearPickRegistration();
-
     // ---- BEGIN Background, camera and axis setup
 
     // Clear image and depth buffer everytime we update the scene
@@ -296,7 +283,6 @@ XMLscene.prototype.display = function() {
     // Initialize Model-View matrix as identity (no transformation
     this.updateProjectionMatrix();
     this.loadIdentity();
-
     // Apply transformations corresponding to the camera position relative to the origin
     this.applyViewMatrix();
 
@@ -304,74 +290,52 @@ XMLscene.prototype.display = function() {
 
     if (this.gameGraphs['lear.xml'].loadedOk && this.gameGraphs[this.currentEnvironment].loadedOk){
         // Applies initial transformations.
-    this.multMatrix(this.gameGraphs[this.currentEnvironment].initialTransforms);
+       this.multMatrix(this.gameGraphs[this.currentEnvironment].initialTransforms);
+    		// Draw axis
+    	 this.axis.display();
 
-		// Draw axis
-		this.axis.display();
-
-        var i = 0;
-        for (var key in this.lightValues) {
-            if (this.lightValues.hasOwnProperty(key)) {
-                if (this.lightValues[key]) {
-                    this.lights[i].setVisible(true);
-                    this.lights[i].enable();
-                }
-                else {
-                    this.lights[i].setVisible(false);
-                    this.lights[i].disable();
-                }
-                this.lights[i].update();
-                i++;
-            }
-        }
+       this.setLights();
 
        let newDate = new Date();
        currTime = newDate.getTime();
-       if(this.initialTime == null) {
+       if(this.initialTime == null)
            this.initialTime = currTime;
-       }
 
        dT = (currTime - this.initialTime)/1000;
 
        this.deltaTime = this.deltaTime || 0;
        this.deltaTime = currTime - this.lastTime;
        this.updateScalingFactor(dT);
-        // Displays the scene.
-        this.gameGraphs['lear.xml'].displayScene();
-        this.gameGraphs[this.currentEnvironment].displayScene();
 
-				this.displayWhitePieces();
-        this.displayBlackPieces();
-				this.displayBoardTiles();
+       this.displayEverything();
 
-				this.displayBoard();
+       this.updateCameraRotation();
 
-
-        let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
-        if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
-           if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
-               increment = this.cameraRotation-this.cameraAcc;
-           if (this.currentCameraAngle == 0)
-              this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
-           if (this.currentCameraAngle == 1)
-              this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
-          if (this.currentCameraAngle == 2)
-             this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
-           this.cameraAcc += increment;
-        }
-	else
-	{
-		// Draw axis
-		this.axis.display();
-	}
+    }
+  	else
+  		this.axis.display();
 
     this.popMatrix();
-
     // ---- END Background, camera and axis setup
+};
+/**
+ * Displays everything
+ */
+XMLscene.prototype.displayEverything = function(){
 
-  }
-}
+  this.gameGraphs['lear.xml'].displayScene();
+  this.gameGraphs[this.currentEnvironment].displayScene();
 
+  this.displayWhitePieces();
+  this.displayBlackPieces();
+  this.displayBoardTiles();
+
+  this.displayBoard();
+};
+
+/**
+ * Displays all Board Tiles
+ */
 XMLscene.prototype.displayBoardTiles = function(){
   let whiteLineStart = new Array();
   let blackLineStart = new Array();
@@ -381,7 +345,6 @@ XMLscene.prototype.displayBoardTiles = function(){
       whiteLineStart.push(this.whiteCell);
     else
       whiteLineStart.push(this.blackCell);
-
   }
 
   for(let i = 0; i < BOARD_WIDTH; i++){
@@ -398,71 +361,79 @@ XMLscene.prototype.displayBoardTiles = function(){
   let texBlack = this.gameGraphs[this.currentEnvironment].textures["black"];
 
   this.pushMatrix();
-  for(let j = 0; j < BOARD_WIDTH; j++){
-    if(j % 2 == 0)
-      line = whiteLineStart;
-    else
-      line = blackLineStart;
 
-    this.pushMatrix();
-
-    for (let i = 0; i < line.length; i++) {
-      cellId++;
-
-      if (line[i].nodeID == "whiteCell"){
-        line[i].leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
-        line[i]['textureObj'] = texWhite[0];
-        }
-      else if (line[i].nodeID == "blackCell"){
-        line[i].leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
-        line[i]['textureObj'] = texBlack[0];
-        line[i]['textureObj'] = texBlack[0];
-      }
-
-      line[i]['materialObj'].apply();
-
-      if (line[i]['textureObj'] != null){
-        line[i]['textureObj'].bind();
-      }
-      if (this.currentBoard[j][i] == "emptyCell")
-        this.registerForPick(cellId, line[i].leaves[0]);
+    for(let j = 0; j < BOARD_WIDTH; j++){
+      if(j % 2 == 0)
+        line = whiteLineStart;
       else
-        this.registerForPick(0, line[i].leaves[0]);
+        line = blackLineStart;
 
-        // if (line[i].leaves[0].selected)
-        //   this.setActiveShader(this.shaders['Red Pulse']);
+      this.pushMatrix();
 
-      line[i].leaves[0].display();
+        for (let i = 0; i < line.length; i++) {
+          cellId++;
 
-    //  this.setActiveShader(this.defaultShader);
+          if (line[i].nodeID == "whiteCell"){
+            line[i].leaves[0].updateTexCoords(texWhite[1], texWhite[2]);
+            line[i]['textureObj'] = texWhite[0];
+            }
+          else if (line[i].nodeID == "blackCell"){
+            line[i].leaves[0].updateTexCoords(texBlack[1], texBlack[2]);
+            line[i]['textureObj'] = texBlack[0];
+            line[i]['textureObj'] = texBlack[0];
+          }
 
-      this.translate((CELL_WIDTH/2), 0, 0);
-    }
-    this.popMatrix();
+          line[i]['materialObj'].apply();
+
+          if (line[i]['textureObj'] != null){
+            line[i]['textureObj'].bind();
+          }
+
+          if (this.currentBoard[j][i] == "emptyCell")
+            this.registerForPick(cellId, line[i].leaves[0]);
+          else
+            this.registerForPick(0, line[i].leaves[0]);
+
+            // if (line[i].leaves[0].selected)
+            //   this.setActiveShader(this.shaders['Red Pulse']);
+
+          line[i].leaves[0].display();
+
+        //  this.setActiveShader(this.defaultShader);
+
+          this.translate((CELL_WIDTH/2), 0, 0);
+        }
+      this.popMatrix();
     this.translate(0, 0, (CELL_WIDTH/2));
   }
   this.popMatrix();
 };
 
+/**
+ * Displays pieces on board based on the currentBoard from Prolog
+ */
 XMLscene.prototype.displayBoard = function(){
     this.pushMatrix();
-    this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
-    for (let i = 0; i < BOARD_WIDTH; i++) {
-        this.pushMatrix();
-        for (let j = 0; j < BOARD_WIDTH; j++) {
-            if (this.currentBoard[i][j] == 'X')
-                this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
-            else if(this.currentBoard[i][j] == 'O')
-                this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
+      this.translate(PIECE_WIDTH, 0, PIECE_WIDTH);
+      for (let i = 0; i < BOARD_WIDTH; i++) {
+          this.pushMatrix();
+            for (let j = 0; j < BOARD_WIDTH; j++) {
+                if (this.currentBoard[i][j] == 'X')
+                    this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
+                else if(this.currentBoard[i][j] == 'O')
+                    this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
-            this.translate(2*PIECE_WIDTH, 0, 0);
-        }
-        this.popMatrix();
+                this.translate(2*PIECE_WIDTH, 0, 0);
+            }
+          this.popMatrix();
         this.translate(0, 0, 2*PIECE_WIDTH);
-    }
+      }
     this.popMatrix();
 };
 
+/**
+ * Displays all available pieces in the white box
+ */
 XMLscene.prototype.displayWhitePieces = function(){
   let whitePieceId = 64;
 	this.pushMatrix();
@@ -482,6 +453,9 @@ XMLscene.prototype.displayWhitePieces = function(){
 	this.popMatrix();
 };
 
+/**
+ * Displays all available pieces in the black box
+ */
 XMLscene.prototype.displayBlackPieces = function(){
   let blackPieceId = 96;
 	this.pushMatrix();
@@ -500,6 +474,13 @@ XMLscene.prototype.displayBlackPieces = function(){
 	this.popMatrix();
 };
 
+/**
+ * Displays a piece
+ * @param node piece to be displayed
+ * @param parTex texture of node
+ * @param parAsp material of node
+ * @param pick picking value of the piece
+ */
 XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
 
   	var textura = parTex;
@@ -545,7 +526,9 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
     this.popMatrix();
 };
 
-
+/**
+ * Gets a prolog Request
+*/
 function getPrologRequest(requestString, onSuccess, onError, port){
     let requestPort = port || 8081;
     let request = new XMLHttpRequest();
@@ -558,7 +541,9 @@ function getPrologRequest(requestString, onSuccess, onError, port){
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 }
-
+/**
+ * Makes a prolog Request
+*/
 function makeRequest(requestString){
     // Make Request
     getPrologRequest(requestString, handleReply);
@@ -566,7 +551,7 @@ function makeRequest(requestString){
 
 /**
  * Handles the server's response, updating currentBoard,
- * freeTiles and gameEnded attriutes
+ * freeTiles and gameEnded attributes
  * @param data JSON server response
  */
 function handleReply(data){
@@ -582,7 +567,9 @@ function handleReply(data){
     scene.currentBoard = parseBoard(matched[1]);
     console.log(scene.currentBoard);
 }
-
+/**
+ * Parses the Board from Prolog with RegEx
+*/
 function parseBoard(string){
 	let board = new Array();
 	let regex = /\[(?:\[)?([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^\]]*)\](?:\])?(?:,|\])/y;
@@ -597,6 +584,10 @@ function parseBoard(string){
 	return board;
 }
 
+/**
+ * Converts the Board to a string
+ @param board Board
+*/
 function boardToString(board){
 	let boardString = "[";
 	for (let i = 0; i < scene.currentBoard.length; i++) {
@@ -613,26 +604,31 @@ function boardToString(board){
 	boardString += "]";
 	return boardString;
 }
+/**
+ * Sets the lights on the screen
+*/
+XMLscene.prototype.setLights = function(){
+  var i = 0;
+  for (var key in this.lightValues) {
+      if (this.lightValues.hasOwnProperty(key)) {
+          if (this.lightValues[key]) {
+              this.lights[i].setVisible(true);
+              this.lights[i].enable();
+          }
+          else {
+              this.lights[i].setVisible(false);
+              this.lights[i].disable();
+          }
+          this.lights[i].update();
+          i++;
+      }
+  }
+};
 
-function cloneNode(obj) {
- if (obj === null || typeof(obj) !== 'object' || 'isActiveClone' in obj)
-   return obj;
-
- let temp;
- if (obj instanceof MyGraphNode)
-   temp = new MyGraphNode(obj.graph, obj.nodeID, obj.selectable); //or new Date(obj);
-
- for (let key in obj) {
-   if (Object.prototype.hasOwnProperty.call(obj, key)) {
-     obj['isActiveClone'] = null;
-     temp[key] = cloneNode(obj[key]);
-     delete obj['isActiveClone'];
-   }
- }
-
- return temp;
-}
-
+/**
+ * Updates the animations
+ *@param currTime current time
+*/
 XMLscene.prototype.update = function(currTime){
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
 		this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
@@ -649,11 +645,25 @@ XMLscene.prototype.update = function(currTime){
 
 	this.lastTime = currTime;
 }
+
+/**
+ * Updates shaders' scaling factor based on the date
+ * @param date date
+*/
+XMLscene.prototype.updateScalingFactor = function(date){
+    this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
+};
+/**
+ * Rotates the Camera
+ * @param rotation angle
+*/
 XMLscene.prototype.rotateCamera = function(rotation){
     this.cameraRotation = rotation;
     this.cameraAcc = 0;
 };
-
+/**
+ * Changes the Camera ViewPoint
+*/
 XMLscene.prototype.changeCamera = function(){
     this.cameraAcc = 0;
 
@@ -671,7 +681,20 @@ XMLscene.prototype.changeCamera = function(){
     }
 
 };
-
-XMLscene.prototype.updateScalingFactor = function(date){
-    this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
+/**
+ * Updates the Camera Rotation
+*/
+XMLscene.prototype.updateCameraRotation = function(){
+  let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
+  if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
+     if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
+         increment = this.cameraRotation-this.cameraAcc;
+     if (this.currentCameraAngle == 0)
+        this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
+     if (this.currentCameraAngle == 1)
+        this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
+    if (this.currentCameraAngle == 2)
+       this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
+     this.cameraAcc += increment;
+  }
 };
