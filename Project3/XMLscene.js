@@ -376,9 +376,8 @@ XMLscene.prototype.display = function() {
  */
 XMLscene.prototype.displayEverything = function(){
 
-  this.gameGraphs['lear.xml'].displayScene();
   this.gameGraphs[this.currentEnvironment].displayScene();
-
+  this.displayBoxes();
   this.displayWhitePieces();
   this.displayBlackPieces();
   this.displayBoardTiles();
@@ -503,6 +502,14 @@ XMLscene.prototype.displayWhitePieces = function(){
       this.translate(0.6, 0, 0);
   	}
 	this.popMatrix();
+};
+
+/**
+ * Displays the boxes
+ */
+XMLscene.prototype.displayBoxes = function(){
+
+
 };
 
 /**
