@@ -44,13 +44,13 @@ main=function()
 
    myScene.gameEnvironnments.push(filename);
 
+   myScene.currentEnvironment = filename;
     var filename=getUrlVars()['file'] || "lear.xml";
 
     myScene.gameGraphs[filename] = new MySceneGraph(filename, myScene);
     myScene.gameGraphs.length++;
 
     myScene.gameEnvironnments.push(filename);
-    myScene.currentEnvironment = filename;
 
 
 
