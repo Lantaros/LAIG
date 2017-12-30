@@ -164,14 +164,14 @@ XMLscene.prototype.logPicking = function (){
             this.selectedPiece = customId;
           }
 
-          if (obj.type == "boardcell" && this.selectedPiece != 0){
+          else if (obj.type == "boardcell" && this.selectedPiece != 0){
                 let control_points = new Array();
                 control_points.push(new Array(0,0,0));
                 control_points.push(new Array(0,5,0));
                 let animation = new LinearAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
-                console.log("animate");
+                console.log("animate " + this.selectedPiece + " to " + this.pickResults[0][1]);
       					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
           }
@@ -179,7 +179,7 @@ XMLscene.prototype.logPicking = function (){
           //   this.setActiveShader(this.shaders["Red Pulse"]);
           //
           // this.setActiveShader(asdasdthis.defaultShader);
-          console.log(customId);
+          //console.log(customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -260,9 +260,9 @@ XMLscene.prototype.learTemplateObjects = function(){
 
 
   for (let i = 65; i <= 97; i++)
-      this.whitePiecesArray[i] = jQuery.extend(true, {}, this.whitePiece);
+      this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
   for (let i = 98; i <= 130; i++)
-      this.blackPiecesArray[i] = jQuery.extend(true, {}, this.blackPiece );
+      this.blackPiecesArray[i] = new MyGraphNode(this.blackPiece);
 
 
     makeRequest("startGameRequest(pvp)");
@@ -435,16 +435,14 @@ XMLscene.prototype.displayBoard = function(){
  * Displays all available pieces in the white box
  */
 XMLscene.prototype.displayWhitePieces = function(){
-  let whitePieceId = 64;
 	this.pushMatrix();
     this.translate(6.6,0,0.4);
 
-    for (let j = 0; j < 4; j++){
+    for (let i = 0; i < 4; i++){
       this.pushMatrix();
 
-      for (let i = 0; i < 8; i++){
-        whitePieceId++;
-        this.displayPiece(this.whitePiecesArray[65 + j*i], this.whitePiece['textureObj'], this.whitePiece['materialObj'], whitePieceId);
+      for (let j = 0; j < 8; j++){
+        this.displayPiece(this.whitePiecesArray[64 + (i+1)*(j+1)], this.whitePiece['textureObj'], this.whitePiece['materialObj'], 64 + (i+1)*(j+1));
         this.translate( 0, 0, 0.6);
       }
       this.popMatrix();
@@ -555,7 +553,7 @@ function makeRequest(requestString){
  * @param data JSON server response
  */
 function handleReply(data){
-    console.log("Reply!!\n" + data);
+    console.log("Reply!!\n");
     let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
     let matched = regex.exec(data.target.responseText);
     if(matched[2] != undefined && matched[3] != undefined){
@@ -630,19 +628,24 @@ XMLscene.prototype.setLights = function(){
  *@param currTime current time
 */
 XMLscene.prototype.update = function(currTime){
+  let counter = 0;
  	for(var node in this.gameGraphs['lear.xml'].nodes) {
 		this.gameGraphs['lear.xml'].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
   for(var node in this.gameGraphs[this.currentEnvironment].nodes) {
      this.gameGraphs[this.currentEnvironment].nodes[node].updateAnimationMatrix(currTime - this.lastTime);
 	}
-  if (this.gameGraphs['lear.xml'].loadedOk){
-    for(let i = 65; i < 97; i++)
+  if (this.gameGraphs['lear.xml'].loadedOk && this.whitePiecesArray.length){
+    for(let i = 65; i < 97; i++){
+      if(this.whitePiecesArray[i].animationRefs.length)
+        counter++;
       this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+    }
     for(let i = 98; i <= 130; i++)
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
 
+  console.log("N peças refs " + counter);
 	this.lastTime = currTime;
 }
 

@@ -6,6 +6,39 @@
  * @constructor
  */
 function MyGraphNode(graph, nodeID, selectable) {
+    if(graph instanceof MyGraphNode){
+			this.graph = graph.graph;
+
+			this.nodeID = graph.nodeID;
+	
+			// IDs of child nodes.
+			this.children = graph.children.slice(0);
+	
+			// IDs of child nodes.
+			this.leaves = graph.leaves.slice(0);
+	
+			// The material ID.
+			this.materialID = graph.materialID;
+	
+			// The texture ID.
+			this.textureID = graph.materialID;
+	
+			this.selectable = graph.selectable;
+	
+			this.transformMatrix = mat4.create();
+			mat4.copy(this.transformMatrix, graph.transformMatrix);
+	
+			this.animationRefs = graph.animationRefs.slice(0);
+	
+			this.animationMatrix = mat4.create();
+			mat4.copy(this.animationMatrix, graph.animationMatrix);
+	
+			this.time = graph.time;
+			this.currAnimation = graph.currAnimation;
+			this.combIte = graph.combIte;
+			this.currentSection = graph.currentSection;//Used in Linear and Combo Animations
+		}
+   else{ 
     this.graph = graph;
 
     this.nodeID = nodeID;
@@ -35,41 +68,8 @@ function MyGraphNode(graph, nodeID, selectable) {
     this.currAnimation = 0;
     this.combIte = 0;
     this.currentSection = 0;//Used in Linear and Combo Animations
-
+	}
 }
-
-// function MyGraphNode(node){
-//   if (node instanceof MyGraphNode){
-//     this.graph = node.graph;
-//
-//     this.nodeID = node.nodeID;
-//
-//     // IDs of child nodes.
-//     this.children = node.children.slice(0);
-//
-//     // IDs of child nodes.
-//     this.leaves = node.leaves.slice(0);
-//
-//     // The material ID.
-//     this.materialID = node.materialID;
-//
-//     // The texture ID.
-//     this.textureID =  node.materialID;
-//
-//     this.selectable =  node.selectable;
-//
-//     mat4.copy(this.transformMatrix, node.transformMatrix);
-//
-//     this.animationRefs = node.animationRefs.slice(0);
-//
-//     mat4.copy(this.animationMatrix, node.animationMatrix);
-//
-//     this.time = node.time;
-//     this.currAnimation = node.currAnimation;
-//     this.combIte = node.combIte;
-//     this.currentSection = node.currentSection;//Used in Linear and Combo Animations
-//   }
-// }
 
 /**
  * Adds the reference (ID) of another node to this node's children array.
