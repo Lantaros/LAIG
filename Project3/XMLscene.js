@@ -146,6 +146,7 @@ XMLscene.prototype.logPicking = function (){
 			for (let i=0; i< this.pickResults.length; i++) {
 				let obj = this.pickResults[i][0];
 				let customId = this.pickResults[i][1];
+        console.log(customId);
 				if (obj && customId > 0){
 
           let column = customId % BOARD_WIDTH;
@@ -173,6 +174,7 @@ XMLscene.prototype.logPicking = function (){
                 this.animations.length++;
                 console.log("animate " + this.selectedPiece + " to " + this.pickResults[0][1]);
       					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
           }
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
@@ -259,9 +261,9 @@ XMLscene.prototype.learTemplateObjects = function(){
     this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
 
-  for (let i = 65; i <= 97; i++)
+    for(let i = 65; i < 97; i++)
       this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
-  for (let i = 98; i <= 130; i++)
+    for(let i = 97; i < 129; i++)
       this.blackPiecesArray[i] = new MyGraphNode(this.blackPiece);
 
 
@@ -435,14 +437,15 @@ XMLscene.prototype.displayBoard = function(){
  * Displays all available pieces in the white box
  */
 XMLscene.prototype.displayWhitePieces = function(){
+  let counter = 64;
 	this.pushMatrix();
     this.translate(6.6,0,0.4);
 
-    for (let i = 0; i < 4; i++){
+    for (let i = 1; i <= 4; i++){
       this.pushMatrix();
-
-      for (let j = 0; j < 8; j++){
-        this.displayPiece(this.whitePiecesArray[64 + (i+1)*(j+1)], this.whitePiece['textureObj'], this.whitePiece['materialObj'], 64 + (i+1)*(j+1));
+      for (let j = 1; j <= 8; j++){
+        counter++;
+        this.displayPiece(this.whitePiecesArray[counter], this.whitePiece['textureObj'], this.whitePiece['materialObj'], counter);
         this.translate( 0, 0, 0.6);
       }
       this.popMatrix();
@@ -455,15 +458,15 @@ XMLscene.prototype.displayWhitePieces = function(){
  * Displays all available pieces in the black box
  */
 XMLscene.prototype.displayBlackPieces = function(){
-  let blackPieceId = 96;
+  let counter = 96;
 	this.pushMatrix();
     this.translate(-4.4,0,0.4);
     for (let j = 0; j < 4; j++){
       this.pushMatrix();
 
       for (let i = 0; i < 8; i++){
-        blackPieceId++;
-        this.displayPiece(this.blackPiecesArray[98 + j*i], this.blackPiece['textureObj'], this.blackPiece['materialObj'], blackPieceId);
+        counter++;
+        this.displayPiece(this.blackPiecesArray[counter], this.blackPiece['textureObj'], this.blackPiece['materialObj'], counter);
         this.translate( 0, 0, 0.6);
       }
       this.popMatrix();
@@ -641,11 +644,11 @@ XMLscene.prototype.update = function(currTime){
         counter++;
       this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
     }
-    for(let i = 98; i <= 130; i++)
+    for(let i = 97; i < 129; i++)
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
 
-  console.log("N peças refs " + counter);
+  // console.log("N peças refs " + counter);
 	this.lastTime = currTime;
 }
 
