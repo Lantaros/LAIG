@@ -337,6 +337,8 @@
 
         <DESCENDANTS>
           <NODEREF id="mesa"/>
+          <NODEREF id="spaceyFloor"/>
+          <NODEREF id="chairs"/>
             <!--
             <NODEREF id="chaos" />
             <NODEREF id="balcao"/>
@@ -348,6 +350,303 @@
         </DESCENDANTS>
 
     </NODE>
+
+    <NODE id="spaceyFloor">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <TRANSLATION x="0" y="-12" z="0" />
+        <SCALE sx="1" sy="0.05" sz="1" />
+
+        <DESCENDANTS>
+          <LEAF type="sphere" args="40 50 50" />
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id = "chairs">
+      <MATERIAL id="silver" />
+      <TEXTURE id="podRed" />
+
+      <TRANSLATION x="2" y="-5" z="2" />
+
+      <DESCENDANTS>
+        <NODEREF id="chair1" />
+        <NODEREF id="chair2" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "chair1">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="0" y="0" z="12" />
+
+      <DESCENDANTS>
+        <NODEREF id="assento"/>
+        <NODEREF id="chair" />
+        <NODEREF id="triangle" />
+      </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id = "triangle">
+      <MATERIAL id="silver" />
+      <TEXTURE id="white" />
+
+      <ROTATION axis="y" angle="90" />
+      <TRANSLATION x="-14.55" y="-0.15" z="-16" />
+
+      <DESCENDANTS>
+          <LEAF  type="triangle" args="12 5 14 12 2 16 12 5 18" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "assento">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="0.8" y="0" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="costas"/>
+        <NODEREF id="bracos" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "costas">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="-1" y="0" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "bracos">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="-3.5" y="-4" z="-7.95" />
+      <ROTATION axis="y" angle="90" />
+      <SCALE sx="0.5" sy="1" sz="1" />
+
+      <TRANSLATION x="-13.8" y="4" z="1" />
+
+      <DESCENDANTS>
+        <NODEREF id="braco1"/>
+        <NODEREF id="braco2"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "braco1">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="0" y="0" z="5.5" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "braco2">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+        <TRANSLATION x="0" y="0" z="-5.7" />
+
+      <DESCENDANTS>
+        <NODEREF id="cubo"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "chair2">
+      <MATERIAL id="silver" />
+      <TEXTURE id="podRed" />
+
+      <ROTATION axis="y" angle="180" />
+      <TRANSLATION x="-0.6" y="0" z="12" />
+
+      <DESCENDANTS>
+        <NODEREF id="assento"/>
+        <NODEREF id="chair" />
+        <NODEREF id="triangle" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "chair">
+      <MATERIAL id="silver" />
+      <TEXTURE id="podRed" />
+
+      <DESCENDANTS>
+        <LEAF type="sphere" args="3 50 50" />
+      </DESCENDANTS>
+
+    </NODE>
+
+
+<!--Generic trapezoid -->
+    <NODE id="trapezoid">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="trapezoidRec"/>
+            <NODEREF id="trapezoidTri1"/>
+            <NODEREF id="trapezoidTri2"/>
+
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="trapezoidRec">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+          <ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 4 1 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="trapezoidTri1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <LEAF  type="triangle" args="0 0 0 0 4 0 0 4 0.8" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="trapezoidTri2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <LEAF  type="triangle" args="0 0 -1 0 4 -1.8 0 4 -1" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+
+
+
+
+<!-- Generic Cube -->
+     <NODE id="cubo">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="-13" y="4" z="1" />
+        <SCALE sx="3" sy="0.2" sz="0.2" />
+
+
+        <DESCENDANTS>
+       		  <NODEREF id="faceCubo1" />
+            <NODEREF id="faceCubo2" />
+            <NODEREF id="faceCubo3" />
+            <NODEREF id="faceCubo4" />
+            <NODEREF id="faceCubo5" />
+            <NODEREF id="faceCubo6" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="faceCubo1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="2.5" y="4" z="7.5" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+     <NODE id="faceCubo2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="2.5" y="4" z="3.5" />
+		<ROTATION axis="y" angle="-90" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="faceCubo3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="6.5" y="4" z="7.5" />
+		<ROTATION axis="y" angle="90" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="faceCubo4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="6.5" y="4" z="3.5" />
+        <ROTATION axis="y" angle="180" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="faceCubo5">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <ROTATION axis="x" angle="-90" />
+        <TRANSLATION x="2.5" y="-7.5" z="8" />
+
+        <DESCENDANTS>
+ 					<LEAF  type="rectangle" args="0 4 4 0" />
+       </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="faceCubo6">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="2.5" y="4" z="3.5" />
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+					<LEAF  type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
 
     <NODE id="paredes">
         <MATERIAL id="null" />
@@ -1105,7 +1404,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="claptrapBody" />
 
-        <TRANSLATION x="-6" y="-9" z="-3" />
+        <TRANSLATION x="-6" y="-9" z="-2.7" />
 
         <SCALE sx="6" sy="2" sz="4" />
 
@@ -1515,155 +1814,6 @@
         <DESCENDANTS>
            <NODEREF id="cubo"/>
         </DESCENDANTS>
-    </NODE>
-
-
-
-
-<!--Generic trapezoid -->
-    <NODE id="trapezoid">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-            <NODEREF id="trapezoidRec"/>
-            <NODEREF id="trapezoidTri1"/>
-            <NODEREF id="trapezoidTri2"/>
-
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="trapezoidRec">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-          <ROTATION axis="y" angle="90" />
-
-        <DESCENDANTS>
-            <LEAF  type="rectangle" args="0 4 1 0" />
-        </DESCENDANTS>
-
-    </NODE>
-
-
-    <NODE id="trapezoidTri1">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-            <LEAF  type="triangle" args="0 0 0 0 4 0 0 4 0.8" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="trapezoidTri2">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-            <LEAF  type="triangle" args="0 0 -1 0 4 -1.8 0 4 -1" />
-        </DESCENDANTS>
-
-    </NODE>
-
-
-
-
-
-
-<!-- Generic Cube -->
-     <NODE id="cubo">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-       		<NODEREF id="faceCubo1" />
-            <NODEREF id="faceCubo2" />
-            <NODEREF id="faceCubo3" />
-            <NODEREF id="faceCubo4" />
-            <NODEREF id="faceCubo5" />
-            <NODEREF id="faceCubo6" />
-        </DESCENDANTS>
-
-    </NODE>
-
-
-    <NODE id="faceCubo1">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="2.5" y="4" z="7.5" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-
-    </NODE>
-
-     <NODE id="faceCubo2">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="2.5" y="4" z="3.5" />
-		<ROTATION axis="y" angle="-90" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="faceCubo3">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="6.5" y="4" z="7.5" />
-		<ROTATION axis="y" angle="90" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="faceCubo4">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="6.5" y="4" z="3.5" />
-        <ROTATION axis="y" angle="180" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="faceCubo5">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <ROTATION axis="x" angle="-90" />
-        <TRANSLATION x="2.5" y="-7.5" z="8" />
-
-        <DESCENDANTS>
- 					<LEAF  type="rectangle" args="0 4 4 0" />
-       </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="faceCubo6">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="2.5" y="4" z="3.5" />
-        <ROTATION axis="x" angle="90" />
-
-        <DESCENDANTS>
-					<LEAF  type="rectangle" args="0 4 4 0" />
-        </DESCENDANTS>
-
     </NODE>
 
 </NODES>
