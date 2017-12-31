@@ -109,7 +109,7 @@ parse_input(moveRequest(Board, NLine, NCol, Player, Counter), FinalBoard-NewCoun
 parse_input(moveRequest(_), "Invalid Move").
 
 %moveComputer(Board, Player, Counter, NewCounter, FinalBoard, Ended, Dif)
-parse_input(moveComputerRequest(Board, Player, Dif, FinalBoard), FinalBoard-NewCounter-Ended):-
+parse_input(moveComputerRequest(Board, Player, Dif, Counter), FinalBoard-NewCounter-Ended):-
 	moveComputer(Board, Player, Counter, NewCounter, FinalBoard, Ended, Dif).
 parse_input(moveComputerRequest(_), "Invalid Move").
 
