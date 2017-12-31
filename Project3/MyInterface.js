@@ -65,8 +65,8 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
   this.gameOptions.add(this.scene, "currentDifficulty", botDifficulties).name("AI");
   let start = { startGame:function(){
     console.log("START GAME");
-    makeRequest("moveRequest(" + boardToString(this.currentBoard) + ",1,1,'X',51)");
- }};
+    makeRequest("startGameRequest(pvp)");
+  }};
   let startBound = {startGame:start.startGame.bind(this.scene)};
   this.gameOptions.add(startBound,'startGame');
 };

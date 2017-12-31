@@ -90,6 +90,8 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  * @param dt Time between interrupts in miliseconds
  */
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
+	if(this.graph.scene.animations[this.animationRefs[this.currAnimation]] == null)
+		return;
   this.time += dt/1000; // to seconds
   let secTime = this.time;
   for(let i = 0; i < this.currentSection; i++){

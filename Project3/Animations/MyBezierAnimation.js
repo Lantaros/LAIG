@@ -26,6 +26,7 @@ class BezierAnimation extends Animation{
     this.totalTime = this.totalDistance / animationVelocity;
     this.transformMatrix = mat4.create();
     this.time = 0;
+    this.startTime = 0;
     this.secTimes.push(this.totalTime);
   }
 
@@ -67,17 +68,24 @@ casteljau(nIterations){
            vec3.distance(p34, this.bezierPoints[3]);
 
   }
+/**
+ * Sets startTime offset
+ * @param startTime timestamp in seconds 
+ */
+  setStartTime(startTime){
+    this.startTime = startTime;
+  }
 
 /**
  * Calculates the new Transform Matrix for the Animation
  * @param node Node referencing the Animation
- * @param time Time passed
+ * @param time Time passed in seconds
  * @param section Current Section of the Animation(not used)
  * @return Returns the new Transform Matrix
  */
 getTransformMatrix(node, time, section) {
 
-     let t = time  / this.totalTime;
+     let t = (time -  this.startTime)  / this.totalTime;
 
      if(t <= 1){
 

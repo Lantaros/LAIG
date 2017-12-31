@@ -31,9 +31,6 @@ function XMLscene(interfac) {
     this.shaders = new Array();
     this.shadersRefs = new Array();
 
-    let currentDate = new Date();
-    this.initialTime = currentDate.getTime();
-
     this.gameGraphs = new Array();
 
     this.gameEnvironnments = new Array();
@@ -64,6 +61,8 @@ function XMLscene(interfac) {
     this.lastBoards  = new Array();
 
     this.selectedPiece = 0;
+
+    this.initialTime = new Date().getTime();
 
     this.whitePiecesArray = new Array();
     this.blackPiecesArray = new Array();
@@ -167,8 +166,6 @@ XMLscene.prototype.logPicking = function (){
 
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
-            if (this.selectedPiece != 0)
-                this.selectedPiece.selected = false;
             obj.selected = true;
             this.selectedPiece = customId;
           }
@@ -221,18 +218,17 @@ XMLscene.prototype.logPicking = function (){
                                    p1[2] + 2/3*(p4[2] - p1[2])]);
 
                 control_points.push(p4);
-                let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
-                this.animations[this.selectedPiece] = animation;
-                this.animations.length++;
+                
+                let animationObj = new BezierAnimation(this, this.selectedPiece, 1, control_points);
+
+                this.scene.nextPieceAnimInfo = {
+                  animation: animationObj,
+                  pickID: this.selectedPiece,
+                };
       					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
                 //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
           }
-          // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
-          //   this.setActiveShader(this.shaders["Red Pulse"]);
-          //
-          // this.setActiveShader(asdasdthis.defaultShader);
-          //console.log(customId);
 				}
 			}
 			this.pickResults.splice(0,this.pickResults.length);
@@ -335,9 +331,6 @@ XMLscene.prototype.learTemplateObjects = function(){
       this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
     for(let i = 97; i < 129; i++)
       this.blackPiecesArray[i] = new MyGraphNode(this.blackPiece);
-
-
-    makeRequest("startGameRequest(pvp)");
 }
 
 /**
@@ -466,7 +459,7 @@ XMLscene.prototype.displayBoardTiles = function(){
           else
             this.registerForPick(0, line[i].leaves[0]);
 
-            // if (line[i].leaves[0].selected)
+            //if (line[i].leaves[0].selected)
             //   this.setActiveShader(this.shaders['Red Pulse']);
 
           line[i].leaves[0].display();
@@ -629,12 +622,10 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
     }
 
     for (let j = 0; j < node.leaves.length; j++){
-      // if (pick ){
-      //   // if (node.leaves[j].selected)
-      //   //   this.setActiveShader(this.shaders['Red Pulse']);
-      //   pick = 65;
-      // // }
-      // if (pick ==)
+     /*if (node.leaves[j].selected)
+        this.setActiveShader(this.shaders[this.currentShader]);
+      else
+        this.setActiveShader(this.defaultShader);*/
       this.registerForPick(pick, node.leaves[j]);
       node.leaves[j].display();
     }
@@ -673,11 +664,26 @@ function handleReply(data){
     console.log("Reply!!\n");
     let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
     let matched = regex.exec(data.target.responseText);
+    if(matched[1] == "Invalid Move"){
+      scene.lear.invalidMove = true;
+      //scene.lear.reply = true;
+      return;
+    }
+    
     if(matched[2] != undefined && matched[3] != undefined){
         this.lastBoards.push(this.currentBoard);
         this.freeTiles = matched[2];
         this.gameEnded = matched[3];
     }
+
+    scene.lear.invalidMove = false;    
+
+    //When the response is alright, procede to animate
+    let animation = scene.nextPieceAnimInfo.animation;
+    animation.setStartTime((new Date().getTime() - scene.initialTime)/1000);
+    scene.animations[scene.nextPieceAnimInfo.pickID] = animation;
+    scene.animations.length++;
+    scene.animatingPiece = true;
 
     scene.currentBoard = parseBoard(matched[1]);
     console.log(scene.currentBoard);
@@ -705,19 +711,31 @@ function parseBoard(string){
 */
 function boardToString(board){
 	let boardString = "[";
-	for (let i = 0; i < scene.currentBoard.length; i++) {
+	for (let i = 0; i < board.length; i++) {
 		boardString +="[";
-		for (let j = 0; j < scene.currentBoard[i].length; j++) {
-				boardString += "'" + scene.currentBoard[i][j] + "'";
-				if(j != scene.currentBoard[i].length -1)
+		for (let j = 0; j < board[i].length; j++) {
+				boardString += "'" + board[i][j] + "'";
+				if(j != board[i].length -1)
 					boardString += ",";
 		}
 		boardString += "]";
-		if(i != scene.currentBoard.length - 1)
+		if(i != board.length - 1)
 			boardString += ",";
 	}
 	boardString += "]";
 	return boardString;
+}
+
+/**
+ * Makes Prolog a move request, expecting to receive
+ * the new board or "Invalid Move"
+ * @param  board current board matrix
+ * @param  line move's board line
+ * @param  column move's board column
+ * @param  player current player char -  'X' or 'O' 
+ */
+function moveRequest(board, line, column, player){  
+	makeRequest("moveRequest(" + boardToString(board) + "," + line + "," + column + ",'X'," + scene.lear.counter + ")");
 }
 /**
  * Sets the lights on the screen
