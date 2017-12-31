@@ -10,6 +10,15 @@ let PIECE_HEIGHT = 0;
 let PIECE_Y_OFFSET = 0.2;
 let ARC_HEIGHT = 3;
 
+let CAMERA_TILT = 20;
+let CAMERA_TILT_ORIGINAL = 25;
+let CAMERA_TILT_BLACK = 25;
+let CAMERA_PAN = 40;
+let CAMERA_TILT_INCREMENT = Math.PI/180*2.5;
+let CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
+let CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
+
+let Y_OFFSET_ALL = -0.45;
 
 let scene;
 /**
@@ -231,10 +240,15 @@ XMLscene.prototype.logPicking = function (){
                 let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
-                // if (this.lear.player == "X")
+                // if (this.lear.player == "X"){
+                //     this.lear.whiteCounter--;
       					    this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
-                // else
+                // }
+                // else{
+                //     this.lear.blackCounter--;
                 //     this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                // }
+                // this.lear.counter--;
             }
           }
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
@@ -246,7 +260,7 @@ XMLscene.prototype.logPicking = function (){
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
-	};
+};
 
 /*
   Handler called when the "lear.xml" graph is finally loaded.
@@ -271,6 +285,7 @@ XMLscene.prototype.onGraphLoaded = function(){
     this.learTemplateObjects();
 
 }
+
 /**
  * Creates board tiles and pieaces generic objects
  */
@@ -399,19 +414,22 @@ XMLscene.prototype.display = function() {
     this.popMatrix();
     // ---- END Background, camera and axis setup
 };
+
 /**
  * Displays everything
  */
 XMLscene.prototype.displayEverything = function(){
 
   this.gameGraphs[this.currentEnvironment].displayScene();
-  this.displayBox(this.blackBox, this.blackBox["textureObj"], this.blackBox["materialObj"]);
-  this.displayBox(this.whiteBox, this.whiteBox["textureObj"], this.whiteBox["materialObj"]);
-  this.displayWhitePieces();
-  this.displayBlackPieces();
-  this.displayBoardTiles();
-
-  this.displayBoard();
+  this.pushMatrix();
+    this.translate(0,Y_OFFSET_ALL, 0);
+    this.displayBox(this.blackBox, this.blackBox["textureObj"], this.blackBox["materialObj"]);
+    this.displayBox(this.whiteBox, this.whiteBox["textureObj"], this.whiteBox["materialObj"]);
+    this.displayWhitePieces();
+    this.displayBlackPieces();
+    this.displayBoardTiles();
+    this.displayBoard();
+  this.popMatrix();
 };
 
 /**
@@ -547,7 +565,6 @@ XMLscene.prototype.displayBox = function(node, parTex, parAsp){
   this.multMatrix(node.transformMatrix);
   this.multMatrix(node.animationMatrix);
 
-
   if (node.textureID !='null') {
     if (node.textureID == 'clear')
       textura = null;
@@ -669,6 +686,7 @@ function getPrologRequest(requestString, onSuccess, onError, port){
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 }
+
 /**
  * Makes a prolog Request
 */
@@ -695,6 +713,7 @@ function handleReply(data){
     scene.lear.currentBoard = parseBoard(matched[1]);
     console.log(scene.lear.currentBoard);
 }
+
 /**
  * Parses the Board from Prolog with RegEx
 */
@@ -732,6 +751,7 @@ function boardToString(board){
 	boardString += "]";
 	return boardString;
 }
+
 /**
  * Sets the lights on the screen
 */
@@ -780,6 +800,7 @@ XMLscene.prototype.update = function(currTime){
 XMLscene.prototype.updateScalingFactor = function(date){
     this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
 };
+
 /**
  * Rotates the Camera
  * @param rotation angle
@@ -788,64 +809,21 @@ XMLscene.prototype.rotateCamera = function(rotation){
     this.cameraRotation = rotation;
     this.cameraAcc = 0;
 };
+
 /**
  * Changes the Camera ViewPoint
 */
 XMLscene.prototype.changeCamera = function(){
-    this.cameraAcc = 0;
-
-    if (this.currentCameraAngle == 0){ // index start at 1
-       // if 0, Top View
-        this.rotation= true;
-        this.cameraPanCounter = 0;
-        this.cameraTiltCounter = 0;
-    }
-    else if (this.currentCameraAngle == 1){ // index start at 1
-       // if 1, Reset from Top View
-        this.rotation= true;
-        this.cameraPanCounter = 0;
-        this.cameraTiltCounter = 0;
-    }
-    else if (this.currentCameraAngle == 2){
-     // if 2, White Player Viewpoint
-      this.rotation= true;
-      this.cameraTiltBlackCounter = 0;
-      this.cameraPanCounter = 0;
-      this.cameraTiltCounter = 0;
-    }
-    else if (this.currentCameraAngle == 3){
-     // if 3, Black Player Viewpoint
-      this.rotation= true;
-      this.cameraTiltOriginalCounter = 0;
-      this.cameraPanCounter = 0;
-      this.cameraTiltCounter = 0;
-    }
-
+    this.rotation= true;
+    this.cameraTiltBlackCounter = 0;
+    this.cameraPanCounter = 0;
+    this.cameraTiltCounter = 0;
 };
+
 /**
  * Updates the Camera Rotation
 */
 XMLscene.prototype.updateCameraRotation = function(){
-  // let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
-  // if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
-  //    if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
-  //        increment = this.cameraRotation-this.cameraAcc;
-  //    if (this.currentCameraAngle == 0)
-  //       this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
-  //    if (this.currentCameraAngle == 1)
-  //       this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
-  //   if (this.currentCameraAngle == 2)
-  //      this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
-  //    this.cameraAcc += increment;
-  // }
-  //
-  var CAMERA_TILT = 20;
-  var CAMERA_TILT_ORIGINAL = 20;
-  var CAMERA_TILT_BLACK = 25;
-  var CAMERA_PAN = 40;
-  var CAMERA_TILT_INCREMENT = Math.PI/180*2.5;
-  var CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
-  var CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
 
   if (this.rotation){
     if (this.currentCameraAngle == 0){ //WHITE VIEW
