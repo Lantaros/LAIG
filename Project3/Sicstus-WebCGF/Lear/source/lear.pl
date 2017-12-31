@@ -41,11 +41,11 @@ initialBoard([
 %-----------STARTS THE GAME----------
 
 startGame(Board):-
-	initialBoardForTesting(Board).
+	initialBoard(Board).
 
 lear:- mainMenuLear.
 
-	
+
 %------------STARTS PLAYER VS PLAYER------------
 
 startPvPGame(Board):-

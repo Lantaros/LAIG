@@ -5,7 +5,6 @@
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
-    makeRequest("startGameRequest('PVP')");//TODO DELETE
     this.ongoingGame = false;
     this.freeCam = false;
 };

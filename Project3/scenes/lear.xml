@@ -148,7 +148,7 @@
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
-    <SCALE sx="0.5" sy="0.2" sz ="0.5"/>
+    <SCALE sx="1" sy="0.2" sz ="1"/>
     <TRANSLATION x="0" y="0.1" z ="0"/>
 
     <DESCENDANTS>
@@ -161,7 +161,7 @@
     <MATERIAL id="null" />
     <TEXTURE id="null" />
 
-    <SCALE sx="0.5" sy="0.2" sz ="0.5"/>
+    <SCALE sx="1" sy="0.2" sz ="1"/>
     <TRANSLATION x="0" y="0.1" z ="0"/>
 
     <DESCENDANTS>
@@ -177,7 +177,7 @@
         <TEXTURE id="white" />
 
          <DESCENDANTS>
-           <LEAF type="halfsphere" args="0.5 50 50" />
+           <LEAF type="halfsphere" args="0.25 50 50" />
         </DESCENDANTS>
       </NODE>
 
@@ -188,7 +188,7 @@
         <ROTATION axis="x" angle="180"/>
 
          <DESCENDANTS>
-           <LEAF type="halfsphere" args="0.5 50 50" />
+           <LEAF type="halfsphere" args="0.25 50 50" />
         </DESCENDANTS>
 
        </NODE>
@@ -198,7 +198,7 @@
          <TEXTURE id="black" />
 
           <DESCENDANTS>
-            <LEAF type="halfsphere" args="0.5 50 50" />
+            <LEAF type="halfsphere" args="0.25 50 50" />
          </DESCENDANTS>
        </NODE>
 
@@ -209,7 +209,7 @@
          <ROTATION axis="x" angle="180"/>
 
           <DESCENDANTS>
-            <LEAF type="halfsphere" args="0.5 50 50" />
+            <LEAF type="halfsphere" args="0.25 50 50" />
          </DESCENDANTS>
 
         </NODE>

@@ -3,7 +3,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 let CELL_WIDTH = 0.5;
 let BOARD_WIDTH = 8;
 let BOARD_Y_OFFSET = 0;
-let WHITEBOX_CORNER = 6;
+let WHITEBOX_CORNER = 6.4;
 let BLACKBOX_CORNER = -5;
 
 let PIECE_RADIUS = 0.25;
@@ -202,35 +202,24 @@ XMLscene.prototype.logPicking = function (){
 
                 let pieceLine = Math.floor(pID / 8) ;
 
-                  console.log("Piece L: " + pieceLine);
-                  console.log("Piece C: " + pieceColumn);
-                  console.log("Cell L: " + cellLine);
-                  console.log("Cell C: " + cellColumn);
-
-                  /*P1 = (x1, y1, z1)
-                    P2 = (x1 + 1/3*(x4-x1), y23, z1 + 1/3*(z4-z1))
-                    P3 = (x1 + 2/3*(x4-x1), y23, z1 + 2/3*(z4-z1))
-                    P1 = (x4, y4, z4)
-                  */
                 let p1 = [0 ,0, 0];
 
                 let pf = [CELL_WIDTH/2 + cellColumn * CELL_WIDTH,
                           PIECE_Y_OFFSET + PIECE_HEIGHT,
                           CELL_WIDTH/2 + cellLine * CELL_WIDTH];
-                let p4;
-                let chosenPiece;
+
+                let p4, chosenPiece;
                 if (this.lear.player == "O"){
-                   chosenPiece = [ WHITEBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
+                   chosenPiece = [ WHITEBOX_CORNER + PIECE_RADIUS * pieceLine,
                     PIECE_Y_OFFSET,
-                    PIECE_RADIUS + PIECE_RADIUS * pieceColumn];
+                    0.2 * pieceColumn + PIECE_RADIUS * pieceColumn];
 
-                  console.log("pf " + pf);
-                  console.log("chosenPiece " + chosenPiece);
+                    console.log("pf " + pf);
+                    console.log("chosenPiece " + chosenPiece);
 
-
-               p4 = [pf[0] - chosenPiece[0],
-                          pf[1] - chosenPiece[1],
-                          pf[2] - chosenPiece[2] ];
+                   p4 = [pf[0] -chosenPiece[0],
+                         pf[1] -chosenPiece[1],
+                         pf[2]-chosenPiece[2]];
                 }
                 else{
                    chosenPiece = [ BLACKBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
@@ -241,9 +230,9 @@ XMLscene.prototype.logPicking = function (){
                   console.log("chosenPiece " + chosenPiece);
 
 
-                 p4 = [-pf[0] + chosenPiece[0],
-                          -pf[1] + chosenPiece[1],
-                          -pf[2] + chosenPiece[2] ];
+                 p4 = [pf[0] - chosenPiece[0],
+                          pf[1] - chosenPiece[1],
+                          pf[2] - chosenPiece[2] ];
                 }
 
                 control_points.push(p1);
@@ -512,12 +501,7 @@ XMLscene.prototype.displayBoardTiles = function(){
           else
             this.registerForPick(0, line[i].leaves[0]);
 
-            //if (line[i].leaves[0].selected)
-            //   this.setActiveShader(this.shaders['Red Pulse']);
-
           line[i].leaves[0].display();
-
-        //  this.setActiveShader(this.defaultShader);
 
           this.translate(CELL_WIDTH, 0, 0);
         }
@@ -834,12 +818,18 @@ XMLscene.prototype.update = function(currTime){
 	}
   if (this.gameGraphs['lear.xml'].loadedOk && this.whitePiecesArray.length){
     for(let i = 65; i < 97; i++)
-      this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
+      if (this.whitePiecesArray[i] != null)
+        this.whitePiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
     for(let i = 97; i < 129; i++)
+      if (this.blackPiecesArray[i] != null)
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
 
   if(this.nextPieceAnimeInfo != null && this.nextPieceAnimeInfo.animation.hasEnded()){ //When piece animation has finished
+      // if (this.lear.player == "X")
+      //   this.whitePiecesArray[this.nextPieceAnimeInfo.pickID] = null;
+      // else
+      //   this.blackPiecesArray[this.nextPieceAnimeInfo.pickID] = null;
       this.lear.currentBoard = this.lear.boardAfterAnimation;
       this.nextPieceAnimeInfo = null;
    }
