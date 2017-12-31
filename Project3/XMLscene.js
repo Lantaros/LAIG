@@ -844,6 +844,15 @@ XMLscene.prototype.update = function(currTime){
       this.nextPieceAnimeInfo = null;
    }
 
+   if(this.lear.gameType == "PVE" && this.lear.player == 'O'){
+    let diff;
+    if(this.lear.diff == "Easy") diff = 0;  else diff = 1;
+
+    makeRequest("moveComputerRequest(" + boardToString(this.lear.currentBoard)+ ","
+     + "'O'" +"," + diff);
+   }
+      
+
 
   this.lastTime = currTime;
 }

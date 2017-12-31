@@ -71,7 +71,8 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
       confirm("There's an ongoing game, do you really wish to restart?");
 
     this.ongoingGame = true;
-    makeRequest("startGameRequest('PVP')");
+    scene.lear.gameType = scene.currentGameMode;
+    makeRequest("startGameRequest('" + scene.currentGameMode + "')");
   }};
   let startBound = {startGame:start.startGame.bind(this.scene)};
   this.gameOptions.add(startBound,'startGame');
