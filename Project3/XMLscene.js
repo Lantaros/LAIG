@@ -899,7 +899,7 @@ XMLscene.prototype.updateCameraRotation = function(){
         this.interface.activeCamera.orbit(CGFcameraAxisID.X, -CAMERA_TILT_INCREMENT);
         this.cameraTiltCounter++;
     }
-    else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT && this.cameraTiltOriginalCounter == CAMERA_TILT_ORIGINAL){
+    else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT){
         this.currentCameraAngle = 0;
         this.rotation = false;
     }
