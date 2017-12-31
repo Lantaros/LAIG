@@ -197,7 +197,7 @@
 
 <ANIMATIONS>
 <!--
-     Companion Cube Left  
+     Companion Cube Left
     <ANIMATION id="cc1" speed="3" type="linear">
         <controlpoint xx="0" yy="0" zz="3" />
         <controlpoint xx="0" yy="9" zz="3" />
@@ -213,7 +213,7 @@
      </ANIMATION>
 
 
-      Companion Cube Right  
+      Companion Cube Right
      <ANIMATION id="cc4" speed="3" type="linear">
          <controlpoint xx="0" yy="0" zz="8" />
          <controlpoint xx="0" yy="9" zz="8" />
@@ -224,7 +224,7 @@
           <controlpoint xx="0" yy="0.06" zz="8" />
       </ANIMATION>
 
-      Pod 
+      Pod
 
      <ANIMATION id="dummyAnimationPod" speed="0.09" type="linear">
          <controlpoint xx="0" yy="0" zz="0" />
@@ -256,7 +256,7 @@
                   centerx = "-1" centery = "1" centerz = "2"
                   radius="0.1" startang ="0" rotang ="-180" />
 
-     Sphere  
+     Sphere
 
     <ANIMATION id="s1" speed="20" type="bezier">
         <controlpoint xx="0" yy="0" zz="0" />
@@ -301,7 +301,7 @@
 
 
 
-   DOR TESTING ONLY 
+   DOR TESTING ONLY
   <ANIMATION id="testCirc" speed="1" type="circular"
            centerx = "0" centery = "0" centerz = "0"
            radius="2" startang ="-90" rotang ="90" />
@@ -339,17 +339,220 @@
           <NODEREF id="mesa"/>
           <NODEREF id="spaceyFloor"/>
           <NODEREF id="chairs"/>
-            <!--
-            <NODEREF id="chaos" />
-            <NODEREF id="balcao"/>
-            <NODEREF id="esfera"/>
-            <NODEREF id="companionCubes"/>
-            <NODEREF id="escadas"/>
-            <NODEREF id="parapeitos"/>
-            <NODEREF id="pod"/> -->
+          <NODEREF id="tardis"/>
+          <NODEREF id="luzes"/>
         </DESCENDANTS>
 
     </NODE>
+
+    <NODE id = "luzes">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz1"/>
+        <NODEREF id="luz2"/>
+        <NODEREF id="luz3"/>
+        <NODEREF id="luz4"/>
+        <NODEREF id="luz5"/>
+        <NODEREF id="luz6"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz1">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+
+      <TRANSLATION x="20" y="0" z="29" />
+
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz2">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+
+      <TRANSLATION x="-20" y="0" z="29" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz3">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="-20" y="0" z="-29" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz4">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+
+      <TRANSLATION x="20" y="0" z="-29" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz5">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="35" y="0" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz6">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+
+      <TRANSLATION x="-35" y="0" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="luz"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luz">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <TRANSLATION x="0" y="25" z="0" />
+
+      <DESCENDANTS>
+        <NODEREF id="luzCyl"/>
+        <NODEREF id="luzClaps"/>
+        <NODEREF id="luzCube"/>
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id = "luzCyl">
+      <MATERIAL id="silver" />
+      <TEXTURE id="claptrapTop" />
+
+      <ROTATION axis="x" angle="90" />
+
+      <DESCENDANTS>
+         <LEAF type="cylinder" args="7 1 1 20 50 1 1" />
+      </DESCENDANTS>
+
+    </NODE>
+
+    <NODE id="luzCube">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <TRANSLATION x="-0.2" y="-7.5" z="-8.9" />
+        <SCALE sx="0.28" sy="0.1" sz="4.2" />
+
+        <DESCENDANTS>
+          <NODEREF id="cubo"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="luzClaps">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <DESCENDANTS>
+          <NODEREF id="luzClap1"/>
+          <NODEREF id="luzClap2"/>
+          <NODEREF id="luzClap3"/>
+          <NODEREF id="luzClap4"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="luzClap1">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+
+        <DESCENDANTS>
+          <NODEREF id="luzClap"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="luzClap2">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <TRANSLATION x="0" y="0" z="2" />
+
+        <DESCENDANTS>
+          <NODEREF id="luzClap"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="luzClap3">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <ROTATION axis="y" angle="90" />
+        <TRANSLATION x="0" y="0" z="2" />
+
+        <DESCENDANTS>
+          <NODEREF id="luzClap"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="luzClap4">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <ROTATION axis="y" angle="-90" />
+        <TRANSLATION x="0" y="0" z="2" />
+
+        <DESCENDANTS>
+          <NODEREF id="luzClap"/>
+        </DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="luzClap">
+        <MATERIAL id="silver" />
+        <TEXTURE id="podRed" />
+
+        <ROTATION axis="x" angle="180" />
+        <SCALE sx="0.5" sy="1.8" sz="0.5" />
+        <TRANSLATION x="-1.4" y="-0.12" z="0.9" />
+
+        <DESCENDANTS>
+          <NODEREF id="faceClap1" />
+          <NODEREF id="faceClap2" />
+          <NODEREF id="faceClap3" />
+          <NODEREF id="faceClap4" />
+          <NODEREF id="faceClap5" />
+          <NODEREF id="faceClap6" />
+        </DESCENDANTS>
+    </NODE>
+
 
     <NODE id="spaceyFloor">
         <MATERIAL id="silver" />
@@ -362,7 +565,6 @@
           <LEAF type="sphere" args="40 50 50" />
         </DESCENDANTS>
     </NODE>
-
 
     <NODE id = "chairs">
       <MATERIAL id="silver" />
@@ -505,7 +707,6 @@
             <NODEREF id="trapezoidRec"/>
             <NODEREF id="trapezoidTri1"/>
             <NODEREF id="trapezoidTri2"/>
-
         </DESCENDANTS>
 
     </NODE>
@@ -543,9 +744,18 @@
 
     </NODE>
 
+    <NODE id="tardis">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
 
+        <ROTATION axis="y" angle="90" />
+        <TRANSLATION x="0" y="0" z="-400" />
 
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 10 5 0" />
+        </DESCENDANTS>
 
+    </NODE>
 
 
 <!-- Generic Cube -->

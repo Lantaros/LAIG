@@ -21,6 +21,7 @@ let CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
 let Y_OFFSET_ALL = -0.45;
 
 let scene;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
