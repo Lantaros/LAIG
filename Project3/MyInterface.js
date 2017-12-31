@@ -6,7 +6,7 @@ function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
     this.ongoingGame = false;
-    this.freeCam = false;
+    this.freeCam = true;
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);

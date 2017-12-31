@@ -56,7 +56,7 @@
 
 <TEXTURES>
 
-    <TEXTURE id="white">
+    <TEXTURE id="white2">
         <file path="images/pokeball.png" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
@@ -138,7 +138,7 @@
         <amplif_factor s="1" t="0.8" />
     </TEXTURE>
 
-    <TEXTURE id="black">
+    <TEXTURE id="black2">
         <file path="images/black.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
@@ -170,8 +170,37 @@
 
     <TEXTURE id="podBlack">
         <file path="images/podBlack.png" />
-        <amplif_factor s="1" t="1" />
+        <amplif_factor s="4" t="4" />
     </TEXTURE>
+
+    <TEXTURE id="tardis">
+        <file path="images/tardis.png" />
+        <amplif_factor s="5" t="11" />
+    </TEXTURE>
+
+    <TEXTURE id="black">
+          <file path="images/blackCellSpace.png" />
+          <amplif_factor s="1" t="1" />
+      </TEXTURE>
+
+      <TEXTURE id="luzCyl">
+            <file path="images/luzCylSpace.png" />
+            <amplif_factor s="4" t="4" />
+        </TEXTURE>
+
+        <TEXTURE id="white">
+              <file path="images/whiteCellSpace.png" />
+              <amplif_factor s="1" t="1" />
+          </TEXTURE>
+
+          <TEXTURE id="mesa">
+                <file path="images/mesaSpace.png" />
+                <amplif_factor s="4" t="4" />
+            </TEXTURE>
+            <TEXTURE id="spaceyFloor">
+                  <file path="images/spaceyFloor.png" />
+                  <amplif_factor s="1" t="1" />
+              </TEXTURE>
 
 </TEXTURES>
 
@@ -196,133 +225,6 @@
 </MATERIALS>
 
 <ANIMATIONS>
-<!--
-     Companion Cube Left
-    <ANIMATION id="cc1" speed="3" type="linear">
-        <controlpoint xx="0" yy="0" zz="3" />
-        <controlpoint xx="0" yy="9" zz="3" />
-    </ANIMATION>
-
-    <ANIMATION id="cc2" speed="0.05" type="circular"
-               centerx = "0" centery = "9" centerz = "1"
-               radius="0.01" startang ="0" rotang ="360" />
-
-     <ANIMATION id="cc3" speed="8" type="linear">
-         <controlpoint xx="0" yy="9" zz="3" />
-         <controlpoint xx="0" yy="0.1" zz="3" />
-     </ANIMATION>
-
-
-      Companion Cube Right
-     <ANIMATION id="cc4" speed="3" type="linear">
-         <controlpoint xx="0" yy="0" zz="8" />
-         <controlpoint xx="0" yy="9" zz="8" />
-     </ANIMATION>
-
-      <ANIMATION id="cc5" speed="9" type="linear">
-          <controlpoint xx="0" yy="9" zz="8" />
-          <controlpoint xx="0" yy="0.06" zz="8" />
-      </ANIMATION>
-
-      Pod
-
-     <ANIMATION id="dummyAnimationPod" speed="0.09" type="linear">
-         <controlpoint xx="0" yy="0" zz="0" />
-         <controlpoint xx="0.5" yy="0" zz="0" />
-     </ANIMATION>
-
-     <ANIMATION id="p1" speed="5" type="bezier">
-         <controlpoint xx="0" yy="1" zz="0" />
-         <controlpoint xx="0" yy="-0.5" zz="3" />
-         <controlpoint xx="0" yy="-3.8" zz="4.5" />
-         <controlpoint xx="0" yy="-9" zz="6" />
-     </ANIMATION>
-
-      <ANIMATION id="p2" speed="2" type="linear">
-          <controlpoint xx="0" yy="-9" zz="6" />
-          <controlpoint xx="7" yy="-9" zz="6" />
-          <controlpoint xx="-6" yy="-9" zz="6" />
-          <controlpoint xx="0" yy="-9" zz="6" />
-      </ANIMATION>
-
-     <ANIMATION id="p3" speed="5" type="bezier">
-         <controlpoint xx="0" yy="-9" zz="6" />
-         <controlpoint xx="0" yy="-4" zz="5" />
-         <controlpoint xx="0" yy="-1" zz="5" />
-         <controlpoint xx="0" yy="1" zz="2" />
-     </ANIMATION>
-
-     <ANIMATION id="p4" speed="4" type="circular"
-                  centerx = "-1" centery = "1" centerz = "2"
-                  radius="0.1" startang ="0" rotang ="-180" />
-
-     Sphere
-
-    <ANIMATION id="s1" speed="20" type="bezier">
-        <controlpoint xx="0" yy="0" zz="0" />
-        <controlpoint xx="4" yy="13" zz="0" />
-        <controlpoint xx="8" yy="13" zz="0" />
-        <controlpoint xx="12" yy="0" zz="0" />
-    </ANIMATION>
-
-     <ANIMATION id="s2" speed="25" type="bezier">
-         <controlpoint xx="12" yy="0" zz="0" />
-         <controlpoint xx="15" yy="8" zz="0" />
-         <controlpoint xx="18" yy="8" zz="0" />
-         <controlpoint xx="21" yy="0" zz="0" />
-     </ANIMATION>
-
-     <ANIMATION id="s3" speed="35" type="bezier">
-         <controlpoint xx="21" yy="0" zz="0" />
-         <controlpoint xx="24" yy="6" zz="0" />
-         <controlpoint xx="26" yy="6" zz="0" />
-         <controlpoint xx="28" yy="0" zz="0" />
-     </ANIMATION>
-
-     <ANIMATION id="s4" speed="45" type="bezier">
-         <controlpoint xx="28" yy="0" zz="0" />
-         <controlpoint xx="29" yy="3" zz="0" />
-         <controlpoint xx="30" yy="3" zz="0" />
-         <controlpoint xx="31" yy="0" zz="0" />
-     </ANIMATION>
-
-     <ANIMATION id="s5" speed="5" type="linear">
-         <controlpoint xx="31" yy="0" zz="0" />
-         <controlpoint xx="55" yy="0" zz="0" />
-     </ANIMATION>
-
-     <ANIMATION id="comboSphere" type="combo">
-       	<SPANREF id="s1"/>
-        <SPANREF id="s2"/>
-        <SPANREF id="s3"/>
-        <SPANREF id="s4"/>
-        <SPANREF id="s5"/>
-      </ANIMATION>
-
-
-
-   DOR TESTING ONLY
-  <ANIMATION id="testCirc" speed="1" type="circular"
-           centerx = "0" centery = "0" centerz = "0"
-           radius="2" startang ="-90" rotang ="90" />
-
-   <ANIMATION id="testLin" speed="1.5" type="linear">
-       <controlpoint xx="0" yy="0" zz="0" />
-       <controlpoint xx="3" yy="0" zz="3" />
-       <controlpoint xx="3" yy="6" zz="3" />
-   </ANIMATION>
-
-   <ANIMATION id="testBez" speed="3" type="bezier">
-       <controlpoint xx="0" yy="0" zz="0" />
-       <controlpoint xx="3" yy="0" zz="0" />
-       <controlpoint xx="3" yy="0" zz="3" />
-       <controlpoint xx="0" yy="0" zz="3" />
-   </ANIMATION>
-
-  <ANIMATION id="testCombo"  type="combo">
-      <SPANREF id="testCirc"/>
-      <SPANREF id="testBez"/>
-   </ANIMATION>-->
 
 </ANIMATIONS>
 
@@ -347,7 +249,7 @@
 
     <NODE id = "luzes">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <DESCENDANTS>
         <NODEREF id="luz1"/>
@@ -362,7 +264,7 @@
 
     <NODE id = "luz1">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
 
       <TRANSLATION x="20" y="0" z="29" />
@@ -376,7 +278,7 @@
 
     <NODE id = "luz2">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
 
       <TRANSLATION x="-20" y="0" z="29" />
@@ -389,7 +291,7 @@
 
     <NODE id = "luz3">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="-20" y="0" z="-29" />
 
@@ -401,7 +303,7 @@
 
     <NODE id = "luz4">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
 
       <TRANSLATION x="20" y="0" z="-29" />
@@ -414,7 +316,7 @@
 
     <NODE id = "luz5">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="35" y="0" z="0" />
 
@@ -426,7 +328,7 @@
 
     <NODE id = "luz6">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
 
       <TRANSLATION x="-35" y="0" z="0" />
@@ -439,7 +341,7 @@
 
     <NODE id = "luz">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="0" y="25" z="0" />
 
@@ -453,7 +355,7 @@
 
     <NODE id = "luzCyl">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="luzCyl" />
 
       <ROTATION axis="x" angle="90" />
 
@@ -465,7 +367,7 @@
 
     <NODE id="luzCube">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="podBlack" />
 
         <TRANSLATION x="-0.2" y="-7.5" z="-8.9" />
         <SCALE sx="0.28" sy="0.1" sz="4.2" />
@@ -477,7 +379,7 @@
 
     <NODE id="luzClaps">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="podBlack" />
 
         <DESCENDANTS>
           <NODEREF id="luzClap1"/>
@@ -489,7 +391,7 @@
 
     <NODE id="luzClap1">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="null" />
 
 
         <DESCENDANTS>
@@ -499,7 +401,7 @@
 
     <NODE id="luzClap2">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="null" />
 
         <TRANSLATION x="0" y="0" z="2" />
 
@@ -511,7 +413,7 @@
 
     <NODE id="luzClap3">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="null" />
 
         <ROTATION axis="y" angle="90" />
         <TRANSLATION x="0" y="0" z="2" />
@@ -524,7 +426,7 @@
 
     <NODE id="luzClap4">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="null" />
 
         <ROTATION axis="y" angle="-90" />
         <TRANSLATION x="0" y="0" z="2" />
@@ -537,7 +439,7 @@
 
     <NODE id="luzClap">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="null" />
 
         <ROTATION axis="x" angle="180" />
         <SCALE sx="0.5" sy="1.8" sz="0.5" />
@@ -556,7 +458,7 @@
 
     <NODE id="spaceyFloor">
         <MATERIAL id="silver" />
-        <TEXTURE id="podRed" />
+        <TEXTURE id="spaceyFloor" />
 
         <TRANSLATION x="0" y="-12" z="0" />
         <SCALE sx="1" sy="0.05" sz="1" />
@@ -609,7 +511,7 @@
 
     <NODE id = "assento">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="podBlack" />
 
       <TRANSLATION x="0.8" y="0" z="0" />
 
@@ -622,7 +524,7 @@
 
     <NODE id = "costas">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="-1" y="0" z="0" />
 
@@ -634,7 +536,7 @@
 
     <NODE id = "bracos">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="podBlack" />
 
       <TRANSLATION x="-3.5" y="-4" z="-7.95" />
       <ROTATION axis="y" angle="90" />
@@ -651,7 +553,7 @@
 
     <NODE id = "braco1">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="0" y="0" z="5.5" />
 
@@ -663,7 +565,7 @@
 
     <NODE id = "braco2">
       <MATERIAL id="silver" />
-      <TEXTURE id="claptrapTop" />
+      <TEXTURE id="null" />
         <TRANSLATION x="0" y="0" z="-5.7" />
 
       <DESCENDANTS>
@@ -689,7 +591,7 @@
 
     <NODE id = "chair">
       <MATERIAL id="silver" />
-      <TEXTURE id="podRed" />
+      <TEXTURE id="luzCyl" />
 
       <DESCENDANTS>
         <LEAF type="sphere" args="3 50 50" />
@@ -746,7 +648,7 @@
 
     <NODE id="tardis">
         <MATERIAL id="null" />
-        <TEXTURE id="null" />
+        <TEXTURE id="tardis" />
 
         <ROTATION axis="y" angle="90" />
         <TRANSLATION x="0" y="0" z="-400" />
@@ -859,7 +761,7 @@
 
  	<NODE id="mesa">
         <MATERIAL id="null" />
-        <TEXTURE id="claptrapBody" />
+        <TEXTURE id="mesa" />
 
         <TRANSLATION x="-6" y="-9" z="-2.7" />
 
@@ -944,7 +846,7 @@
 
      <NODE id="faceClap5">
         <MATERIAL id="null" />
-        <TEXTURE id="claptrapTop" />
+        <TEXTURE id="null" />
 
         <TRANSLATION x="0" y="3.986" z="2.5" />
         <ROTATION axis="x" angle="-90" />

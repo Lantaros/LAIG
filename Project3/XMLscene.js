@@ -19,7 +19,7 @@ let CAMERA_TILT_INCREMENT = Math.PI/180*2.5;
 let CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
 let CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
 
-let Y_OFFSET_ALL = -0.45;
+let Y_OFFSET_ALL = 0.2;
 
 let scene;
 
@@ -76,6 +76,7 @@ function XMLscene(interfac) {
     this.blackPiecesArray = new Array();
 
     this.lear ={
+      botPlaying: false,
       currentBoard: board,
       counter:64,
       gameType: this.currentGameMode,
@@ -826,24 +827,25 @@ XMLscene.prototype.update = function(currTime){
   }
 
   if(this.nextPieceAnimeInfo != null && this.nextPieceAnimeInfo.animation.hasEnded()){ //When piece animation has finished
-      // if (this.lear.player == "X")
-      //   this.whitePiecesArray[this.nextPieceAnimeInfo.pickID] = null;
-      // else
-      //   this.blackPiecesArray[this.nextPieceAnimeInfo.pickID] = null;
+      if (this.lear.player == "X")
+        this.whitePiecesArray[this.nextPieceAnimeInfo.pickID] = null;
+      else
+        this.blackPiecesArray[this.nextPieceAnimeInfo.pickID] = null;
       this.lear.currentBoard = this.lear.boardAfterAnimation;
       this.nextPieceAnimeInfo = null;
+      if (this.lear.gameType == "PVE")
+        this.lear.botPlaying = true;
    }
 
-   if(this.lear.gameType == "PVE" && this.lear.player == 'O'){
-    let diff;
-    if(this.lear.diff == "Easy") diff = 0;  else diff = 1;
-
-    makeRequest("moveComputerRequest(" + boardToString(this.lear.currentBoard)+ ","
-     + "'O'" +"," + diff);
-   }
-      
-
-
+   if (this.lear.botPlaying)
+     if(this.lear.gameType == "PVE" && this.lear.player == 'O'){
+      let diff;
+      if(this.lear.diff == "Easy") diff = 0;  else diff = 1;
+      console.log("'ereasdasd'");
+      makeRequest("moveComputerRequest(" + boardToString(this.lear.currentBoard)+ ","
+       + "'O'" +"," + diff + ")");
+       this.lear.botPlaying = false;
+     }
   this.lastTime = currTime;
 }
 

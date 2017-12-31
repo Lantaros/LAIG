@@ -57,19 +57,61 @@
 <TEXTURES>
 
     <TEXTURE id="white">
-        <file path="images/cornerCube.png" />
+        <file path="images/whiteLearXml.png" />
         <amplif_factor s="4" t="4" />
     </TEXTURE>
 
+    <TEXTURE id="whiteCell">
+        <file path="images/whiteLearBoard.png" />
+        <amplif_factor s="4" t="4" />
+    </TEXTURE>
+
+    <TEXTURE id="blackCell">
+        <file path="images/blackLearCell.png" />
+        <amplif_factor s="4" t="4" />
+    </TEXTURE>
+
+
     <TEXTURE id="black">
-        <file path="images/podRed.png" />
+        <file path="images/black.jpg" />
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
   	<TEXTURE id="floor">
-          <file path="images/floor.png" />
-          <amplif_factor s="4" t="5" />
+          <file path="images/chaoLear.png" />
+          <amplif_factor s="1" t="1" />
       </TEXTURE>
+
+    <TEXTURE id="mesa">
+          <file path="images/mesaLear.png" />
+          <amplif_factor s="1" t="1" />
+      </TEXTURE>
+
+    <TEXTURE id="almofada">
+          <file path="images/podRed.png" />
+          <amplif_factor s="5" t="5" />
+      </TEXTURE>
+
+      <TEXTURE id="teto">
+            <file path="images/tetoLear.png" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+      <TEXTURE id="relva">
+            <file path="images/relvaLear.png" />
+            <amplif_factor s="1" t="1" />
+        </TEXTURE>
+
+      <TEXTURE id="montanha">
+            <file path="images/montanhaLear.png" />
+            <amplif_factor s="4" t="4" />
+        </TEXTURE>
+
+        <TEXTURE id="horizonte">
+              <file path="images/horizonteLear.png" />
+              <amplif_factor s="4" t="4" />
+          </TEXTURE>
+
 
 </TEXTURES>
 
@@ -128,16 +170,17 @@
 
   <NODE id="whiteCell" >
     <MATERIAL id="null" />
-    <TEXTURE id="white" />
+    <TEXTURE id="whiteCell" />
 
     <DESCENDANTS>
       <LEAF type="boardcell" args="0 0.5 0.5 0" />
     </DESCENDANTS>
   </NODE>
 
+
   <NODE id="blackCell" >
     <MATERIAL id="null" />
-    <TEXTURE id="black" />
+    <TEXTURE id="blackCell" />
 
     <DESCENDANTS>
       <LEAF type="boardcell" args="0 0.5 0.5 0" />
@@ -216,10 +259,9 @@
 
     <NODE id = "whiteBox">
       <MATERIAL id ="shinyThing" />
-      <TEXTURE id="white" />
+      <TEXTURE id="blackCell" />
 
       <TRANSLATION x="7" y="0" z ="-1"/>
-      <!--<TRANSLATION x="1" y="0" z ="-1"/> To align corner with origin-->
 
        <DESCENDANTS>
          <NODEREF id="gameBox"/>
@@ -229,7 +271,7 @@
 
       <NODE id = "blackBox">
         <MATERIAL id ="shinyThing" />
-        <TEXTURE id="black" />
+        <TEXTURE id="whiteCell" />
 
         <TRANSLATION x="-4" y="0" z ="-1"/>
 
@@ -243,7 +285,7 @@
 
     <NODE id = "gameBox">
       <MATERIAL id ="shinyThing" />
-      <TEXTURE id="black" />
+      <TEXTURE id="null" />
 
        <DESCENDANTS>
          <NODEREF id="gameBoxFace1"/>
@@ -391,7 +433,7 @@
 
   <NODE id="paredes">
       <MATERIAL id="null" />
-      <TEXTURE id="null" />
+      <TEXTURE id="horizonte" />
 
      <TRANSLATION x="-40" y="-7.2" z="-17.8" />
      <SCALE sx="20" sy="25" sz="25" />
@@ -456,7 +498,7 @@
 
   <NODE id = "grandeChao">
     <MATERIAL id ="null" />
-    <TEXTURE id="null" />
+    <TEXTURE id="relva" />
     <TRANSLATION x="0" y="0" z="4" />
     <ROTATION axis="x" angle="-90"/>
 
@@ -512,7 +554,7 @@
 
   <NODE id = "almofadas">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="almofada" />
 
     <DESCENDANTS>
        <NODEREF id="almofada1"/>
@@ -523,7 +565,7 @@
 
   <NODE id = "almofada1">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="null" />
 
     <SCALE sx = "1.6" sy ="0.5" sz ="1"/>
     <TRANSLATION x="1" y="-10" z="12" />
@@ -536,7 +578,7 @@
 
   <NODE id = "almofada2">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="null" />
 
     <SCALE sx = "1.6" sy ="0.5" sz ="1"/>
     <TRANSLATION x="1" y="-10" z="-8" />
@@ -548,7 +590,7 @@
 
   <NODE id = "sakes">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="whiteCell" />
 
     <TRANSLATION x="13" y="-6.5" z="2" />
     <ROTATION axis="x" angle="-90"/>
@@ -562,7 +604,7 @@
 
   <NODE id = "sake1">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="null" />
 
      <DESCENDANTS>
         <LEAF type="cylinder" args="2 1 0.3 20 50 1 1" />
@@ -571,7 +613,7 @@
 
     <NODE id = "sake2">
       <MATERIAL id ="shinyThing" />
-      <TEXTURE id="black" />
+      <TEXTURE id="null" />
 
       <TRANSLATION x="0" y="0" z="1.8" />
 
@@ -583,7 +625,7 @@
 
   <NODE id = "copos">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="blackCell" />
 
     <TRANSLATION x="13" y="-6.5" z="0" />
     <ROTATION axis="x" angle="-90"/>
@@ -597,8 +639,7 @@
 
   <NODE id = "copo1">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
-
+    <TEXTURE id="null" />
 
      <DESCENDANTS>
         <LEAF type="cylinder" args="0.5 0.1 0.5 20 50 1 1" />
@@ -608,7 +649,7 @@
 
   <NODE id = "copo2">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="null" />
 
     <TRANSLATION x="0" y="-4" z="0" />
 
@@ -620,7 +661,7 @@
 
   <NODE id = "box">
     <MATERIAL id ="shinyThing" />
-    <TEXTURE id="black" />
+    <TEXTURE id="mesa" />
 
     <TRANSLATION x="-4.5" y="-6.5" z="0" />
 
@@ -796,7 +837,7 @@
 
 <NODE id="cover">
     <MATERIAL id="silver"/>
-    <TEXTURE id="null" />
+    <TEXTURE id="teto" />
 
     <TRANSLATION x="-0.8" y="0.1" z="5.8"/>
     <ROTATION axis="x" angle="-90"/>
