@@ -5,8 +5,8 @@
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
-}
-;
+    makeRequest("startGameRequest(pvp)");//TODO DELETE
+};
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
 MyInterface.prototype.constructor = MyInterface;

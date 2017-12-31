@@ -67,8 +67,6 @@ function XMLscene(interfac) {
     }
     scene = this;
 
-    this.lastBoards  = new Array();
-
     this.selectedPiece = 0;
 
     this.initialTime = new Date().getTime();
@@ -83,6 +81,8 @@ function XMLscene(interfac) {
       blackCounter:32,
       player:'X'
     };
+
+    this.lear.lastBoards  = new Array();
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -184,8 +184,11 @@ XMLscene.prototype.logPicking = function (){
 
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
-            obj.selected = true;
-            this.selectedPiece = customId;
+            if((this.lear.player == 'O' && customId >= 65 && customId <= 97) ||
+            (this.lear.player == 'X' && customId >= 98 && customId <= 130))
+              this.selectedPiece = customId;
+            else
+              this.selectedPiece = 0;
           }
 
           else if (obj.type == "boardcell" && this.selectedPiece != 0){
@@ -237,22 +240,22 @@ XMLscene.prototype.logPicking = function (){
                 
                 let animationObj = new BezierAnimation(this, this.selectedPiece, 1, control_points);
 
-                this.nextPieceAnimInfo = {
+                this.nextPieceAnimeInfo = {
                   animation: animationObj,
                   pickID: this.selectedPiece,
                 };
                 
-                // if (this.lear.player == "X"){
-                //     this.lear.whiteCounter--;
+                if (this.lear.player == "X"){
+                    this.lear.whiteCounter--;
       					    this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
-                    // }
-                    // else{
-                    //     this.lear.blackCounter--;
-                    //     this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
-                    // }
-                    // this.lear.counter--;
-                
-                //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                    }
+                    else{
+                        this.lear.blackCounter--;
+                        this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                    }
+                    this.lear.counter--;
+    
+                moveRequest(this.lear.currentBoard, cellLine + 1, cellColumn + 1, this.lear.player);
             }
           }
 				}
@@ -696,7 +699,7 @@ function makeRequest(requestString){
  */
 function handleReply(data){
     console.log("Reply!!\n");
-    let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
+    let regex = new RegExp("^([^-]+)(?:-([^-]+)-(.+))?$");
     let matched = regex.exec(data.target.responseText);
     if(matched[1] == "Invalid Move"){
       scene.lear.invalidMove = true;
@@ -708,15 +711,16 @@ function handleReply(data){
     scene.lear.boardAfterAnimation = parseBoard(matched[1]);
 
     if(matched[2] != undefined && matched[3] != undefined){
-      this.lastBoards.push(this.lear.currentBoard);
-      this.lear.counter = matched[2];
-      this.gameEnded = matched[3];
+      scene.lear.lastBoards.push(scene.lear.currentBoard);
+      scene.lear.counter = matched[2];
+      scene.lear.gameEnded = matched[3];
 
       //When the response is alright, procede to animate
-    let animation = scene.nextPieceAnimInfo.animation;
+    let animation = scene.nextPieceAnimeInfo.animation;
     animation.setStartTime((new Date().getTime() - scene.initialTime)/1000);
-    scene.animations[scene.nextPieceAnimInfo.pickID] = animation;
+    scene.animations[scene.nextPieceAnimeInfo.pickID] = animation;
     scene.animations.length++;
+    scene.lear.player == 'X' ? scene.lear.player = 'O' : scene.lear.player = 'X';
   }
   else
     scene.lear.currentBoard = scene.lear.boardAfterAnimation;
@@ -813,7 +817,7 @@ XMLscene.prototype.update = function(currTime){
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
 
-  if(this.lear.nextPieceAnimInfo != null && this.lear.nextPieceAnimInfo.animation.hasEnded()) //When piece animation has finished
+  if(this.nextPieceAnimeInfo != null && this.nextPieceAnimeInfo.animation.hasEnded()) //When piece animation has finished
       this.lear.currentBoard = this.lear.boardAfterAnimation;
 
 

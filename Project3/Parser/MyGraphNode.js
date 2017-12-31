@@ -91,7 +91,8 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
  */
 MyGraphNode.prototype.updateAnimationMatrix = function(dt){
 	if(this.graph.scene.animations[this.animationRefs[this.currAnimation]] == null)
-		return;
+        return;
+        
   this.time += dt/1000; // to seconds
   let secTime = this.time;
   for(let i = 0; i < this.currentSection; i++){

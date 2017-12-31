@@ -85,7 +85,9 @@ casteljau(nIterations){
  */
 getTransformMatrix(node, time, section) {
 
-     let t = (time -  this.startTime)  / this.totalTime;
+     let t = time  / this.totalTime;
+//     let t = (time -  this.startTime)  / this.totalTime;
+     
 
      if(t <= 1){
 
