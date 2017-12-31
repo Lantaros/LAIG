@@ -815,20 +815,8 @@
     <ROTATION axis="z" angle="-90"/>
 
     <DESCENDANTS>
-      <NODEREF id="roofUp"/>
       <NODEREF id="roofDown"/>
    </DESCENDANTS>
-
-</NODE>
-
-<NODE id="roofUp">
-    <MATERIAL id="silver"/>
-    <TEXTURE id="null" />
-
-    <TRANSLATION x="-25" y="-25" z="28.5"/>
-    <DESCENDANTS>
-        <LEAF  type="rectangle" args="0 55 40 0" />
-    </DESCENDANTS>
 
 </NODE>
 
@@ -842,6 +830,216 @@
 
     <DESCENDANTS>
         <LEAF  type="rectangle" args="0 55 40 0" />
+    </DESCENDANTS>
+
+</NODE>
+
+<NODE id = "decor">
+  <MATERIAL id="silver" />
+  <TEXTURE id="null" />
+
+  <TRANSLATION x="0" y="25" z="0" />
+
+  <DESCENDANTS>
+    <NODEREF id="luzCyl"/>
+    <NODEREF id="luzClaps"/>
+    <NODEREF id="luzCube"/>
+  </DESCENDANTS>
+
+</NODE>
+
+<NODE id = "luzCyl">
+  <MATERIAL id="silver" />
+  <TEXTURE id="null" />
+
+  <ROTATION axis="x" angle="90" />
+
+  <DESCENDANTS>
+     <LEAF type="cylinder" args="7 1 1 20 50 1 1" />
+  </DESCENDANTS>
+
+</NODE>
+
+<NODE id="luzCube">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="-0.2" y="-7.5" z="-8.9" />
+    <SCALE sx="0.28" sy="0.1" sz="4.2" />
+
+    <DESCENDANTS>
+      <NODEREF id="cubo"/>
+    </DESCENDANTS>
+</NODE>
+
+<NODE id="luzClaps">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <DESCENDANTS>
+      <NODEREF id="luzClap1"/>
+      <NODEREF id="luzClap2"/>
+      <NODEREF id="luzClap3"/>
+      <NODEREF id="luzClap4"/>
+    </DESCENDANTS>
+</NODE>
+
+<NODE id="luzClap1">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+
+    <DESCENDANTS>
+      <NODEREF id="luzClap"/>
+    </DESCENDANTS>
+</NODE>
+
+<NODE id="luzClap2">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="0" y="0" z="2" />
+
+    <DESCENDANTS>
+      <NODEREF id="luzClap"/>
+    </DESCENDANTS>
+</NODE>
+
+
+<NODE id="luzClap3">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <ROTATION axis="y" angle="90" />
+    <TRANSLATION x="0" y="0" z="2" />
+
+    <DESCENDANTS>
+      <NODEREF id="luzClap"/>
+    </DESCENDANTS>
+</NODE>
+
+
+<NODE id="luzClap4">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <ROTATION axis="y" angle="-90" />
+    <TRANSLATION x="0" y="0" z="2" />
+
+    <DESCENDANTS>
+      <NODEREF id="luzClap"/>
+    </DESCENDANTS>
+</NODE>
+
+
+<NODE id="luzClap">
+    <MATERIAL id="silver" />
+    <TEXTURE id="null" />
+
+    <ROTATION axis="x" angle="180" />
+    <SCALE sx="0.5" sy="1.8" sz="0.5" />
+    <TRANSLATION x="-1.4" y="-0.12" z="0.9" />
+
+    <DESCENDANTS>
+      <NODEREF id="faceClap1" />
+      <NODEREF id="faceClap2" />
+      <NODEREF id="faceClap3" />
+      <NODEREF id="faceClap4" />
+      <NODEREF id="faceClap5" />
+      <NODEREF id="faceClap6" />
+    </DESCENDANTS>
+</NODE>
+
+
+
+
+  <NODE id="faceClap1">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="1.8" y="0.069" z="1.71" />
+
+    <ROTATION axis="z" angle="-11.5" />
+
+    <DESCENDANTS>
+        <NODEREF id="trapezoid"/>
+    </DESCENDANTS>
+
+</NODE>
+
+ <NODE id="faceClap2">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+
+    <TRANSLATION x="0.795" y="0.07" z="0.7" />
+
+    <ROTATION axis="z" angle="11.5" />
+    <ROTATION axis="y" angle="180" />
+
+    <DESCENDANTS>
+        <NODEREF id="trapezoid"/>
+    </DESCENDANTS>
+
+</NODE>
+
+
+<NODE id="faceClap3">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+
+    <TRANSLATION x="1.8" y="0.07" z="0.707" />
+
+    <ROTATION axis="x" angle="-11.5" />
+    <ROTATION axis="y" angle="90" />
+
+    <DESCENDANTS>
+        <NODEREF id="trapezoid"/>
+    </DESCENDANTS>
+
+</NODE>
+
+
+<NODE id="faceClap4">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <ROTATION axis="x" angle="11.5" />
+
+    <TRANSLATION x="0.799" y="0.402" z="1.64" />
+
+    <ROTATION axis="y" angle="-90" />
+
+    <DESCENDANTS>
+        <NODEREF id="trapezoid"/>
+    </DESCENDANTS>
+</NODE>
+
+
+ <NODE id="faceClap5">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="0" y="3.986" z="2.5" />
+    <ROTATION axis="x" angle="-90" />
+
+    <DESCENDANTS>
+        <LEAF type="rectangle" args="0 2.6 2.6 0"/>
+    </DESCENDANTS>
+</NODE>
+
+
+
+<NODE id="faceClap6">
+    <MATERIAL id="null" />
+    <TEXTURE id="null" />
+
+    <TRANSLATION x="0.797" y="0.068" z="0.70" />
+    <ROTATION axis="x" angle="90" />
+
+    <DESCENDANTS>
+        <LEAF  type="rectangle" args="0 1 1 0" />
     </DESCENDANTS>
 
 </NODE>

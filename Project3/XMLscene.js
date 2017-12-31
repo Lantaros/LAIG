@@ -56,9 +56,9 @@ function XMLscene(interfac) {
 
     this.rotation = true;
 
-    this.botDifficulties = ["Random", "Normal"];
+    this.botDifficulties = ["Easy", "Hard"];
 
-    this.currentDifficulty = "Random";
+    this.currentDifficulty = "Easy";
 
     this.currentCameraAngle = 0;
 
@@ -738,6 +738,8 @@ function handleReply(data){
     scene.animations[scene.nextPieceAnimeInfo.pickID] = animation;
     scene.animations.length++;
     scene.lear.player == 'X' ? scene.lear.player = 'O' : scene.lear.player = 'X';
+    document.getElementById("currentPlayer").innerHTML = "Current Player: " + scene.lear.player;
+
   }
   else
     scene.lear.currentBoard = scene.lear.boardAfterAnimation;
