@@ -108,9 +108,15 @@ parse_input(moveRequest(Board, NLine, NCol, Player, Counter), FinalBoard-NewCoun
 
 parse_input(moveRequest(_), "Invalid Move").
 
-parse_input(startGameRequest(pvp), Board) :- startPvPGame(Board).
-parse_input(startGameRequest(pve), Res) :- startGame.
-parse_input(startGameRequest(eve), Res) :- startGame.
+%moveComputer(Board, Player, Counter, NewCounter, FinalBoard, Ended, Dif)
+parse_input(moveComputerRequest(Board, Player, Dif, FinalBoard), FinalBoard-NewCounter-Ended):-
+	moveComputer(Board, Player, Counter, NewCounter, FinalBoard, Ended, Dif).
+parse_input(moveComputerRequest(_), "Invalid Move").
+
+
+parse_input(startGameRequest('PVP'), Board) :- startPvPGame(Board).
+parse_input(startGameRequest('PVE'), Board) :- startPvPGame(Board). %Equal to pvp game at start
+parse_input(startGameRequest('EVE'), Board) :- startPvEGame(Board). %Need to subtract 2 to count in JS
 
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).

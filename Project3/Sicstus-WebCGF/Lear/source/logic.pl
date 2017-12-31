@@ -23,13 +23,15 @@ move(Board, NLine, NCol, Player, Counter, NewCounter, FinalBoard, Ended):-
 
 %------------HANDLES THE COMPUTER PLAY-------------
 
-moveComputer(Board, Player, Dif, FinalBoard):-
+moveComputer(Board, Player, Counter, NewCounter, FinalBoard, Ended, Dif):-
 		(
 			Dif == 0 -> randomMove(Board, Player, NLine, NCol);
 			Dif == 1 -> predict(Board, Player, Dif, NLine, NCol)
 		),
 		check(Board, NLine, NCol, NextBoard, Player, true),
-		verifyRule(NextBoard, NLine, NCol, Player, FinalBoard).
+		verifyRule(NextBoard, NLine, NCol, Player, FinalBoard),
+		NewCounter is Counter -1,
+		endGame(NewCounter, FinalBoard, Ended).
 
 
 %------------GETS COORDS FROM USER-------------
@@ -103,6 +105,13 @@ playPvBGame(Dif):-
 		assert(state(FinalBoard, Counter, NextPlayer)),
 		endGame(Counter).
 
+
+startEVE(FinalBoard):-
+	initialBoard(Board),
+	moveComputer(Board, 'X', 0, Board2),
+	moveComputer(Board2, 'O', 0, FinalBoard),
+	Counter is Count - 2,
+	assert(state(FinalBoard, Counter, Player)).
 
 %------------PREPARES BOARD ADD 2 RANDOM PIECES---------------
 prepareBoardBvB:-
