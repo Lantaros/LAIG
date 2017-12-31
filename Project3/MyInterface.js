@@ -7,6 +7,7 @@ function MyInterface() {
     CGFinterface.call(this);
     makeRequest("startGameRequest('PVP')");//TODO DELETE
     this.ongoingGame = false;
+    this.freeCam = false;
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
@@ -82,14 +83,30 @@ MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
 
   this.extraOptions.add(this.scene, 'rotation').name('Board Rotation');
   
-  let obj = { undo:function(){ 
-    console.log("UNDO");
-    if(scene.lear.lastBoards.length)
-      scene.lear.currentBoard =  scene.lear.lastBoards.pop();
-    else
-      alert("Can't undo a game with no previous moves..");
-   }};
-  this.extraOptions.add(obj,'undo').name("Undo");
+  let funcObj = { 
+    undo:function(){ 
+      console.log("UNDO");
+      if(scene.lear.lastBoards.length)
+        scene.lear.currentBoard =  scene.lear.lastBoards.pop();
+      else
+        alert("Can't undo a game with no previous moves..");
+    },
+    toggleFreeCam:function(){ 
+      let inter = scene.interface;
+      if(inter.freeCam){
+        console.log("Locked Camera");
+        inter.freeCam = false;
+        inter.setActiveCamera(null);
+      }
+      else{
+        console.log("Unlocked Camera");
+        inter.freeCam = true;
+        inter.setActiveCamera(scene.camera);
+      }
+    }};
+  this.extraOptions.add(funcObj,'undo').name("Undo");
+  this.extraOptions.add(funcObj,'toggleFreeCam').name("Toggle Free Cam");
+  
   
   this.extraOptions.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
   this.extraOptions.add(this.scene, 'changeCamera').name('Change angle');
