@@ -27,4 +27,11 @@ class Animation{
    return this.totalTime;
  }
 
+ /**
+  * GETTER fot animationEnd
+  */
+ hasEnded(){
+   return this.animationEnd;
+ }
+
 }

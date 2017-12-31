@@ -103,12 +103,14 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
+parse_input(moveRequest(Board, NLine, NCol, Player, Counter), FinalBoard-NewCounter-Ended) :- 
+	move(Board, NLine, NCol, Player, Counter, NewCounter, FinalBoard, Ended).
+
+parse_input(moveRequest(_), "Invalid Move").
+
 parse_input(startGameRequest(pvp), Board) :- startPvPGame(Board).
 parse_input(startGameRequest(pve), Res) :- startGame.
 parse_input(startGameRequest(eve), Res) :- startGame.
-
-parse_input(moveRequest(Board, NLine, NCol, Player, Counter), FinalBoard-NewCounter-Ended) :- 
-	move(Board, NLine, NCol, Player, Counter, NewCounter, FinalBoard, Ended).
 
 parse_input(handshake, handshake).
 parse_input(test(C,N), Res) :- test(C,Res,N).

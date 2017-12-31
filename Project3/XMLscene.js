@@ -10,8 +10,18 @@ let PIECE_HEIGHT = 0;
 let PIECE_Y_OFFSET = 0.2;
 let ARC_HEIGHT = 3;
 
+let CAMERA_TILT = 20;
+let CAMERA_TILT_ORIGINAL = 25;
+let CAMERA_TILT_BLACK = 25;
+let CAMERA_PAN = 40;
+let CAMERA_TILT_INCREMENT = Math.PI/180*2.5;
+let CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
+let CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
+
+let Y_OFFSET_ALL = -0.45;
 
 let scene;
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -19,7 +29,7 @@ let scene;
 function XMLscene(interfac) {
     CGFscene.call(this);
 
-    this.interfac = interfac;
+    this.interface = interfac;
 
     this.lightValues = {};
 
@@ -38,7 +48,6 @@ function XMLscene(interfac) {
     //Lear variables
     this.boardPieces = new Array();
     this.gameEnded = false;
-    this.freeTiles = 64;
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -52,9 +61,9 @@ function XMLscene(interfac) {
 
     this.currentCameraAngle = 0;
 
-    this.currentBoard =  new Array(BOARD_WIDTH);
-    for (let i = 0; i <  this.currentBoard.length; i++) {
-        this.currentBoard[i] = new Array(BOARD_WIDTH).fill(0);
+    let board =  new Array(BOARD_WIDTH);
+    for (let i = 0; i < board.length; i++) {
+        board[i] = new Array(BOARD_WIDTH).fill(0);
     }
     scene = this;
 
@@ -67,6 +76,13 @@ function XMLscene(interfac) {
     this.whitePiecesArray = new Array();
     this.blackPiecesArray = new Array();
 
+    this.lear ={
+      currentBoard: board,
+      counter:64,
+      whiteCounter:32,
+      blackCounter:32,
+      player:'X'
+    };
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -146,14 +162,16 @@ XMLscene.prototype.initCameras = function() {
     this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 }
 
-
+/**
+ * Handles possible picking
+ */
 XMLscene.prototype.logPicking = function (){
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
 			for (let i=0; i< this.pickResults.length; i++) {
 				let obj = this.pickResults[i][0];
 				let customId = this.pickResults[i][1];
-        //console.log(customId);
+        console.log("Picking ID: " + customId);
 				if (obj && customId > 0){
 
           let cellColumn = (customId - 1) % BOARD_WIDTH;
@@ -172,7 +190,6 @@ XMLscene.prototype.logPicking = function (){
 
           else if (obj.type == "boardcell" && this.selectedPiece != 0){
                 let control_points = new Array();
-                let y_offset = 0;
 
                 let pID = this.selectedPiece - 65;
                 let pieceColumn = pID % 8;
@@ -203,7 +220,6 @@ XMLscene.prototype.logPicking = function (){
                   console.log("chosenPiece " + chosenPiece);
 
 
-
                 let p4 = [pf[0] - chosenPiece[0],
                           pf[1] - chosenPiece[1],
                           pf[2] - chosenPiece[2] ];
@@ -221,11 +237,21 @@ XMLscene.prototype.logPicking = function (){
                 
                 let animationObj = new BezierAnimation(this, this.selectedPiece, 1, control_points);
 
-                this.scene.nextPieceAnimInfo = {
+                this.nextPieceAnimInfo = {
                   animation: animationObj,
                   pickID: this.selectedPiece,
                 };
-      					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                
+                // if (this.lear.player == "X"){
+                //     this.lear.whiteCounter--;
+      					    this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                    // }
+                    // else{
+                    //     this.lear.blackCounter--;
+                    //     this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                    // }
+                    // this.lear.counter--;
+                
                 //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
           }
@@ -233,7 +259,7 @@ XMLscene.prototype.logPicking = function (){
 			}
 			this.pickResults.splice(0,this.pickResults.length);
 		}
-	};
+};
 
 /*
   Handler called when the "lear.xml" graph is finally loaded.
@@ -250,14 +276,15 @@ XMLscene.prototype.onGraphLoaded = function(){
 
     this.initLights();
     //interface setup
-    this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
-    this.interfac.addShadersDropdown(this.shadersRefs);
-    this.interfac.addGameOptions(this.gameModes, this.botDifficulties);
-    this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
+    this.interface.addLightsGroup(this.gameGraphs["lear.xml"].lights);
+    this.interface.addShadersDropdown(this.shadersRefs);
+    this.interface.addGameOptions(this.gameModes, this.botDifficulties);
+    this.interface.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
 
     this.learTemplateObjects();
 
 }
+
 /**
  * Creates board tiles and pieaces generic objects
  */
@@ -383,19 +410,22 @@ XMLscene.prototype.display = function() {
     this.popMatrix();
     // ---- END Background, camera and axis setup
 };
+
 /**
  * Displays everything
  */
 XMLscene.prototype.displayEverything = function(){
 
   this.gameGraphs[this.currentEnvironment].displayScene();
-  this.displayBox(this.blackBox, this.blackBox["textureObj"], this.blackBox["materialObj"]);
-  this.displayBox(this.whiteBox, this.whiteBox["textureObj"], this.whiteBox["materialObj"]);
-  this.displayWhitePieces();
-  this.displayBlackPieces();
-  this.displayBoardTiles();
-
-  this.displayBoard();
+  this.pushMatrix();
+    this.translate(0,Y_OFFSET_ALL, 0);
+    this.displayBox(this.blackBox, this.blackBox["textureObj"], this.blackBox["materialObj"]);
+    this.displayBox(this.whiteBox, this.whiteBox["textureObj"], this.whiteBox["materialObj"]);
+    this.displayWhitePieces();
+    this.displayBlackPieces();
+    this.displayBoardTiles();
+    this.displayBoard();
+  this.popMatrix();
 };
 
 /**
@@ -454,7 +484,7 @@ XMLscene.prototype.displayBoardTiles = function(){
             line[i]['textureObj'].bind();
           }
 
-          if (this.currentBoard[j][i] == "emptyCell")
+          if (this.lear.currentBoard[j][i] == "emptyCell")
             this.registerForPick(cellId, line[i].leaves[0]);
           else
             this.registerForPick(0, line[i].leaves[0]);
@@ -483,9 +513,9 @@ XMLscene.prototype.displayBoard = function(){
       for (let i = 0; i < BOARD_WIDTH; i++) {
           this.pushMatrix();
             for (let j = 0; j < BOARD_WIDTH; j++) {
-                if (this.currentBoard[i][j] == 'X')
+                if (this.lear.currentBoard[i][j] == 'X')
                     this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
-                else if(this.currentBoard[i][j] == 'O')
+                else if(this.lear.currentBoard[i][j] == 'O')
                     this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
                 this.translate(2*PIECE_RADIUS, 0, 0);
@@ -508,8 +538,10 @@ XMLscene.prototype.displayWhitePieces = function(){
       this.pushMatrix();
       for (let j = 1; j <= 8; j++){
         counter++;
-        this.displayPiece(this.whitePiecesArray[counter], this.whitePiece['textureObj'], this.whitePiece['materialObj'], counter);
-        this.translate( 0, 0, 0.6);
+        if (this.whitePiecesArray[counter] != null){
+          this.displayPiece(this.whitePiecesArray[counter], this.whitePiece['textureObj'], this.whitePiece['materialObj'], counter);
+          this.translate( 0, 0, 0.6);
+        }
       }
       this.popMatrix();
       this.translate(0.6, 0, 0);
@@ -528,7 +560,6 @@ XMLscene.prototype.displayBox = function(node, parTex, parAsp){
   this.pushMatrix();
   this.multMatrix(node.transformMatrix);
   this.multMatrix(node.animationMatrix);
-
 
   if (node.textureID !='null') {
     if (node.textureID == 'clear')
@@ -572,8 +603,10 @@ XMLscene.prototype.displayBlackPieces = function(){
 
       for (let i = 0; i < 8; i++){
         counter++;
-        this.displayPiece(this.blackPiecesArray[counter], this.blackPiece['textureObj'], this.blackPiece['materialObj'], counter);
-        this.translate( 0, 0, 0.6);
+        if (this.blackPiecesArray[counter] != null){
+          this.displayPiece(this.blackPiecesArray[counter], this.blackPiece['textureObj'], this.blackPiece['materialObj'], counter);
+          this.translate( 0, 0, 0.6);
+        }
       }
       this.popMatrix();
       this.translate(0.6, 0, 0);
@@ -647,6 +680,7 @@ function getPrologRequest(requestString, onSuccess, onError, port){
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
     request.send();
 }
+
 /**
  * Makes a prolog Request
 */
@@ -669,25 +703,27 @@ function handleReply(data){
       //scene.lear.reply = true;
       return;
     }
-    
+
+    scene.lear.invalidMove = false;   
+    scene.lear.boardAfterAnimation = parseBoard(matched[1]);
+
     if(matched[2] != undefined && matched[3] != undefined){
-        this.lastBoards.push(this.currentBoard);
-        this.freeTiles = matched[2];
-        this.gameEnded = matched[3];
-    }
+      this.lastBoards.push(this.lear.currentBoard);
+      this.lear.counter = matched[2];
+      this.gameEnded = matched[3];
 
-    scene.lear.invalidMove = false;    
-
-    //When the response is alright, procede to animate
+      //When the response is alright, procede to animate
     let animation = scene.nextPieceAnimInfo.animation;
     animation.setStartTime((new Date().getTime() - scene.initialTime)/1000);
     scene.animations[scene.nextPieceAnimInfo.pickID] = animation;
     scene.animations.length++;
-    scene.animatingPiece = true;
+  }
+  else
+    scene.lear.currentBoard = scene.lear.boardAfterAnimation;
 
-    scene.currentBoard = parseBoard(matched[1]);
-    console.log(scene.currentBoard);
+    console.log(scene.lear.boardAfterAnimation);
 }
+
 /**
  * Parses the Board from Prolog with RegEx
 */
@@ -707,7 +743,7 @@ function parseBoard(string){
 
 /**
  * Converts the Board to a string
- @param board Board
+ @param board Board to stringify
 */
 function boardToString(board){
 	let boardString = "[";
@@ -737,6 +773,7 @@ function boardToString(board){
 function moveRequest(board, line, column, player){  
 	makeRequest("moveRequest(" + boardToString(board) + "," + line + "," + column + ",'X'," + scene.lear.counter + ")");
 }
+
 /**
  * Sets the lights on the screen
 */
@@ -775,7 +812,12 @@ XMLscene.prototype.update = function(currTime){
     for(let i = 97; i < 129; i++)
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
-	this.lastTime = currTime;
+
+  if(this.lear.nextPieceAnimInfo != null && this.lear.nextPieceAnimInfo.animation.hasEnded()) //When piece animation has finished
+      this.lear.currentBoard = this.lear.boardAfterAnimation;
+
+
+  this.lastTime = currTime;
 }
 
 /**
@@ -785,6 +827,7 @@ XMLscene.prototype.update = function(currTime){
 XMLscene.prototype.updateScalingFactor = function(date){
     this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
 };
+
 /**
  * Rotates the Camera
  * @param rotation angle
@@ -793,40 +836,78 @@ XMLscene.prototype.rotateCamera = function(rotation){
     this.cameraRotation = rotation;
     this.cameraAcc = 0;
 };
+
 /**
  * Changes the Camera ViewPoint
 */
 XMLscene.prototype.changeCamera = function(){
-    this.cameraAcc = 0;
-
-    if (this.currentCameraAngle == 0){ // index start at 1
-        this.cameraRotation = 90;
-        this.currentCameraAngle++; // if 1, White Player Viewpoint
-      }
-    else if (this.currentCameraAngle == 1){
-      this.cameraRotation = 45;
-      this.currentCameraAngle++; // if 2, Black Player Viewpoint
-    }
-    else if (this.currentCameraAngle == 2){
-      this.cameraRotation = 22;
-      this.currentCameraAngle = 0; // if 2, Top View
-    }
-
+    this.rotation= true;
+    this.cameraTiltBlackCounter = 0;
+    this.cameraPanCounter = 0;
+    this.cameraTiltCounter = 0;
 };
+
 /**
  * Updates the Camera Rotation
 */
 XMLscene.prototype.updateCameraRotation = function(){
-  let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
-  if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
-     if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
-         increment = this.cameraRotation-this.cameraAcc;
-     if (this.currentCameraAngle == 0)
-        this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
-     if (this.currentCameraAngle == 1)
-        this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
-    if (this.currentCameraAngle == 2)
-       this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
-     this.cameraAcc += increment;
-  }
+
+  if (this.rotation){
+    if (this.currentCameraAngle == 0){ //WHITE VIEW
+       if (this.cameraTiltCounter < CAMERA_TILT) {
+           this.camera.orbit(CGFcameraAxisID.Y, Math.PI/90 *1.1);
+           this.cameraTiltCounter++;
+       }
+       else if (this.cameraTiltCounter == CAMERA_TILT){
+           this.currentCameraAngle = 1;
+           this.rotation = false;
+       }
+   }
+   else if (this.currentCameraAngle == 1)  { //BLACK VIEW
+     if (this.cameraTiltCounter < CAMERA_TILT_BLACK){
+          this.camera.orbit(CGFcameraAxisID.Y, Math.PI/90 * 3.6);
+          this.cameraTiltCounter++;
+      }
+     else if (this.cameraTiltCounter == CAMERA_TILT_BLACK){
+        this.currentCameraAngle = 2;
+        this.rotation = false;
+      }
+   }
+    else if(this.currentCameraAngle == 2){  //TOP DOWN VIEW
+      if (this.cameraTiltBlackCounter < CAMERA_TILT_BLACK){
+           this.camera.orbit(CGFcameraAxisID.Y, Math.PI/90 * 3.6);
+           this.cameraTiltBlackCounter++;
+       }
+      else if (this.cameraTiltCounter < CAMERA_TILT){
+            this.camera.orbit(CGFcameraAxisID.X, CAMERA_TILT_INCREMENT);
+            this.cameraTiltCounter++;
+        }
+        else if (this.cameraPanCounter < CAMERA_PAN){
+            this.camera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.camera.pan(CAMERA_PAN_INCREMENT_POS);
+            this.camera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.cameraPanCounter++;
+          }
+         else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT){
+            this.currentCameraAngle = 3;
+            this.rotation = false;
+        }
+     }
+   else if (this.currentCameraAngle == 3)  {  //RESET TOP DOWN VIEW
+     if (this.cameraPanCounter < CAMERA_PAN) {
+        this.camera.orbit(CGFcameraAxisID.Y, Math.PI / 2);
+        this.camera.pan(CAMERA_PAN_INCREMENT_NEG);
+        this.camera.orbit(CGFcameraAxisID.Y, -Math.PI / 2);
+        this.cameraPanCounter = this.cameraPanCounter + 1;
+    }
+    else if (this.cameraTiltCounter < CAMERA_TILT) {
+        this.camera.orbit(CGFcameraAxisID.X, -CAMERA_TILT_INCREMENT);
+        this.cameraTiltCounter++;
+    }
+    else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT){
+        this.currentCameraAngle = 0;
+        this.rotation = false;
+    }
+   }
+ }
 };
