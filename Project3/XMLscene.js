@@ -158,12 +158,12 @@ XMLscene.prototype.logPicking = function (){
 				if (obj && customId > 0){
 
           let cellColumn = (customId - 1) % BOARD_WIDTH;
-        
+
           let cellLine = Math.floor(customId / BOARD_WIDTH);
           if ( (customId / BOARD_WIDTH) % 1 == 0)
             cellLine -=1;
 
-         
+
 
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
@@ -204,9 +204,9 @@ XMLscene.prototype.logPicking = function (){
 
                   console.log("pf " + pf);
                   console.log("chosenPiece " + chosenPiece);
-                  
- 
-                
+
+
+
                 let p4 = [pf[0] - chosenPiece[0],
                           pf[1] - chosenPiece[1],
                           pf[2] - chosenPiece[2] ];
@@ -273,7 +273,7 @@ XMLscene.prototype.learTemplateObjects = function(){
 	let matWhite =  this.gameGraphs['lear.xml'].materials[this.whiteCell.materialID];
 
 	if (matWhite != null)
-		this.whiteCell['materialObj'] =  matWhite;
+		this.whiteCell['materialObj'] = matWhite;
 	else
 		this.whiteCell['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
@@ -311,6 +311,25 @@ XMLscene.prototype.learTemplateObjects = function(){
 	else
     this.blackPiece['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
+    //Boxes
+  this.whiteBox = this.gameGraphs['lear.xml'].nodes["whiteBox"];
+  this.blackBox = this.gameGraphs['lear.xml'].nodes["blackBox"];
+
+  texWhite = this.gameGraphs['lear.xml'].textures[this.whiteBox.textureID];
+  matWhite =  this.gameGraphs['lear.xml'].materials[this.whiteBox.materialID];
+
+  if (matWhite != null)
+    this.whiteBox['materialObj'] =  matWhite;
+  else
+    this.whiteBox['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
+
+  texBlack = this.gameGraphs['lear.xml'].textures[this.blackBox.textureID];
+  matBlack =  this.gameGraphs['lear.xml'].materials[this.blackBox.materialID];
+
+  if (matBlack != null)
+    this.blackBox['materialObj'] =  matBlack;
+  else
+    this.blackBox['materialObj'] =  this.gameGraphs['lear.xml'].materials['defaultMaterial'];
 
     for(let i = 65; i < 97; i++)
       this.whitePiecesArray[i] = new MyGraphNode(this.whitePiece);
@@ -377,7 +396,8 @@ XMLscene.prototype.display = function() {
 XMLscene.prototype.displayEverything = function(){
 
   this.gameGraphs[this.currentEnvironment].displayScene();
-  this.displayBoxes();
+  this.displayBox(this.blackBox, this.blackBox["textureObj"], this.blackBox["materialObj"]);
+  this.displayBox(this.whiteBox, this.whiteBox["textureObj"], this.whiteBox["materialObj"]);
   this.displayWhitePieces();
   this.displayBlackPieces();
   this.displayBoardTiles();
@@ -507,8 +527,43 @@ XMLscene.prototype.displayWhitePieces = function(){
 /**
  * Displays the boxes
  */
-XMLscene.prototype.displayBoxes = function(){
+XMLscene.prototype.displayBox = function(node, parTex, parAsp){
 
+  var textura = parTex;
+  var material = parAsp;
+
+  this.pushMatrix();
+  this.multMatrix(node.transformMatrix);
+  this.multMatrix(node.animationMatrix);
+
+
+  if (node.textureID !='null') {
+    if (node.textureID == 'clear')
+      textura = null;
+    else{
+      this.currTexture = this.gameGraphs['lear.xml'][node.textureID];
+      textura =  this.gameGraphs['lear.xml'].textures[node.textureID][0];
+    }
+  }
+
+  if (node.materialID != "null") {
+    material = this.gameGraphs['lear.xml'].materials[node.materialID];
+  }
+
+  for (var i = 0; i < node.children.length; i++) {
+    this.displayBox(this.gameGraphs['lear.xml'].nodes[node.children[i]], textura, material);
+  }
+
+  material.apply();
+
+  if (textura != null) {
+      textura.bind();
+  }
+
+  for (let j = 0; j < node.leaves.length; j++)
+    node.leaves[j].display();
+
+  this.popMatrix();
 
 };
 
@@ -548,7 +603,7 @@ XMLscene.prototype.displayPiece = function(node, parTex, parAsp, pick) {
     this.pushMatrix();
     this.multMatrix(node.transformMatrix);
     this.multMatrix(node.animationMatrix);
-   
+
 
     if (node.textureID !='null') {
       if (node.textureID == 'clear')

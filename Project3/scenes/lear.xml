@@ -115,9 +115,6 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <NODEREF id="whiteBox"/>
-            <NODEREF id="blackBox"/>
-
             <NODEREF id="paredes"/>
             <NODEREF id="estrado"/>
             <NODEREF id="almofadas"/>
