@@ -275,6 +275,7 @@ XMLscene.prototype.logPicking = function (){
                     this.lear.counter--;
 
                 moveRequest(this.lear.currentBoard, cellLine + 1, cellColumn + 1, this.lear.player);
+                this.selectedPiece = 0;
             }
           }
 				}
@@ -838,8 +839,10 @@ XMLscene.prototype.update = function(currTime){
        this.blackPiecesArray[i].updateAnimationMatrix(currTime - this.lastTime);
   }
 
-  if(this.nextPieceAnimeInfo != null && this.nextPieceAnimeInfo.animation.hasEnded()) //When piece animation has finished
+  if(this.nextPieceAnimeInfo != null && this.nextPieceAnimeInfo.animation.hasEnded()){ //When piece animation has finished
       this.lear.currentBoard = this.lear.boardAfterAnimation;
+      this.nextPieceAnimeInfo = null;
+   }
 
 
   this.lastTime = currTime;

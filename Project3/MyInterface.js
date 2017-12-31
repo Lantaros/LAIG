@@ -66,17 +66,12 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
   this.gameOptions.add(this.scene, "currentGameMode", gameModes).name("Mode");
   this.gameOptions.add(this.scene, "currentDifficulty", botDifficulties).name("AI");
   let start = { startGame:function(){
-<<<<<<< HEAD
-    if (confirm("Do you want to start a game?"))
-      makeRequest("startGameRequest(pvp)");
-=======
     console.log("START GAME");
     if(this.ongoingGame)
       confirm("There's an ongoing game, do you really wish to restart?");
 
     this.ongoingGame = true;
     makeRequest("startGameRequest('PVP')");
->>>>>>> a5b271beafe7441b9ed2f6de952dd9fc08982539
   }};
   let startBound = {startGame:start.startGame.bind(this.scene)};
   this.gameOptions.add(startBound,'startGame');
@@ -87,16 +82,16 @@ MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
   this.extraOptions.open();
 
   this.extraOptions.add(this.scene, 'rotation').name('Board Rotation');
-  
-  let funcObj = { 
-    undo:function(){ 
+
+  let funcObj = {
+    undo:function(){
       console.log("UNDO");
       if(scene.lear.lastBoards.length)
-        scene.lear.currentBoard =  scene.lear.lastBoards.pop();
+          scene.lear.currentBoard = scene.lear.lastBoards.pop();
       else
-        alert("Can't undo a game with no previous moves..");
+        alert("Can't undo a game with no previous moves...");
     },
-    toggleFreeCam:function(){ 
+    toggleFreeCam:function(){
       let inter = scene.interface;
       if(inter.freeCam){
         console.log("Locked Camera");
@@ -110,9 +105,9 @@ MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
       }
     }};
   this.extraOptions.add(funcObj,'undo').name("Undo");
-  this.extraOptions.add(funcObj,'toggleFreeCam').name("Toggle Free Cam");
-  
-  
+  this.extraOptions.add(funcObj,'toggleFreeCam').name("Lock/Unlock Cam");
+
+
   this.extraOptions.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
   this.extraOptions.add(this.scene, 'changeCamera').name('Change angle');
 };
