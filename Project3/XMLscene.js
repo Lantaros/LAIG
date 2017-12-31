@@ -50,7 +50,7 @@ function XMLscene(interfac) {
     this.boardPieces = new Array();
     this.gameEnded = false;
 
-    this.gameModes = ["PVP", "PVB", "BVB"];
+    this.gameModes = ["PVP", "PVE", "EVE"];
 
     this.currentGameMode = "PVP";
 
@@ -78,6 +78,8 @@ function XMLscene(interfac) {
     this.lear ={
       currentBoard: board,
       counter:64,
+      gameType: this.currentGameMode,
+      diff: this.currentDifficulty,
       whiteCounter:32,
       blackCounter:32,
       player:'X'
@@ -255,7 +257,7 @@ XMLscene.prototype.logPicking = function (){
 
                 control_points.push(p4);
 
-                let animationObj = new BezierAnimation(this, this.selectedPiece, 1, control_points);
+                let animationObj = new BezierAnimation(this, this.selectedPiece, 5, control_points);
 
                 this.nextPieceAnimeInfo = {
                   animation: animationObj,
@@ -792,7 +794,7 @@ function boardToString(board){
  * @param  player current player char -  'X' or 'O'
  */
 function moveRequest(board, line, column, player){
-	makeRequest("moveRequest(" + boardToString(board) + "," + line + "," + column + ",'X'," + scene.lear.counter + ")");
+	makeRequest("moveRequest(" + boardToString(board) + "," + line + "," + column + ",'" + player + "'," + scene.lear.counter + ")");
 }
 
 /**

@@ -5,7 +5,8 @@
 function MyInterface() {
     //call CGFinterface constructor
     CGFinterface.call(this);
-    makeRequest("startGameRequest(pvp)");//TODO DELETE
+    makeRequest("startGameRequest('PVP')");//TODO DELETE
+    this.ongoingGame = false;
 };
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
@@ -65,7 +66,11 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
   this.gameOptions.add(this.scene, "currentDifficulty", botDifficulties).name("AI");
   let start = { startGame:function(){
     console.log("START GAME");
-    makeRequest("startGameRequest(pvp)");
+    if(this.ongoingGame)
+      confirm("There's an ongoing game, do you really wish to restart?");
+
+    this.ongoingGame = true;
+    makeRequest("startGameRequest('PVP')");
   }};
   let startBound = {startGame:start.startGame.bind(this.scene)};
   this.gameOptions.add(startBound,'startGame');
@@ -74,9 +79,18 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
 MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
   this.extraOptions = this.gui.addFolder("Other Options");
   this.extraOptions.open();
+
   this.extraOptions.add(this.scene, 'rotation').name('Board Rotation');
-  let obj = { undo:function(){ console.log("UNDO STUFF") }};
+  
+  let obj = { undo:function(){ 
+    console.log("UNDO");
+    if(scene.lear.lastBoards.length)
+      scene.lear.currentBoard =  scene.lear.lastBoards.pop();
+    else
+      alert("Can't undo a game with no previous moves..");
+   }};
   this.extraOptions.add(obj,'undo').name("Undo");
+  
   this.extraOptions.add(this.scene, "currentEnvironment", gameGraphs).name("Environment");
   this.extraOptions.add(this.scene, 'changeCamera').name('Change angle');
 };
