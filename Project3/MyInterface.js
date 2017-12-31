@@ -73,6 +73,7 @@ MyInterface.prototype.addGameOptions = function(gameModes, botDifficulties) {
 
 MyInterface.prototype.addExtraOptions = function(gameGraphs, cameraAngles) {
   this.extraOptions = this.gui.addFolder("Other Options");
+  this.extraOptions.open();
   this.extraOptions.add(this.scene, 'rotation').name('Board Rotation');
   let obj = { undo:function(){ console.log("UNDO STUFF") }};
   this.extraOptions.add(obj,'undo').name("Undo");

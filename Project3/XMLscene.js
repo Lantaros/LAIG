@@ -19,7 +19,7 @@ let scene;
 function XMLscene(interfac) {
     CGFscene.call(this);
 
-    this.interfac = interfac;
+    this.interface = interfac;
 
     this.lightValues = {};
 
@@ -41,7 +41,6 @@ function XMLscene(interfac) {
     //Lear variables
     this.boardPieces = new Array();
     this.gameEnded = false;
-    this.freeTiles = 64;
 
     this.gameModes = ["PVP", "PVB", "BVB"];
 
@@ -55,9 +54,9 @@ function XMLscene(interfac) {
 
     this.currentCameraAngle = 0;
 
-    this.currentBoard =  new Array(BOARD_WIDTH);
-    for (let i = 0; i <  this.currentBoard.length; i++) {
-        this.currentBoard[i] = new Array(BOARD_WIDTH).fill(0);
+    let board =  new Array(BOARD_WIDTH);
+    for (let i = 0; i < board.length; i++) {
+        board[i] = new Array(BOARD_WIDTH).fill(0);
     }
     scene = this;
 
@@ -68,6 +67,13 @@ function XMLscene(interfac) {
     this.whitePiecesArray = new Array();
     this.blackPiecesArray = new Array();
 
+    this.lear ={
+      currentBoard: board,
+      counter:64,
+      whiteCounter:32,
+      blackCounter:32,
+      player:'X'
+    };
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -147,7 +153,9 @@ XMLscene.prototype.initCameras = function() {
     this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
 }
 
-
+/**
+ * Handles possible picking
+ */
 XMLscene.prototype.logPicking = function (){
 	if (this.pickMode == false) {
 		if (this.pickResults != null && this.pickResults.length > 0) {
@@ -206,7 +214,6 @@ XMLscene.prototype.logPicking = function (){
                   console.log("chosenPiece " + chosenPiece);
 
 
-
                 let p4 = [pf[0] - chosenPiece[0],
                           pf[1] - chosenPiece[1],
                           pf[2] - chosenPiece[2] ];
@@ -224,8 +231,10 @@ XMLscene.prototype.logPicking = function (){
                 let animation = new BezierAnimation(this, this.selectedPiece, 1, control_points);
                 this.animations[this.selectedPiece] = animation;
                 this.animations.length++;
-      					this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
-                //this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                // if (this.lear.player == "X")
+      					    this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
+                // else
+                //     this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
             }
           }
           // if (obj.type ==  "topPiece" || obj.type ==  "botPiece")
@@ -254,10 +263,10 @@ XMLscene.prototype.onGraphLoaded = function(){
 
     this.initLights();
     //interface setup
-    this.interfac.addLightsGroup(this.gameGraphs["lear.xml"].lights);
-    this.interfac.addShadersDropdown(this.shadersRefs);
-    this.interfac.addGameOptions(this.gameModes, this.botDifficulties);
-    this.interfac.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
+    this.interface.addLightsGroup(this.gameGraphs["lear.xml"].lights);
+    this.interface.addShadersDropdown(this.shadersRefs);
+    this.interface.addGameOptions(this.gameModes, this.botDifficulties);
+    this.interface.addExtraOptions(this.gameEnvironnments, this.cameraAngles);
 
     this.learTemplateObjects();
 
@@ -461,7 +470,7 @@ XMLscene.prototype.displayBoardTiles = function(){
             line[i]['textureObj'].bind();
           }
 
-          if (this.currentBoard[j][i] == "emptyCell")
+          if (this.lear.currentBoard[j][i] == "emptyCell")
             this.registerForPick(cellId, line[i].leaves[0]);
           else
             this.registerForPick(0, line[i].leaves[0]);
@@ -490,9 +499,9 @@ XMLscene.prototype.displayBoard = function(){
       for (let i = 0; i < BOARD_WIDTH; i++) {
           this.pushMatrix();
             for (let j = 0; j < BOARD_WIDTH; j++) {
-                if (this.currentBoard[i][j] == 'X')
+                if (this.lear.currentBoard[i][j] == 'X')
                     this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);
-                else if(this.currentBoard[i][j] == 'O')
+                else if(this.lear.currentBoard[i][j] == 'O')
                     this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
 
                 this.translate(2*PIECE_RADIUS, 0, 0);
@@ -515,8 +524,10 @@ XMLscene.prototype.displayWhitePieces = function(){
       this.pushMatrix();
       for (let j = 1; j <= 8; j++){
         counter++;
-        this.displayPiece(this.whitePiecesArray[counter], this.whitePiece['textureObj'], this.whitePiece['materialObj'], counter);
-        this.translate( 0, 0, 0.6);
+        if (this.whitePiecesArray[counter] != null){
+          this.displayPiece(this.whitePiecesArray[counter], this.whitePiece['textureObj'], this.whitePiece['materialObj'], counter);
+          this.translate( 0, 0, 0.6);
+        }
       }
       this.popMatrix();
       this.translate(0.6, 0, 0);
@@ -579,8 +590,10 @@ XMLscene.prototype.displayBlackPieces = function(){
 
       for (let i = 0; i < 8; i++){
         counter++;
-        this.displayPiece(this.blackPiecesArray[counter], this.blackPiece['textureObj'], this.blackPiece['materialObj'], counter);
-        this.translate( 0, 0, 0.6);
+        if (this.blackPiecesArray[counter] != null){
+          this.displayPiece(this.blackPiecesArray[counter], this.blackPiece['textureObj'], this.blackPiece['materialObj'], counter);
+          this.translate( 0, 0, 0.6);
+        }
       }
       this.popMatrix();
       this.translate(0.6, 0, 0);
@@ -674,13 +687,13 @@ function handleReply(data){
     let regex = new RegExp("^(.*)(?:-(.*)-(.*))?$");
     let matched = regex.exec(data.target.responseText);
     if(matched[2] != undefined && matched[3] != undefined){
-        this.lastBoards.push(this.currentBoard);
-        this.freeTiles = matched[2];
+        this.lastBoards.push(this.lear.currentBoard);
+        this.lear.counter = matched[2];
         this.gameEnded = matched[3];
     }
 
-    scene.currentBoard = parseBoard(matched[1]);
-    console.log(scene.currentBoard);
+    scene.lear.currentBoard = parseBoard(matched[1]);
+    console.log(scene.lear.currentBoard);
 }
 /**
  * Parses the Board from Prolog with RegEx
@@ -705,15 +718,15 @@ function parseBoard(string){
 */
 function boardToString(board){
 	let boardString = "[";
-	for (let i = 0; i < scene.currentBoard.length; i++) {
+	for (let i = 0; i < scene.lear.currentBoard.length; i++) {
 		boardString +="[";
-		for (let j = 0; j < scene.currentBoard[i].length; j++) {
-				boardString += "'" + scene.currentBoard[i][j] + "'";
-				if(j != scene.currentBoard[i].length -1)
+		for (let j = 0; j < scene.lear.currentBoard[i].length; j++) {
+				boardString += "'" + scene.lear.currentBoard[i][j] + "'";
+				if(j != scene.lear.currentBoard[i].length -1)
 					boardString += ",";
 		}
 		boardString += "]";
-		if(i != scene.currentBoard.length - 1)
+		if(i != scene.lear.currentBoard.length - 1)
 			boardString += ",";
 	}
 	boardString += "]";
@@ -782,16 +795,30 @@ XMLscene.prototype.changeCamera = function(){
     this.cameraAcc = 0;
 
     if (this.currentCameraAngle == 0){ // index start at 1
-        this.cameraRotation = 90;
-        this.currentCameraAngle++; // if 1, White Player Viewpoint
-      }
-    else if (this.currentCameraAngle == 1){
-      this.cameraRotation = 45;
-      this.currentCameraAngle++; // if 2, Black Player Viewpoint
+       // if 0, Top View
+        this.rotation= true;
+        this.cameraPanCounter = 0;
+        this.cameraTiltCounter = 0;
+    }
+    else if (this.currentCameraAngle == 1){ // index start at 1
+       // if 1, Reset from Top View
+        this.rotation= true;
+        this.cameraPanCounter = 0;
+        this.cameraTiltCounter = 0;
     }
     else if (this.currentCameraAngle == 2){
-      this.cameraRotation = 22;
-      this.currentCameraAngle = 0; // if 2, Top View
+     // if 2, White Player Viewpoint
+      this.rotation= true;
+      this.cameraTiltBlackCounter = 0;
+      this.cameraPanCounter = 0;
+      this.cameraTiltCounter = 0;
+    }
+    else if (this.currentCameraAngle == 3){
+     // if 3, Black Player Viewpoint
+      this.rotation= true;
+      this.cameraTiltOriginalCounter = 0;
+      this.cameraPanCounter = 0;
+      this.cameraTiltCounter = 0;
     }
 
 };
@@ -799,16 +826,83 @@ XMLscene.prototype.changeCamera = function(){
  * Updates the Camera Rotation
 */
 XMLscene.prototype.updateCameraRotation = function(){
-  let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
-  if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
-     if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
-         increment = this.cameraRotation-this.cameraAcc;
-     if (this.currentCameraAngle == 0)
-        this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
-     if (this.currentCameraAngle == 1)
-        this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
-    if (this.currentCameraAngle == 2)
-       this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
-     this.cameraAcc += increment;
-  }
+  // let increment = this.deltaTime/3 * this.cameraRotation / Math.abs(this.cameraRotation);
+  // if(Math.abs(this.cameraAcc) < Math.abs(this.cameraRotation)) {
+  //    if(Math.abs(this.cameraAcc+increment) > Math.abs(this.cameraRotation))
+  //        increment = this.cameraRotation-this.cameraAcc;
+  //    if (this.currentCameraAngle == 0)
+  //       this.camera.orbit(CGFcameraAxisID.Y, increment * DEGREE_TO_RAD);
+  //    if (this.currentCameraAngle == 1)
+  //       this.camera.orbit(CGFcameraAxisID.Z, increment * DEGREE_TO_RAD);
+  //   if (this.currentCameraAngle == 2)
+  //      this.camera.orbit(CGFcameraAxisID.X, increment * DEGREE_TO_RAD);
+  //    this.cameraAcc += increment;
+  // }
+  //
+  var CAMERA_TILT = 20;
+  var CAMERA_TILT_ORIGINAL = 20;
+  var CAMERA_TILT_BLACK = 25;
+  var CAMERA_PAN = 40;
+  var CAMERA_TILT_INCREMENT = Math.PI/180*2.5;
+  var CAMERA_PAN_INCREMENT_POS = [0.2,0,1];
+  var CAMERA_PAN_INCREMENT_NEG = [-0.2,0,1];
+
+  if (this.rotation){
+    if (this.currentCameraAngle == 0){ //WHITE VIEW
+       if (this.cameraTiltCounter < CAMERA_TILT) {
+           this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/90 *1.1);
+           this.cameraTiltCounter++;
+       }
+       else if (this.cameraTiltCounter == CAMERA_TILT){
+           this.currentCameraAngle = 1;
+           this.rotation = false;
+       }
+   }
+   else if (this.currentCameraAngle == 1)  { //BLACK VIEW
+     if (this.cameraTiltCounter < CAMERA_TILT_BLACK){
+          this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/90 * 3.6);
+          this.cameraTiltCounter++;
+      }
+     else if (this.cameraTiltCounter == CAMERA_TILT_BLACK){
+        this.currentCameraAngle = 2;
+        this.rotation = false;
+      }
+   }
+    else if(this.currentCameraAngle == 2){  //TOP DOWN VIEW
+      if (this.cameraTiltBlackCounter < CAMERA_TILT_BLACK){
+           this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/90 * 3.6);
+           this.cameraTiltBlackCounter++;
+       }
+      else if (this.cameraTiltCounter < CAMERA_TILT){
+            this.interface.activeCamera.orbit(CGFcameraAxisID.X, CAMERA_TILT_INCREMENT);
+            this.cameraTiltCounter++;
+        }
+        else if (this.cameraPanCounter < CAMERA_PAN){
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI/2);
+            this.interface.activeCamera.pan(CAMERA_PAN_INCREMENT_POS);
+            this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI/2);
+            this.cameraPanCounter++;
+          }
+         else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT){
+            this.currentCameraAngle = 3;
+            this.rotation = false;
+        }
+     }
+   else if (this.currentCameraAngle == 3)  {  //RESET TOP DOWN VIEW
+     if (this.cameraPanCounter < CAMERA_PAN) {
+        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, Math.PI / 2);
+        this.interface.activeCamera.pan(CAMERA_PAN_INCREMENT_NEG);
+        this.interface.activeCamera.orbit(CGFcameraAxisID.Y, -Math.PI / 2);
+        this.cameraPanCounter = this.cameraPanCounter + 1;
+    }
+    else if (this.cameraTiltCounter < CAMERA_TILT) {
+        this.interface.activeCamera.orbit(CGFcameraAxisID.X, -CAMERA_TILT_INCREMENT);
+        this.cameraTiltCounter++;
+    }
+    else if (this.cameraPanCounter == CAMERA_PAN && this.cameraTiltCounter == CAMERA_TILT && this.cameraTiltOriginalCounter == CAMERA_TILT_ORIGINAL){
+        this.currentCameraAngle = 0;
+        this.rotation = false;
+    }
+   }
+ }
 };
