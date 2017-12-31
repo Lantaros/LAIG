@@ -4,6 +4,7 @@ let CELL_WIDTH = 0.5;
 let BOARD_WIDTH = 8;
 let BOARD_Y_OFFSET = 0;
 let WHITEBOX_CORNER = 6;
+let BLACKBOX_CORNER = -5;
 
 let PIECE_RADIUS = 0.25;
 let PIECE_HEIGHT = 0;
@@ -185,7 +186,7 @@ XMLscene.prototype.logPicking = function (){
           //  if it's a piece
           if (obj.type ==  "halfsphere"){
             if((this.lear.player == 'O' && customId >= 65 && customId <= 97) ||
-            (this.lear.player == 'X' && customId >= 98 && customId <= 130))
+            (this.lear.player == 'X' && customId >= 98 && customId <= 128))
               this.selectedPiece = customId;
             else
               this.selectedPiece = 0;
@@ -214,18 +215,34 @@ XMLscene.prototype.logPicking = function (){
                 let pf = [CELL_WIDTH/2 + cellColumn * CELL_WIDTH,
                           PIECE_Y_OFFSET + PIECE_HEIGHT,
                           CELL_WIDTH/2 + cellLine * CELL_WIDTH];
-
-                let chosenPiece = [ WHITEBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
-                  PIECE_Y_OFFSET,
-                  PIECE_RADIUS + PIECE_RADIUS * pieceColumn];
+                let p4;
+                let chosenPiece;
+                if (this.lear.player == "O"){
+                   chosenPiece = [ WHITEBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
+                    PIECE_Y_OFFSET,
+                    PIECE_RADIUS + PIECE_RADIUS * pieceColumn];
 
                   console.log("pf " + pf);
                   console.log("chosenPiece " + chosenPiece);
 
 
-                let p4 = [pf[0] - chosenPiece[0],
+               p4 = [pf[0] - chosenPiece[0],
                           pf[1] - chosenPiece[1],
                           pf[2] - chosenPiece[2] ];
+                }
+                else{
+                   chosenPiece = [ BLACKBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
+                    PIECE_Y_OFFSET,
+                    PIECE_RADIUS + PIECE_RADIUS * pieceColumn];
+
+                  console.log("pf " + pf);
+                  console.log("chosenPiece " + chosenPiece);
+
+
+                 p4 = [-pf[0] + chosenPiece[0],
+                          -pf[1] + chosenPiece[1],
+                          -pf[2] + chosenPiece[2] ];
+                }
 
                 control_points.push(p1);
                 control_points.push([p1[0] + 1/3*(p4[0] - p1[0]),
@@ -237,15 +254,15 @@ XMLscene.prototype.logPicking = function (){
                                    p1[2] + 2/3*(p4[2] - p1[2])]);
 
                 control_points.push(p4);
-                
+
                 let animationObj = new BezierAnimation(this, this.selectedPiece, 1, control_points);
 
                 this.nextPieceAnimeInfo = {
                   animation: animationObj,
                   pickID: this.selectedPiece,
                 };
-                
-                if (this.lear.player == "X"){
+
+                if (this.lear.player == "O"){
                     this.lear.whiteCounter--;
       					    this.whitePiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
                     }
@@ -254,7 +271,7 @@ XMLscene.prototype.logPicking = function (){
                         this.blackPiecesArray[this.selectedPiece].animationRefs.push(this.selectedPiece);
                     }
                     this.lear.counter--;
-    
+
                 moveRequest(this.lear.currentBoard, cellLine + 1, cellColumn + 1, this.lear.player);
             }
           }
@@ -707,7 +724,7 @@ function handleReply(data){
       return;
     }
 
-    scene.lear.invalidMove = false;   
+    scene.lear.invalidMove = false;
     scene.lear.boardAfterAnimation = parseBoard(matched[1]);
 
     if(matched[2] != undefined && matched[3] != undefined){
@@ -772,9 +789,9 @@ function boardToString(board){
  * @param  board current board matrix
  * @param  line move's board line
  * @param  column move's board column
- * @param  player current player char -  'X' or 'O' 
+ * @param  player current player char -  'X' or 'O'
  */
-function moveRequest(board, line, column, player){  
+function moveRequest(board, line, column, player){
 	makeRequest("moveRequest(" + boardToString(board) + "," + line + "," + column + ",'X'," + scene.lear.counter + ")");
 }
 
