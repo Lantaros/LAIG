@@ -218,9 +218,9 @@ XMLscene.prototype.logPicking = function (){
                     console.log("pf " + pf);
                     console.log("chosenPiece " + chosenPiece);
 
-                   p4 = [pf[0] -chosenPiece[0],
-                         pf[1] -chosenPiece[1],
-                         pf[2]-chosenPiece[2]];
+                   p4 = [pf[0] - chosenPiece[0],
+                         pf[1] - chosenPiece[1],
+                         pf[2] - chosenPiece[2]];
                 }
                 else{
                    chosenPiece = [ BLACKBOX_CORNER + PIECE_RADIUS  + PIECE_RADIUS * pieceLine,
@@ -438,8 +438,23 @@ XMLscene.prototype.displayEverything = function(){
     this.displayBlackPieces();
     this.displayBoardTiles();
     this.displayBoard();
+    this.displayCurrentPlayerToken();
   this.popMatrix();
 };
+
+/**
+ * Displays current player token
+ */
+XMLscene.prototype.displayCurrentPlayerToken = function(){
+  this.pushMatrix();
+  this.translate(-2, 0, -1);
+  if(this.lear.player == 'X')
+    this.displayPiece(this.blackPiece, this.blackPiece["textureObj"], this.blackPiece["materialObj"], 0);    
+  else
+    this.displayPiece(this.whitePiece, this.whitePiece["textureObj"], this.whitePiece["materialObj"], 0);
+  this.popMatrix();
+};
+
 
 /**
  * Displays all Board Tiles
